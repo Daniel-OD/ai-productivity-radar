@@ -1,0 +1,90 @@
+name: Validate Tools Data
+
+# Rulează validările la fiecare push sau pull request
+on:
+  push:
+    branches: [ main, mistral/** ]
+    paths:
+      - 'tools-market.json'
+      - 'scripts/validate-tools.js'
+      - 'scripts/check-links.js'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'tools-market.json'
+      - 'scripts/validate-tools.js'
+      - 'scripts/check-links.js'
+
+jobs:
+  validate:
+    name: Validate JSON Structure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run JSON validation
+        run: npm run validate
+
+  check-links:
+    name: Check Tool URLs
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run link checker
+        run: npm run check-links
+        env:
+          # Timeout mai mare pentru request-uri
+          NODE_OPTIONS: --unhandled-rejections=strict
+
+  validate-all:
+    name: Validate All (JSON + Links)
+    runs-on: ubuntu-latest
+    needs: [validate, check-links]
+    if: always()
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run all validations
+        run: npm run validate-all
+
+      - name: Upload validation report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-report
+          path: |
+            scripts/
+            tools-market.json
+          retention-days: 7
