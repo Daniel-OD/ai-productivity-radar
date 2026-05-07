@@ -22,18 +22,33 @@ jobs:
         run: |
           pip install requests beautifulsoup4 feedparser
 
-      - name: Placeholder refresh
+      - name: Update dates in JSON files
         run: |
-          echo "Future: fetch Product Hunt, Hugging Face, OpenRouter, GitHub Trending"
-          python - << 'PY'
-from datetime import datetime
-print('Radar refresh placeholder:', datetime.utcnow())
+          python3 - << 'PY'
+import json
+from datetime import datetime, timezone
+
+today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+
+with open('tools-market.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+data['updatedAt'] = today
+with open('tools-market.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+
+with open('health.json', 'r', encoding='utf-8') as f:
+    health = json.load(f)
+health['updated'] = today
+with open('health.json', 'w', encoding='utf-8') as f:
+    json.dump(health, f, ensure_ascii=False, indent=2)
+
+print(f'Dates updated to {today}')
 PY
 
       - name: Commit changes if any
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
+          git add tools-market.json health.json
           git diff --cached --quiet || git commit -m "Auto-refresh tools radar"
           git push
