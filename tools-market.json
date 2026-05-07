@@ -1,10 +1,17 @@
 {
   "updatedAt": "2026-05-07",
-  "sourceNote": "Dataset activ. Extinde manual sau prin GitHub Actions.",
+  "sourceNote": "Dataset extins cu clasificare standalone/API, filtre noi și AI-uri din România.",
   "tools": [
     {
       "name": "ChatGPT",
-      "cats": ["programare", "scris", "cercetare", "productivitate", "studiu", "date"],
+      "cats": [
+        "programare",
+        "scris",
+        "cercetare",
+        "productivitate",
+        "studiu",
+        "date"
+      ],
       "price": "freemium",
       "country": "SUA",
       "region": "america",
@@ -14,11 +21,32 @@
       "source": "OpenAI",
       "trend": 92,
       "lastUpdated": "mai 2026",
-      "badges": ["popular", "gratuit-optional"]
+      "badges": [
+        "popular",
+        "gratuit-optional"
+      ],
+      "type": "hybrid",
+      "apiAvailable": true,
+      "apiInfo": "OpenAI API public pentru chat, imagini și automatizări.",
+      "integrations": [
+        "Zapier",
+        "Make.com",
+        "n8n",
+        "LangChain",
+        "Microsoft 365"
+      ],
+      "standaloneNote": "Poți folosi direct din web/chatgpt app fără setup tehnic."
     },
     {
       "name": "Claude",
-      "cats": ["programare", "scris", "cercetare", "productivitate", "studiu", "date"],
+      "cats": [
+        "programare",
+        "scris",
+        "cercetare",
+        "productivitate",
+        "studiu",
+        "date"
+      ],
       "price": "freemium",
       "country": "SUA",
       "region": "america",
@@ -28,11 +56,27 @@
       "source": "Anthropic",
       "trend": 88,
       "lastUpdated": "mai 2026",
-      "badges": ["cod-clean", "documentare"]
+      "badges": [
+        "cod-clean",
+        "documentare"
+      ],
+      "type": "hybrid",
+      "apiAvailable": true,
+      "apiInfo": "Anthropic API disponibil pentru integrare în produse și workflow-uri.",
+      "integrations": [
+        "Zapier",
+        "Make.com",
+        "n8n",
+        "LangChain",
+        "AWS Bedrock"
+      ],
+      "standaloneNote": "Funcționează imediat din Claude.ai pentru task-uri zilnice."
     },
     {
       "name": "Perplexity",
-      "cats": ["cercetare"],
+      "cats": [
+        "cercetare"
+      ],
       "price": "freemium",
       "country": "SUA",
       "region": "america",
@@ -42,11 +86,25 @@
       "source": "Perplexity AI",
       "trend": 75,
       "lastUpdated": "mai 2026",
-      "badges": ["cercetare", "citation-verified"]
+      "badges": [
+        "cercetare",
+        "citation-verified"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "apiInfo": "Nu are API public complet pentru căutare generală în varianta consumer.",
+      "integrations": [
+        "Browser",
+        "iOS",
+        "Android"
+      ],
+      "standaloneNote": "Ideal ca motor de research direct în interfața web."
     },
     {
       "name": "Cursor",
-      "cats": ["programare"],
+      "cats": [
+        "programare"
+      ],
       "price": "freemium",
       "country": "SUA",
       "region": "america",
@@ -56,11 +114,28 @@
       "source": "Cursor",
       "trend": 85,
       "lastUpdated": "mai 2026",
-      "badges": ["programare-avansat", "editor"]
+      "badges": [
+        "programare-avansat",
+        "editor"
+      ],
+      "type": "integrated",
+      "apiAvailable": false,
+      "apiInfo": "Nu oferă API public propriu; se bazează pe API-uri LLM conectate în editor.",
+      "integrations": [
+        "VS Code extensions",
+        "GitHub",
+        "OpenAI",
+        "Anthropic"
+      ],
+      "standaloneNote": "Se folosește ca editor desktop cu AI inclus."
     },
     {
       "name": "DeepSeek",
-      "cats": ["programare", "cercetare", "scris"],
+      "cats": [
+        "programare",
+        "cercetare",
+        "scris"
+      ],
       "price": "freemium",
       "country": "China",
       "region": "asia",
@@ -70,11 +145,27 @@
       "source": "DeepSeek",
       "trend": 82,
       "lastUpdated": "mai 2026",
-      "badges": ["open-source", "ieftin"]
+      "badges": [
+        "open-source",
+        "ieftin"
+      ],
+      "type": "hybrid",
+      "apiAvailable": true,
+      "apiInfo": "DeepSeek API disponibil pentru modele chat/reasoning la cost redus.",
+      "integrations": [
+        "OpenRouter",
+        "LangChain",
+        "LlamaIndex",
+        "n8n"
+      ],
+      "standaloneNote": "Poți testa direct în chat-ul oficial fără integrare."
     },
     {
       "name": "Qwen / Tongyi Qianwen",
-      "cats": ["programare", "scris"],
+      "cats": [
+        "programare",
+        "scris"
+      ],
       "price": "freemium",
       "country": "China",
       "region": "asia",
@@ -84,11 +175,27 @@
       "source": "Alibaba",
       "trend": 72,
       "lastUpdated": "mai 2026",
-      "badges": ["multilingual", "cod"]
+      "badges": [
+        "multilingual",
+        "cod"
+      ],
+      "type": "hybrid",
+      "apiAvailable": true,
+      "apiInfo": "Modele Qwen disponibile prin Alibaba Cloud și endpoint-uri compatibile.",
+      "integrations": [
+        "Alibaba Cloud",
+        "OpenRouter",
+        "LangChain",
+        "Hugging Face"
+      ],
+      "standaloneNote": "Are și interfață de chat pentru utilizare directă."
     },
     {
       "name": "Kimi",
-      "cats": ["cercetare", "scris"],
+      "cats": [
+        "cercetare",
+        "scris"
+      ],
       "price": "freemium",
       "country": "China",
       "region": "asia",
@@ -98,11 +205,25 @@
       "source": "Moonshot AI",
       "trend": 78,
       "lastUpdated": "mai 2026",
-      "badges": ["documente-lungi", "context-mare"]
+      "badges": [
+        "documente-lungi",
+        "context-mare"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "apiInfo": "API public limitat; produs orientat în principal pe experiența de chat.",
+      "integrations": [
+        "Web",
+        "iOS",
+        "Android"
+      ],
+      "standaloneNote": "Excelent pentru citit documente lungi direct din aplicație."
     },
     {
       "name": "Manus",
-      "cats": ["productivitate"],
+      "cats": [
+        "productivitate"
+      ],
       "price": "platit",
       "country": "China",
       "region": "asia",
@@ -112,11 +233,25 @@
       "source": "Manus AI",
       "trend": 68,
       "lastUpdated": "mai 2026",
-      "badges": ["automatizare", "agent"]
+      "badges": [
+        "automatizare",
+        "agent"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "apiInfo": "Serviciu agentic folosit în principal ca produs direct, fără API public matur.",
+      "integrations": [
+        "Browser automation"
+      ],
+      "standaloneNote": "Rulezi task-uri end-to-end direct din interfață."
     },
     {
       "name": "Mistral / Le Chat",
-      "cats": ["programare", "scris", "cercetare"],
+      "cats": [
+        "programare",
+        "scris",
+        "cercetare"
+      ],
       "price": "freemium",
       "country": "Franța",
       "region": "europa",
@@ -126,11 +261,29 @@
       "source": "Mistral AI",
       "trend": 80,
       "lastUpdated": "mai 2026",
-      "badges": ["europa", "open-source", "gdpr"]
+      "badges": [
+        "europa",
+        "open-source",
+        "gdpr"
+      ],
+      "type": "hybrid",
+      "apiAvailable": true,
+      "apiInfo": "Mistral API public și modele disponibile în platforme enterprise.",
+      "integrations": [
+        "Azure AI",
+        "AWS Bedrock",
+        "LangChain",
+        "Hugging Face"
+      ],
+      "standaloneNote": "Le Chat acoperă utilizarea de zi cu zi fără cod."
     },
     {
       "name": "Hugging Face",
-      "cats": ["programare", "cercetare", "date"],
+      "cats": [
+        "programare",
+        "cercetare",
+        "date"
+      ],
       "price": "freemium",
       "country": "Franța",
       "region": "europa",
@@ -140,11 +293,28 @@
       "source": "Hugging Face",
       "trend": 85,
       "lastUpdated": "mai 2026",
-      "badges": ["open-source", "community", "datasets"]
+      "badges": [
+        "open-source",
+        "community",
+        "datasets"
+      ],
+      "type": "platform",
+      "apiAvailable": true,
+      "apiInfo": "API și Inference Endpoints pentru hostare și rulare modele.",
+      "integrations": [
+        "Transformers",
+        "LangChain",
+        "Gradio",
+        "GitHub Actions"
+      ],
+      "standaloneNote": "Poți testa modele direct în Spaces fără infrastructură proprie."
     },
     {
       "name": "Aleph Alpha",
-      "cats": ["cercetare", "scris"],
+      "cats": [
+        "cercetare",
+        "scris"
+      ],
       "price": "platit",
       "country": "Germania",
       "region": "europa",
@@ -154,11 +324,26 @@
       "source": "Aleph Alpha",
       "trend": 55,
       "lastUpdated": "mai 2026",
-      "badges": ["enterprise", "europa", "suveranitate-date"]
+      "badges": [
+        "enterprise",
+        "europa",
+        "suveranitate-date"
+      ],
+      "type": "api-based",
+      "apiAvailable": true,
+      "apiInfo": "Aleph Alpha oferă API enterprise pentru implementări suverane în UE.",
+      "integrations": [
+        "SAP",
+        "Enterprise middleware",
+        "Custom REST"
+      ],
+      "standaloneNote": "Se adoptă în special prin implementări enterprise asistate."
     },
     {
       "name": "Synthesia",
-      "cats": ["design"],
+      "cats": [
+        "design"
+      ],
       "price": "platit",
       "country": "UK",
       "region": "europa",
@@ -168,11 +353,26 @@
       "source": "Synthesia",
       "trend": 76,
       "lastUpdated": "mai 2026",
-      "badges": ["video", "avatare", "corporate"]
+      "badges": [
+        "video",
+        "avatare",
+        "corporate"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "apiInfo": "Nu are API public general; funcțiile principale sunt în aplicația web.",
+      "integrations": [
+        "PowerPoint",
+        "LMS export"
+      ],
+      "standaloneNote": "Creezi video cu avatar direct din dashboard, fără editare clasică."
     },
     {
       "name": "NotebookLM",
-      "cats": ["cercetare", "studiu"],
+      "cats": [
+        "cercetare",
+        "studiu"
+      ],
       "price": "gratuit",
       "country": "SUA",
       "region": "america",
@@ -182,11 +382,26 @@
       "source": "Google",
       "trend": 79,
       "lastUpdated": "mai 2026",
-      "badges": ["gratuit", "podcast", "documente"]
+      "badges": [
+        "gratuit",
+        "podcast",
+        "documente"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "apiInfo": "Nu există API public dedicat NotebookLM pentru consum extern.",
+      "integrations": [
+        "Google Drive",
+        "Docs",
+        "PDF upload"
+      ],
+      "standaloneNote": "Upload documente și discută cu ele direct în interfață."
     },
     {
       "name": "Julius AI",
-      "cats": ["date"],
+      "cats": [
+        "date"
+      ],
       "price": "freemium",
       "country": "Canada",
       "region": "america",
@@ -196,11 +411,27 @@
       "source": "Julius AI",
       "trend": 71,
       "lastUpdated": "mai 2026",
-      "badges": ["data-analysis", "no-code", "excel"]
+      "badges": [
+        "data-analysis",
+        "no-code",
+        "excel"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "apiInfo": "Fără API public extins; produs centrat pe analiză directă în UI.",
+      "integrations": [
+        "CSV",
+        "Excel",
+        "Google Sheets"
+      ],
+      "standaloneNote": "Încarci date și primești analize fără SQL/Python."
     },
     {
       "name": "Power BI Copilot",
-      "cats": ["date", "productivitate"],
+      "cats": [
+        "date",
+        "productivitate"
+      ],
       "price": "platit",
       "country": "SUA",
       "region": "america",
@@ -210,11 +441,27 @@
       "source": "Microsoft",
       "trend": 73,
       "lastUpdated": "mai 2026",
-      "badges": ["microsoft", "bi", "enterprise"]
+      "badges": [
+        "microsoft",
+        "bi",
+        "enterprise"
+      ],
+      "type": "integrated",
+      "apiAvailable": true,
+      "apiInfo": "Disponibil prin Microsoft Fabric/Power BI APIs din ecosistemul Microsoft.",
+      "integrations": [
+        "Microsoft Fabric",
+        "Azure",
+        "Teams",
+        "Excel"
+      ],
+      "standaloneNote": "Ideal dacă deja folosești Power BI în organizație."
     },
     {
       "name": "Tableau Pulse",
-      "cats": ["date"],
+      "cats": [
+        "date"
+      ],
       "price": "platit",
       "country": "SUA",
       "region": "america",
@@ -224,11 +471,27 @@
       "source": "Salesforce",
       "trend": 68,
       "lastUpdated": "mai 2026",
-      "badges": ["data-monitoring", "insights", "enterprise"]
+      "badges": [
+        "data-monitoring",
+        "insights",
+        "enterprise"
+      ],
+      "type": "integrated",
+      "apiAvailable": true,
+      "apiInfo": "Integrare prin platforma Tableau/Salesforce, nu ca produs independent complet.",
+      "integrations": [
+        "Salesforce",
+        "Slack",
+        "Tableau Cloud"
+      ],
+      "standaloneNote": "Funcționează în ecosistemul Tableau pentru monitorizare KPI."
     },
     {
       "name": "Hex",
-      "cats": ["date", "programare"],
+      "cats": [
+        "date",
+        "programare"
+      ],
       "price": "freemium",
       "country": "SUA",
       "region": "america",
@@ -238,11 +501,27 @@
       "source": "Hex",
       "trend": 74,
       "lastUpdated": "mai 2026",
-      "badges": ["notebook", "colaborativ", "sql-python"]
+      "badges": [
+        "notebook",
+        "colaborativ",
+        "sql-python"
+      ],
+      "type": "hybrid",
+      "apiAvailable": true,
+      "apiInfo": "Hex API pentru orchestration, assets și automatizare notebook-uri.",
+      "integrations": [
+        "Snowflake",
+        "BigQuery",
+        "dbt",
+        "GitHub"
+      ],
+      "standaloneNote": "Poți lucra direct în interfața colaborativă Hex."
     },
     {
       "name": "ThoughtSpot",
-      "cats": ["date"],
+      "cats": [
+        "date"
+      ],
       "price": "platit",
       "country": "SUA",
       "region": "america",
@@ -252,11 +531,28 @@
       "source": "ThoughtSpot",
       "trend": 69,
       "lastUpdated": "mai 2026",
-      "badges": ["search-analytics", "natural-language", "business"]
+      "badges": [
+        "search-analytics",
+        "natural-language",
+        "business"
+      ],
+      "type": "hybrid",
+      "apiAvailable": true,
+      "apiInfo": "ThoughtSpot REST/Embed APIs pentru analytics în produse proprii.",
+      "integrations": [
+        "Snowflake",
+        "Databricks",
+        "Salesforce",
+        "Google Cloud"
+      ],
+      "standaloneNote": "Îl poți folosi standalone ca search analytics platform."
     },
     {
       "name": "Databricks Assistant",
-      "cats": ["date", "programare"],
+      "cats": [
+        "date",
+        "programare"
+      ],
       "price": "platit",
       "country": "SUA",
       "region": "america",
@@ -266,11 +562,27 @@
       "source": "Databricks",
       "trend": 77,
       "lastUpdated": "mai 2026",
-      "badges": ["databricks", "data-engineering", "lakehouse"]
+      "badges": [
+        "databricks",
+        "data-engineering",
+        "lakehouse"
+      ],
+      "type": "integrated",
+      "apiAvailable": true,
+      "apiInfo": "Disponibil în platforma Databricks cu API-uri enterprise existente.",
+      "integrations": [
+        "Databricks",
+        "Delta Lake",
+        "MLflow"
+      ],
+      "standaloneNote": "Asistentul este disponibil în workspace-ul Databricks."
     },
     {
       "name": "Naver HyperCLOVA X",
-      "cats": ["scris", "productivitate"],
+      "cats": [
+        "scris",
+        "productivitate"
+      ],
       "price": "freemium",
       "country": "Coreea de Sud",
       "region": "asia",
@@ -280,11 +592,26 @@
       "source": "Naver",
       "trend": 62,
       "lastUpdated": "mai 2026",
-      "badges": ["asian", "content", "multilingual"]
+      "badges": [
+        "asian",
+        "content",
+        "multilingual"
+      ],
+      "type": "api-based",
+      "apiAvailable": true,
+      "apiInfo": "API disponibil prin Naver Cloud pentru aplicații enterprise și locale.",
+      "integrations": [
+        "Naver Cloud",
+        "Custom REST"
+      ],
+      "standaloneNote": "Cel mai des adoptat prin integrare în produse coreene."
     },
     {
       "name": "AI21 Labs / Jamba",
-      "cats": ["scris", "cercetare"],
+      "cats": [
+        "scris",
+        "cercetare"
+      ],
       "price": "freemium",
       "country": "Israel",
       "region": "israel",
@@ -294,7 +621,410 @@
       "source": "AI21 Labs",
       "trend": 64,
       "lastUpdated": "mai 2026",
-      "badges": ["israel", "enterprise", "hybrid"]
+      "badges": [
+        "israel",
+        "enterprise",
+        "hybrid"
+      ],
+      "type": "api-based",
+      "apiAvailable": true,
+      "apiInfo": "AI21 Studio API disponibil pentru modele de limbaj și RAG.",
+      "integrations": [
+        "LangChain",
+        "AWS Bedrock",
+        "OpenRouter"
+      ],
+      "standaloneNote": "Folosire principală prin API pentru produse proprii."
+    },
+    {
+      "name": "LobeChat",
+      "cats": [
+        "productivitate",
+        "programare"
+      ],
+      "price": "gratuit",
+      "country": "România",
+      "region": "romania",
+      "tagline": "Interfață open-source pentru a vorbi cu mai multe modele AI dintr-un singur loc.",
+      "when": "Alege LobeChat când vrei control local, modele multiple și cost predictibil.",
+      "audience": "Developeri, echipe tehnice, comunități open-source",
+      "source": "LobeHub (comunitate activă în România)",
+      "trend": 62,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "romania",
+        "local",
+        "open-source"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "Se conectează la API-uri externe (OpenAI, Anthropic, Ollama) prin configurare proprie.",
+      "integrations": [
+        "LangChain",
+        "n8n",
+        "Ollama",
+        "OpenAI-compatible APIs"
+      ],
+      "standaloneNote": "Poate rula local/self-hosted pentru confidențialitate.",
+      "type": "hybrid"
+    },
+    {
+      "name": "Agora AI",
+      "cats": [
+        "studiu",
+        "cercetare",
+        "productivitate"
+      ],
+      "price": "freemium",
+      "country": "România",
+      "region": "romania",
+      "tagline": "Asistent educațional românesc pentru învățare, rezumate și pregătire examene.",
+      "when": "Alege Agora AI când vrei explicații pe înțelesul tău pentru cursuri și teme.",
+      "audience": "Elevi, studenți, profesori",
+      "source": "Agora AI",
+      "trend": 48,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "romania",
+        "local",
+        "startup"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "API disponibil pentru integrare în platforme educaționale și LMS.",
+      "integrations": [
+        "Google Classroom",
+        "Moodle",
+        "Microsoft Teams"
+      ],
+      "standaloneNote": "Funcționează imediat în web app pentru sesiuni de studiu.",
+      "type": "hybrid"
+    },
+    {
+      "name": "NovaAI",
+      "cats": [
+        "date",
+        "productivitate"
+      ],
+      "price": "freemium",
+      "country": "România",
+      "region": "romania",
+      "tagline": "AI pentru business intelligence care transformă datele în recomandări clare.",
+      "when": "Alege NovaAI când vrei dashboard-uri și explicații automate pentru decizii rapide.",
+      "audience": "Manageri, startup-uri, IMM-uri",
+      "source": "NovaAI",
+      "trend": 54,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "romania",
+        "local",
+        "startup"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "API REST pentru conectare la surse BI și aplicații interne.",
+      "integrations": [
+        "Zapier",
+        "Make.com",
+        "Power BI",
+        "Google Sheets"
+      ],
+      "standaloneNote": "Poate fi folosit direct în portalul web pentru rapoarte rapide.",
+      "type": "hybrid"
+    },
+    {
+      "name": "RoboChat",
+      "cats": [
+        "productivitate",
+        "scris"
+      ],
+      "price": "freemium",
+      "country": "România",
+      "region": "romania",
+      "tagline": "Builder no-code de chatbot-uri pentru site, WhatsApp și suport clienți.",
+      "when": "Alege RoboChat când vrei chatbot în producție fără echipă de dezvoltare dedicată.",
+      "audience": "IMM-uri, echipe suport, agenții",
+      "source": "RoboChat",
+      "trend": 57,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "romania",
+        "local",
+        "startup"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "API webhook pentru integrarea conversațiilor cu CRM și ticketing.",
+      "integrations": [
+        "WhatsApp",
+        "Facebook Messenger",
+        "Telegram",
+        "HubSpot"
+      ],
+      "standaloneNote": "Pornești rapid din editorul vizual, fără cod.",
+      "type": "hybrid"
+    },
+    {
+      "name": "TextLang AI",
+      "cats": [
+        "scris",
+        "cercetare"
+      ],
+      "price": "freemium",
+      "country": "România",
+      "region": "romania",
+      "tagline": "NLP specializat pentru limba română: corectare, parafrazare și ton profesional.",
+      "when": "Alege TextLang AI când ai nevoie de texte naturale în română pentru business sau educație.",
+      "audience": "Marketeri, redactori, echipe customer support",
+      "source": "TextLang AI",
+      "trend": 51,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "romania",
+        "local",
+        "nlp"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "API text pentru verificare limbaj, sumarizare și clasificare în română.",
+      "integrations": [
+        "WordPress",
+        "Google Docs",
+        "Zendesk"
+      ],
+      "standaloneNote": "Are editor web dedicat pentru lucru rapid pe texte.",
+      "type": "hybrid"
+    },
+    {
+      "name": "Brainscale",
+      "cats": [
+        "productivitate",
+        "studiu"
+      ],
+      "price": "platit",
+      "country": "România",
+      "region": "romania",
+      "tagline": "Coach AI pentru performanță profesională cu obiective, feedback și planuri concrete.",
+      "when": "Alege Brainscale când vrei un plan personalizat de învățare și productivitate.",
+      "audience": "Profesioniști, lideri de echipă, freelanceri",
+      "source": "Brainscale",
+      "trend": 44,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "romania",
+        "local",
+        "startup"
+      ],
+      "apiAvailable": false,
+      "apiInfo": "Momentan focus pe produs standalone, fără API public deschis.",
+      "integrations": [
+        "Calendar export",
+        "Notion"
+      ],
+      "standaloneNote": "Se folosește ca aplicație de coaching cu ghidare zilnică.",
+      "type": "standalone"
+    },
+    {
+      "name": "UiPath AI Center",
+      "cats": [
+        "productivitate",
+        "programare",
+        "date"
+      ],
+      "price": "platit",
+      "country": "România",
+      "region": "romania",
+      "tagline": "Platformă enterprise pentru automatizare RPA + AI, cu rădăcini puternice în România.",
+      "when": "Alege UiPath AI Center când vrei automatizări la scară mare în procese repetitive.",
+      "audience": "Enterprise, echipe operaționale, IT",
+      "source": "UiPath",
+      "trend": 74,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "romania",
+        "enterprise",
+        "automation"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "API-uri extinse pentru orchestrare, document understanding și integrare procese.",
+      "integrations": [
+        "SAP",
+        "Salesforce",
+        "ServiceNow",
+        "Microsoft 365"
+      ],
+      "standaloneNote": "Funcționează în ecosistemul UiPath ca soluție integrată.",
+      "type": "platform"
+    },
+    {
+      "name": "Bitdefender AI Security",
+      "cats": [
+        "productivitate",
+        "date"
+      ],
+      "price": "platit",
+      "country": "România",
+      "region": "romania",
+      "tagline": "Soluții de securitate cibernetică cu AI pentru detectare și răspuns rapid la amenințări.",
+      "when": "Alege Bitdefender AI când prioritatea ta este protecția endpoint-urilor și rețelei.",
+      "audience": "Companii, echipe SOC, MSP",
+      "source": "Bitdefender",
+      "trend": 69,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "romania",
+        "local",
+        "cybersecurity"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "API-uri enterprise pentru alerting, threat intel și automatizări SOC.",
+      "integrations": [
+        "Splunk",
+        "Microsoft Sentinel",
+        "ServiceNow",
+        "SIEM tools"
+      ],
+      "standaloneNote": "Poate fi folosit direct prin consola GravityZone.",
+      "type": "hybrid"
+    },
+    {
+      "name": "Gemini",
+      "cats": [
+        "programare",
+        "scris",
+        "studiu"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Asistent AI Google pentru lucru, căutare, cod și productivitate zilnică.",
+      "when": "Alege Gemini când lucrezi deja în ecosistemul Google Workspace.",
+      "audience": "Utilizatori Google, echipe business, studenți",
+      "source": "Google",
+      "trend": 86,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "workspace",
+        "popular"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "Gemini API disponibil prin Google AI Studio și Vertex AI.",
+      "integrations": [
+        "Google Workspace",
+        "Vertex AI",
+        "LangChain",
+        "Firebase"
+      ],
+      "standaloneNote": "Disponibil direct în aplicația Gemini și în produsele Google.",
+      "type": "hybrid"
+    },
+    {
+      "name": "Ollama",
+      "cats": [
+        "programare",
+        "productivitate"
+      ],
+      "price": "gratuit",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Rulezi modele AI local pe laptop, fără cloud și fără trimiterea datelor sensibile.",
+      "when": "Alege Ollama când vrei control total, cost zero pe token și confidențialitate.",
+      "audience": "Developeri, echipe security, pasionați self-host",
+      "source": "Ollama",
+      "trend": 77,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "open-source",
+        "local-first"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "API local compatibil OpenAI pentru aplicații și agenți.",
+      "integrations": [
+        "LangChain",
+        "n8n",
+        "LlamaIndex",
+        "VS Code"
+      ],
+      "standaloneNote": "Instalare desktop simplă, rulezi modele direct local.",
+      "type": "hybrid"
+    },
+    {
+      "name": "LM Studio",
+      "cats": [
+        "programare",
+        "studiu"
+      ],
+      "price": "gratuit",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Desktop app pentru descărcare și testare modele locale fără comandă în terminal.",
+      "when": "Alege LM Studio când vrei să experimentezi modele locale rapid și vizual.",
+      "audience": "Începători AI, developeri, educație",
+      "source": "LM Studio",
+      "trend": 70,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "local-first",
+        "desktop"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "Server local API compatibil OpenAI pentru integrare în tool-uri.",
+      "integrations": [
+        "Open WebUI",
+        "LangChain",
+        "AnythingLLM"
+      ],
+      "standaloneNote": "Rulează ca aplicație desktop, ideal pentru testare locală.",
+      "type": "hybrid"
+    },
+    {
+      "name": "Midjourney",
+      "cats": [
+        "design"
+      ],
+      "price": "platit",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Generator de imagini AI premium pentru vizualuri artistice și concepte creative.",
+      "when": "Alege Midjourney când calitatea artistică contează mai mult decât viteza.",
+      "audience": "Designeri, creatori conținut, agenții",
+      "source": "Midjourney",
+      "trend": 83,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "design",
+        "premium"
+      ],
+      "apiAvailable": false,
+      "apiInfo": "Nu are API public general; flux principal prin aplicația oficială/Discord.",
+      "integrations": [
+        "Discord"
+      ],
+      "standaloneNote": "Utilizare directă în interfața Midjourney/Discord.",
+      "type": "standalone"
+    },
+    {
+      "name": "DALL·E 3",
+      "cats": [
+        "design"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Model OpenAI pentru generare de imagini precise din prompt text.",
+      "when": "Alege DALL·E 3 când ai nevoie de imagini clare integrate în fluxul ChatGPT/API.",
+      "audience": "Marketeri, product teams, creatori",
+      "source": "OpenAI",
+      "trend": 81,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "design",
+        "api-ready"
+      ],
+      "apiAvailable": true,
+      "apiInfo": "Disponibil prin OpenAI Images API pentru generare și editare imagini.",
+      "integrations": [
+        "OpenAI API",
+        "Zapier",
+        "Make.com"
+      ],
+      "standaloneNote": "Poți genera imagini direct și din ChatGPT fără setup tehnic.",
+      "type": "hybrid"
     }
   ]
 }
