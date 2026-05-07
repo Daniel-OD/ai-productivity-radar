@@ -1,0 +1,15 @@
+{
+  "status": "ok",
+  "project": "AI Productivity Radar",
+  "updated": "2026-05-07",
+  "deploy": "render-ready",
+  "features": [
+    "filters",
+    "regions",
+    "market-radar",
+    "trending",
+    "data-analysis-ai",
+    "github-actions",
+    "json-sync"
+  ]
+}
