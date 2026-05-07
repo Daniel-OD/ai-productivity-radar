@@ -3,24 +3,206 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AI Productivity Radar · Ghid interactiv</title>
+<title>AI Productivity Radar · Ghid interactiv tooluri AI</title>
+<!-- Phase 9: SEO meta -->
+<meta name="description" content="Descoperă și compară tooluri AI pentru productivitate, cod, design, cercetare și date. Găsește rapid soluția potrivită cu Command Palette semantic și analiză decizională.">
+<meta name="robots" content="index, follow">
+<!-- OpenGraph / Social -->
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="AI Productivity Radar · Ghid interactiv tooluri AI">
+<meta property="og:description" content="Descoperă și compară tooluri AI pentru productivitate, cod, design, cercetare și date.">
+<meta property="og:url"         content="https://ai-productivity-radar.onrender.com/">
+<meta property="og:site_name"   content="AI Productivity Radar">
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary">
+<meta name="twitter:title"       content="AI Productivity Radar">
+<meta name="twitter:description" content="Ghid interactiv pentru tooluri AI – productivitate, cod, design, cercetare, date.">
+<!-- PWA manifest -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f0d0a">
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Styles -->
 <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-<nav class="topnav"><div class="container"><div class="brand">AI Productivity Radar</div><div class="navlinks"><a href="#wizard">Găsește-mi toolul</a><a href="#trending">Trending</a><a href="#tools">Toate toolurile</a><button class="mini-btn" id="commandBtn">⌘K Search</button><button class="mini-btn" id="favQuick">Favorite</button></div></div></nav>
-<header><div class="container"><div class="eyebrow">Ghid interactiv · Render live</div><h1>Găsește AI-ul potrivit <em>fără să pierzi ore</em>.</h1><p class="lead">Scrie în Command Palette ce vrei să faci în limbaj natural: „analizez un Excel”, „fac video cu avatar”, „citesc PDF-uri”. Radarul îți propune tooluri potrivite.</p><div class="hero-actions"><a class="primary" href="#wizard">Ajută-mă să aleg →</a><a class="secondary" href="#tools">Explorează lista</a></div><div class="meta-bar"><span><strong id="metaTools">12</strong> tooluri</span><span><strong>7</strong> categorii</span><span><strong>4</strong> regiuni</span><span>Actualizat <strong id="metaUpdated">mai 2026</strong></span><span class="data-status" id="dataStatus">Se încarcă radarul...</span></div></div></header>
-<section class="section" id="wizard"><div class="container"><div class="panel"><div class="section-sub">Start aici</div><h2 class="section-title">Ce vrei să faci <em>acum</em>?</h2><p class="helper">Apasă pe un profil și radarul îți filtrează automat lista.</p><div class="wizard-grid" id="wizardGrid"></div><div class="recommendation" id="recommendation">Alege un profil pentru o recomandare rapidă.</div></div></div></section>
-<section class="section" id="trending"><div class="container"><div class="section-sub">Trending now</div><h2 class="section-title">Semnale rapide din <em>piață</em>.</h2><div class="trending-strip" id="trendingStrip"></div></div></section>
-<section class="filters-section" id="filters"><div class="container"><div class="filter-row"><span class="filter-label">Categorie</span><div class="pills" id="categoryPills"></div></div><div class="filter-row"><span class="filter-label">Preț</span><div class="pills" id="pricePills"></div></div><div class="filter-row"><span class="filter-label">Regiune</span><div class="pills" id="regionPills"></div></div><div class="search-row"><div class="search-box"><input id="search" aria-label="Caută tooluri AI" placeholder="Caută: excel, video, cod, Europa, open-source..." /></div><select id="sortSelect" class="sort-select"><option value="default">Implicit</option><option value="trend">Trend score</option><option value="name">Nume A-Z</option><option value="price">Preț</option><option value="favorites">Favorite primele</option></select><button class="reset-btn" id="resetBtn">Reset</button></div><div class="results-count" id="resultsCount" aria-live="polite">Se încarcă radarul...</div></div></section>
-<section class="section"><div class="container"><div class="panel"><div class="section-sub">Live radar</div><h2 class="section-title">Pulsul datasetului.</h2><div class="radar-grid" id="radarGrid"></div></div></div></section>
-<section class="tools-section" id="tools"><div class="container"><div class="tools-grid" id="toolsGrid"><div class="loading-state">Se încarcă radarul...</div></div><div class="empty" id="emptyState"><div class="big">Nu am găsit nimic aici.</div><p>Încearcă alt cuvânt sau apasă Reset.</p></div></div></section>
-<footer><div class="container"><div class="footer-grid"><div class="footer-block"><h4>Cum să folosești ghidul</h4><p>Click pe orice card pentru analiza decizională. Folosește ⌘K / Ctrl+K pentru căutare pe task, nu doar pe nume.</p></div><div class="footer-block"><h4>Stack-uri recomandate</h4><p>Research: Perplexity + NotebookLM + Claude. Cod: Cursor + Claude + DeepSeek. Date: Julius + Hex + Power BI Copilot.</p></div><div class="footer-block"><h4>Feedback</h4><p>Îmbunătățește ghidul pe GitHub: Daniel-OD/ai-productivity-radar/issues.</p></div></div></div></footer>
-<div class="command-modal" id="commandModal" role="dialog" aria-modal="true" aria-label="Command Palette"><div class="command-card"><div class="command-top"><span>⌘K</span><input id="commandInput" autocomplete="off" placeholder="Scrie ce vrei să faci: analizez excel, fac video, scriu cod..." /></div><div class="command-results" id="commandResults"></div><div class="command-footer"><span>↑↓ navighează · Enter deschide detalii · ⌘/Ctrl+Enter site oficial · Esc închide</span><span id="commandCount">0 rezultate</span></div></div></div>
-<div class="decision-modal" id="decisionModal" role="dialog" aria-modal="true" aria-label="Tool Decision Modal"><div class="decision-card" id="decisionCard"></div></div>
-<div class="compare-bar" id="compareBar"><span id="compareText">0 selectate</span><button class="mini-btn" id="openCompare" disabled>Compară</button><button class="mini-btn" id="clearCompare">Curăță</button></div><div class="modal" id="compareModal"><div class="modal-card"><h2 class="section-title">Comparare tooluri</h2><div id="compareContent"></div><button class="primary" id="closeCompare" style="margin-top:18px">Închide</button></div></div><div class="toast" id="toast"></div>
-<script src="js/app.js"></script>
+
+<a href="#mainContent" class="skip-link">Sari la conținut</a>
+
+<nav class="topnav" role="navigation" aria-label="Navigare principală">
+  <div class="container">
+    <div class="brand">AI Productivity Radar</div>
+    <div class="navlinks">
+      <a href="#wizard">Găsește-mi toolul</a>
+      <a href="#trending">Trending</a>
+      <a href="#tools">Toate toolurile</a>
+      <button class="mini-btn" id="commandBtn" aria-label="Deschide Command Palette (Ctrl+K)">⌘K Search</button>
+      <button class="mini-btn" id="favQuick" aria-label="Arată favorite">Favorite</button>
+    </div>
+  </div>
+</nav>
+
+<header role="banner">
+  <div class="container">
+    <div class="eyebrow">Ghid interactiv · Render live</div>
+    <h1>Găsește AI-ul potrivit <em>fără să pierzi ore</em>.</h1>
+    <p class="lead">Scrie în Command Palette ce vrei să faci în limbaj natural: „analizez un Excel", „fac video cu avatar", „citesc PDF-uri". Radarul îți propune tooluri potrivite.</p>
+    <div class="hero-actions">
+      <a class="primary" href="#wizard">Ajută-mă să aleg →</a>
+      <a class="secondary" href="#tools">Explorează lista</a>
+    </div>
+    <div class="meta-bar">
+      <span><strong id="metaTools">12</strong> tooluri</span>
+      <span><strong>7</strong> categorii</span>
+      <span><strong>4</strong> regiuni</span>
+      <span>Actualizat <strong id="metaUpdated">mai 2026</strong></span>
+      <span class="data-status" id="dataStatus">Se încarcă radarul...</span>
+    </div>
+  </div>
+</header>
+
+<main id="mainContent">
+
+  <section class="section" id="wizard" aria-label="Selector profil">
+    <div class="container">
+      <div class="panel">
+        <div class="section-sub">Start aici</div>
+        <h2 class="section-title">Ce vrei să faci <em>acum</em>?</h2>
+        <p class="helper">Apasă pe un profil și radarul îți filtrează automat lista.</p>
+        <div class="wizard-grid" id="wizardGrid" role="group" aria-label="Profiluri de utilizare"></div>
+        <div class="recommendation" id="recommendation" aria-live="polite">Alege un profil pentru o recomandare rapidă.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="trending" aria-label="Trending tools">
+    <div class="container">
+      <div class="section-sub">Trending now</div>
+      <h2 class="section-title">Semnale rapide din <em>piață</em>.</h2>
+      <div class="trending-strip" id="trendingStrip" role="list" aria-label="Top tooluri trending"></div>
+    </div>
+  </section>
+
+  <section class="filters-section" id="filters" aria-label="Filtre tooluri">
+    <div class="container">
+      <div class="filter-row">
+        <span class="filter-label" id="label-cat">Categorie</span>
+        <div class="pills" id="categoryPills" role="group" aria-labelledby="label-cat"></div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label" id="label-price">Preț</span>
+        <div class="pills" id="pricePills" role="group" aria-labelledby="label-price"></div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label" id="label-region">Regiune</span>
+        <div class="pills" id="regionPills" role="group" aria-labelledby="label-region"></div>
+      </div>
+      <div class="search-row" role="search">
+        <div class="search-box">
+          <input id="search" aria-label="Caută tooluri AI" placeholder="Caută: excel, video, cod, Europa, open-source..." />
+        </div>
+        <select id="sortSelect" class="sort-select" aria-label="Sortare rezultate">
+          <option value="default">Implicit</option>
+          <option value="trend">Trend score</option>
+          <option value="name">Nume A-Z</option>
+          <option value="price">Preț</option>
+          <option value="favorites">Favorite primele</option>
+        </select>
+        <button class="reset-btn" id="resetBtn" aria-label="Resetează filtrele">Reset</button>
+      </div>
+      <div class="results-count" id="resultsCount" aria-live="polite" aria-atomic="true">Se încarcă radarul...</div>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Statistici radar">
+    <div class="container">
+      <div class="panel">
+        <div class="section-sub">Live radar</div>
+        <h2 class="section-title">Pulsul datasetului.</h2>
+        <div class="radar-grid" id="radarGrid" role="list"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tools-section" id="tools" aria-label="Lista tooluri AI">
+    <div class="container">
+      <div class="tools-grid" id="toolsGrid" role="list">
+        <div class="loading-state">Se încarcă radarul...</div>
+      </div>
+      <div class="empty" id="emptyState" role="status">
+        <div class="big">Nu am găsit nimic aici.</div>
+        <p>Încearcă alt cuvânt sau apasă Reset.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-block">
+        <h4>Cum să folosești ghidul</h4>
+        <p>Click pe orice card pentru analiza decizională. Folosește ⌘K / Ctrl+K pentru căutare pe task, nu doar pe nume.</p>
+      </div>
+      <div class="footer-block">
+        <h4>Stack-uri recomandate</h4>
+        <p>Research: Perplexity + NotebookLM + Claude. Cod: Cursor + Claude + DeepSeek. Date: Julius + Hex + Power BI Copilot.</p>
+      </div>
+      <div class="footer-block">
+        <h4>Feedback</h4>
+        <p>Îmbunătățește ghidul pe GitHub: Daniel-OD/ai-productivity-radar/issues.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Command Palette -->
+<div class="command-modal" id="commandModal" role="dialog" aria-modal="true" aria-label="Command Palette">
+  <div class="command-card">
+    <div class="command-top">
+      <span>⌘K</span>
+      <input id="commandInput" autocomplete="off" aria-label="Caută sau descrie ce vrei să faci"
+             placeholder="Scrie ce vrei să faci: analizez excel, fac video, scriu cod..." />
+    </div>
+    <div class="command-results" id="commandResults" role="listbox" aria-label="Rezultate căutare"></div>
+    <div class="command-footer">
+      <span>↑↓ navighează · Enter deschide detalii · ⌘/Ctrl+Enter site oficial · Esc închide</span>
+      <span id="commandCount" aria-live="polite">0 recomandări</span>
+    </div>
+  </div>
+</div>
+
+<!-- Decision Modal -->
+<div class="decision-modal" id="decisionModal" role="dialog" aria-modal="true" aria-label="Analiza deciziei">
+  <div class="decision-card" id="decisionCard"></div>
+</div>
+
+<!-- Compare bar & modal -->
+<div class="compare-bar" id="compareBar" role="status" aria-live="polite">
+  <span id="compareText">0 selectate</span>
+  <button class="mini-btn" id="openCompare" disabled aria-label="Deschide comparație">Compară</button>
+  <button class="mini-btn" id="clearCompare" aria-label="Șterge selecția pentru comparație">Curăță</button>
+</div>
+
+<div class="modal" id="compareModal" role="dialog" aria-modal="true" aria-label="Comparare tooluri">
+  <div class="modal-card">
+    <h2 class="section-title">Comparare tooluri</h2>
+    <div id="compareContent"></div>
+    <button class="primary" id="closeCompare" style="margin-top:18px">Închide</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+<!-- Phase 1: load scripts with defer in dependency order -->
+<script src="js/phase0-hardening.js" defer></script>
+<script src="js/dom-utils.js"        defer></script>
+<script src="js/command-palette.js"  defer></script>
+<script src="js/decision-modal.js"   defer></script>
+<script src="js/app.js"              defer></script>
+
 </body>
 </html>
