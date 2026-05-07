@@ -1,0 +1,11 @@
+{
+  "name": "AI Productivity Radar",
+  "short_name": "AI Radar",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0d0a",
+  "theme_color": "#0f0d0a",
+  "lang": "ro",
+  "description": "Ghid interactiv pentru tooluri AI și productivitate.",
+  "icons": []
+}
