@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: ai-productivity-radar
+    runtime: static
+    repo: https://github.com/Daniel-OD/ai-productivity-radar
+    branch: main
+    buildCommand: echo "Static AI Productivity Radar"
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
