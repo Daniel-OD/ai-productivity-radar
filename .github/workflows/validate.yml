@@ -8,12 +8,14 @@ on:
       - 'tools-market.json'
       - 'scripts/validate-tools.js'
       - 'scripts/check-links.js'
+      - 'package.json'
   pull_request:
     branches: [ main ]
     paths:
       - 'tools-market.json'
       - 'scripts/validate-tools.js'
       - 'scripts/check-links.js'
+      - 'package.json'
 
 jobs:
   validate:
