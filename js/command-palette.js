@@ -160,9 +160,12 @@
     });
   }
 
+  /* Debounce delay for command palette input (ms) */
+  var DEBOUNCE_DELAY = 120;
+
   function debouncedRender() {
     clearTimeout(cpRenderTimer);
-    cpRenderTimer = setTimeout(renderCommandResults, 120);
+    cpRenderTimer = setTimeout(renderCommandResults, DEBOUNCE_DELAY);
   }
 
   /* ── Selection ────────────────────────────────────────────────────────────── */

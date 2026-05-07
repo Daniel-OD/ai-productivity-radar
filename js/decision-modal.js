@@ -268,13 +268,16 @@
     if (dmTrapCleanup) { dmTrapCleanup(); dmTrapCleanup = null; }
   };
 
+  /* Delay before opening the deep-linked tool modal (ms) */
+  var DEEPLINK_DELAY = 400;
+
   /* ── Deep-link: ?tool=name ────────────────────────────────────────────────── */
 
   window.handleToolDeepLink = function () {
     var toolParam = new URLSearchParams(location.search).get('tool');
     if (!toolParam) return;
     var t = tools.find(function (x) { return x.name.toLowerCase() === toolParam.toLowerCase(); });
-    if (t) setTimeout(function () { openDecision(t.name); }, 400);
+    if (t) setTimeout(function () { openDecision(t.name); }, DEEPLINK_DELAY);
   };
 
   /* ── Init (called from app.js after DOM ready) ────────────────────────────── */

@@ -1,6 +1,7 @@
 /* ── Calendar helpers ─────────────────────────────────────────────────────── */
 const RO_MONTHS = ['ian','feb','mar','apr','mai','iun','iul','aug','sep','oct','nov','dec'];
-const currentMonthYear = RO_MONTHS[new Date().getMonth()] + ' ' + new Date().getFullYear();
+const _now = new Date();
+const currentMonthYear = RO_MONTHS[_now.getMonth()] + ' ' + _now.getFullYear();
 
 /* ── Fallback dataset (used while tools-market.json loads) ──────────────── */
 const FALLBACK_TOOLS = [
@@ -466,7 +467,8 @@ document.addEventListener('keydown', e => {
   }
   if (e.key === '/' && !window.commandOpen
       && document.activeElement.tagName !== 'INPUT'
-      && document.activeElement.tagName !== 'TEXTAREA') {
+      && document.activeElement.tagName !== 'TEXTAREA'
+      && !document.activeElement.isContentEditable) {
     e.preventDefault();
     if (typeof openCommandPalette === 'function') openCommandPalette();
   }
