@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Productivity Radar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0f1115;
+  --card:#171923;
+  --border:#2b2f3a;
+  --text:#f5f7fb;
+  --muted:#9aa3b2;
+  --gold:#d4a574;
+  --green:#6dd3a0;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,sans-serif;
+}
+.container{
+  max-width:1280px;
+  margin:auto;
+  padding:32px;
+}
+.hero{
+  padding:48px 0 24px;
+}
+h1{
+  font-size:clamp(42px,8vw,78px);
+  line-height:0.95;
+  margin:0 0 18px;
+}
+.sub{
+  color:var(--muted);
+  max-width:760px;
+  line-height:1.7;
+}
+.meta{
+  margin-top:24px;
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  color:var(--muted);
+}
+.controls{
+  display:flex;
+  gap:12px;
+  margin:28px 0;
+  flex-wrap:wrap;
+}
+input,select{
+  background:var(--card);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:12px 14px;
+  border-radius:10px;
+}
+input{flex:1;min-width:240px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:18px;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
+}
+.top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+.name{
+  font-size:24px;
+  font-weight:700;
+}
+.badge{
+  background:rgba(212,165,116,0.12);
+  border:1px solid rgba(212,165,116,0.4);
+  color:var(--gold);
+  border-radius:999px;
+  padding:5px 10px;
+  font-size:12px;
+}
+.small{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:6px;
+}
+.tags{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:16px 0;
+}
+.tag{
+  border:1px solid var(--border);
+  padding:6px 10px;
+  border-radius:999px;
+  color:var(--muted);
+  font-size:12px;
+}
+.link{
+  display:inline-block;
+  margin-top:12px;
+  color:var(--green);
+  text-decoration:none;
+}
+.footer{
+  padding:50px 0;
+  color:var(--muted);
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <div style="color:var(--gold);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:12px">AI Market Radar · Live</div>
+    <h1>AI Productivity Radar</h1>
+    <p class="sub">Radar live pentru tooluri AI globale: programare, research, design, productivitate și analiză de date. Actualizat din JSON și pregătit pentru auto-refresh prin GitHub Actions.</p>
+    <div class="meta">
+      <span id="toolCount">0 tooluri</span>
+      <span>Regiuni: America · Europa · Asia · Israel</span>
+      <span id="updatedAt">Actualizare...</span>
+    </div>
+  </section>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Caută tooluri, categorii, badges...">
+    <select id="region">
+      <option value="all">Toate regiunile</option>
+      <option value="america">America</option>
+      <option value="europa">Europa</option>
+      <option value="asia">Asia</option>
+      <option value="israel">Israel</option>
+    </select>
+    <select id="sort">
+      <option value="trend">Trend descrescător</option>
+      <option value="az">Nume A-Z</option>
+    </select>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="footer">
+    AI Productivity Radar · GitHub + Render + JSON sync · live market signals.
+  </div>
+</div>
+
+<script>
+let tools = [];
+
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const region = document.getElementById('region');
+const sort = document.getElementById('sort');
+
+async function load() {
+  try {
+    const res = await fetch('./tools-market.json');
+    const data = await res.json();
+    tools = data.tools || [];
+
+    document.getElementById('toolCount').textContent = `${tools.length} tooluri monitorizate`;
+    document.getElementById('updatedAt').textContent = `Actualizat ${data.updatedAt}`;
+
+    render();
+  } catch (e) {
+    grid.innerHTML = '<div class="card">Nu am putut încărca tools-market.json</div>';
+  }
+}
+
+function render() {
+  const q = search.value.toLowerCase();
+  const r = region.value;
+  const s = sort.value;
+
+  let filtered = tools.filter(t => {
+    const matchSearch = !q ||
+      t.name.toLowerCase().includes(q) ||
+      t.tagline.toLowerCase().includes(q) ||
+      (t.badges || []).join(' ').toLowerCase().includes(q) ||
+      (t.cats || []).join(' ').toLowerCase().includes(q);
+
+    const matchRegion = r === 'all' || t.region === r;
+
+    return matchSearch && matchRegion;
+  });
+
+  if (s === 'trend') {
+    filtered.sort((a,b) => (b.trend || 0) - (a.trend || 0));
+  }
+
+  if (s === 'az') {
+    filtered.sort((a,b) => a.name.localeCompare(b.name));
+  }
+
+  grid.innerHTML = filtered.map(t => `
+    <div class="card">
+      <div class="top">
+        <div>
+          <div class="name">${t.name}</div>
+          <div class="small">${t.country} · ${t.lastUpdated}</div>
+        </div>
+        <div class="badge">Trend ${t.trend}</div>
+      </div>
+
+      <p class="small" style="margin-top:14px">${t.tagline}</p>
+
+      <div class="tags">
+        ${(t.cats || []).map(c => `<span class="tag">${c}</span>`).join('')}
+        ${(t.badges || []).map(b => `<span class="tag">${b}</span>`).join('')}
+      </div>
+
+      <div class="small">${t.when}</div>
+
+      <a class="link" href="${t.url}" target="_blank">Deschide →</a>
+    </div>
+  `).join('');
+}
+
+search.addEventListener('input', render);
+region.addEventListener('change', render);
+sort.addEventListener('change', render);
+
+load();
+</script>
+</body>
+</html>
