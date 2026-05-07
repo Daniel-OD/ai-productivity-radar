@@ -103,10 +103,10 @@ def usage_from_trend(trend):
 
 def is_url_accessible(url):
     session = requests.Session()
-    session.headers.update({"User-Agent": "ai-productivity-radar-bot/1.0"})
+    session.headers.update({"User-Agent": "ai-productivity-radar-bot (+https://github.com/Daniel-OD/ai-productivity-radar)"})
     for method in ("head", "get"):
         try:
-            response = session.request(method, url, timeout=8, allow_redirects=True)
+            response = session.request(method, url, timeout=8, allow_redirects=False)
             if response.status_code < 400 or response.status_code in ACCESSIBLE_SOFT_CODES:
                 return URL_STATUS_ACCESSIBLE
             if method == "head" and response.status_code >= 500:
@@ -124,6 +124,7 @@ with open('tools-market.json', 'r', encoding='utf-8') as f:
 tools = data.get('tools', [])
 active_tools = []
 removed_tools = []
+unknown_tools = []
 
 for tool in tools:
     tool_name = str(tool.get('name', '')).strip()
@@ -142,6 +143,8 @@ for tool in tools:
         if accessible == URL_STATUS_INACCESSIBLE:
             removed_tools.append(tool_name)
             continue
+        if accessible == URL_STATUS_UNKNOWN:
+            unknown_tools.append(tool_name)
 
     active_tools.append(tool)
 
@@ -161,6 +164,7 @@ with open('health.json', 'w', encoding='utf-8') as f:
 
 print('Updated tools:', len(active_tools))
 print('Removed inaccessible tools:', ', '.join(removed_tools) if removed_tools else 'none')
+print('Unknown accessibility checks:', ', '.join(unknown_tools) if unknown_tools else 'none')
 print('Updated timestamps to', today)
 PY
 
