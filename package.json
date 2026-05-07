@@ -1,0 +1,27 @@
+{
+  "name": "ai-productivity-radar",
+  "version": "1.0.0",
+  "description": "Ghid interactiv pentru tool-uri de productivitate AI",
+  "scripts": {
+    "validate": "node scripts/validate-tools.js",
+    "check-links": "node scripts/check-links.js",
+    "validate-all": "npm run validate && npm run check-links"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "ajv": "^8.12.0",
+    "axios": "^1.6.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "ai",
+    "productivity",
+    "tools",
+    "radar",
+    "directory"
+  ],
+  "author": "Daniel Iosif",
+  "license": "MIT"
+}
