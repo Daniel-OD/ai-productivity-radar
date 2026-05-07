@@ -79,6 +79,9 @@ USAGE_BANDS = [
 ]
 
 ACCESSIBLE_SOFT_CODES = {401, 403, 405, 429}
+URL_STATUS_ACCESSIBLE = "accessible"
+URL_STATUS_INACCESSIBLE = "inaccessible"
+URL_STATUS_UNKNOWN = "unknown"
 
 def normalize_url(url):
     if not isinstance(url, str):
@@ -105,15 +108,15 @@ def is_url_accessible(url):
         try:
             response = session.request(method, url, timeout=8, allow_redirects=True)
             if response.status_code < 400 or response.status_code in ACCESSIBLE_SOFT_CODES:
-                return True
+                return URL_STATUS_ACCESSIBLE
             if method == "head" and response.status_code >= 500:
                 continue
-            return False
+            return URL_STATUS_INACCESSIBLE
         except requests.Timeout:
             continue
         except requests.RequestException:
             continue
-    return None  # Unknown/unreachable from runner: keep tool to avoid accidental removals.
+    return URL_STATUS_UNKNOWN  # Unknown/unreachable from runner: keep tool to avoid accidental removals.
 
 with open('tools-market.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
@@ -136,7 +139,7 @@ for tool in tools:
 
     if known_url:
         accessible = is_url_accessible(known_url)
-        if accessible is False:
+        if accessible == URL_STATUS_INACCESSIBLE:
             removed_tools.append(tool_name)
             continue
 
