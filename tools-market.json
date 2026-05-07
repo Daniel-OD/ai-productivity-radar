@@ -35,7 +35,13 @@
         "LangChain",
         "Microsoft 365"
       ],
-      "standaloneNote": "Poți folosi direct din web/chatgpt app fără setup tehnic."
+      "standaloneNote": "Poți folosi direct din web/chatgpt app fără setup tehnic.",
+      "bestFor": ["Scrierea de conținut", "Cod general", "Research rapid", "Brainstorming", "Sumarizare documente"],
+      "notIdeal": ["Proiecte cu context foartelarg", "Analiză financiară complexă", "Cod de producție fără review"],
+      "strengths": ["Model versatil", "Integrare cu Microsoft", "Imagini (DALL-E)", "Browsing web", "GPTs custom"],
+      "similar": ["Claude", "Gemini", "Mistral / Le Chat"],
+      "pricing": "Gratuit (GPT-4o limitat) · Plus $20/lună · Team $30/user/lună · API pay-as-you-go",
+      "trendExplanation": "Rămâne liderul pieței cu cea mai mare bază de utilizatori și ecosistemul de plugin-uri/GPTs."
     },
     {
       "name": "Claude",
@@ -70,7 +76,13 @@
         "LangChain",
         "AWS Bedrock"
       ],
-      "standaloneNote": "Funcționează imediat din Claude.ai pentru task-uri zilnice."
+      "standaloneNote": "Funcționează imediat din Claude.ai pentru task-uri zilnice.",
+      "bestFor": ["Documente lungi (200k tokens)", "Cod complex și refactoring", "Analiză profundă", "Scrierea tehnică", "Rezumat sursă precisă"],
+      "notIdeal": ["Imagini/video (nu generează)", "Sarcini care necesită browsing live", "Integrare directă Microsoft"],
+      "strengths": ["Context window uriaș", "Cod curat și comentat", "Raționament pas cu pas", "Politici de siguranță solide"],
+      "similar": ["ChatGPT", "Gemini", "DeepSeek"],
+      "pricing": "Gratuit (Claude Sonnet limitat) · Pro $20/lună · Team $25/user/lună · API pay-as-you-go",
+      "trendExplanation": "Creștere rapidă în mediu enterprise pentru task-uri de codare și analiză unde precizia contează mai mult decât viteza."
     },
     {
       "name": "Perplexity",

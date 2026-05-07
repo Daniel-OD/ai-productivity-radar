@@ -31,13 +31,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Clean npm cache (avoid EINTEGRITY)
+      - name: Clean npm cache
         run: npm cache clean --force
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --no-audit --no-fund
 
       - name: Run JSON validation
         run: npm run validate
@@ -54,13 +53,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Clean npm cache (avoid EINTEGRITY)
+      - name: Clean npm cache
         run: npm cache clean --force
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --no-audit --no-fund
 
       - name: Run link checker
         run: npm run check-links
@@ -81,13 +79,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Clean npm cache (avoid EINTEGRITY)
+      - name: Clean npm cache
         run: npm cache clean --force
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --no-audit --no-fund
 
       - name: Run all validations
         run: npm run validate-all
