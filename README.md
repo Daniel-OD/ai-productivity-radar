@@ -31,16 +31,17 @@ Un ghid modern pentru tooluri AI, organizat pe categorii, regiuni și use-case-u
 
 ## Îmbunătățiri recente
 
-### Ascundere Secțiuni "Categorie" și "Preț"
-Secțiunile "Categorie" și "Preț" sunt acum ascunse implicit și pot fi afișate prin apăsarea unui buton.
+### Ascundere/Afișare dinamică pentru "Categorie" și "Preț"
+Secțiunile de filtre "Categorie" și "Preț" pot fi ascunse și afișate dinamic direct din interfață.
 
 #### Cum Funcționează
-- Clasele **CSS** utilizează `.hidden` pentru a ascunde elementele.
-- Funcția JavaScript `toggleFilters()` activează/dezactivează vizibilitatea secțiunilor corespunzătoare.
+- Clasele **CSS** utilizează `.hidden` pentru a ascunde vizual secțiunea selectată.
+- Funcția JavaScript `toggleFilter(filterId, button)` activează/dezactivează vizibilitatea secțiunii selectate.
 
 #### Pași pentru utilizare
-1. Apasă butonul `Arată/Ascunde Detalii` pentru a comuta vizibilitatea.
-2. Stilurile pot fi personalizate în fișierul `styles.css`.
+1. Apasă butonul `Ascunde` de lângă `Categorie` sau `Preț` pentru a ascunde secțiunea.
+2. Apasă butonul `Arată` pentru a o face din nou vizibilă.
+3. Comportamentul este definit în `index.html` (CSS + JavaScript inline).
 
 ---
 Pentru mai multe detalii, contribuie direct sau deschide un issue pe GitHub repo.
