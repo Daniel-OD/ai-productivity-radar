@@ -102,9 +102,11 @@ def is_url_accessible(url):
     session = requests.Session()
     session.headers.update({"User-Agent": "ai-productivity-radar-bot/1.0"})
     methods = ("head", "get")
+    had_response = False
     for method in methods:
         try:
             response = session.request(method, url, timeout=12, allow_redirects=True)
+            had_response = True
             if response.status_code in ACCESSIBLE_CODES or response.status_code < 400:
                 return True
             if response.status_code >= 500:
@@ -113,8 +115,10 @@ def is_url_accessible(url):
         except requests.Timeout:
             continue
         except requests.RequestException:
-            return False
-    return False
+            continue
+    if had_response:
+        return False
+    return None
 
 with open('tools-market.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
@@ -135,9 +139,11 @@ for tool in tools:
     tool['lastCheckedAt'] = today
     tool['lastUpdated'] = str(tool.get('lastUpdated') or now_label).strip()
 
-    if known_url and not is_url_accessible(known_url):
-        removed_tools.append(tool_name)
-        continue
+    if known_url:
+        accessible = is_url_accessible(known_url)
+        if accessible is False:
+            removed_tools.append(tool_name)
+            continue
 
     active_tools.append(tool)
 
