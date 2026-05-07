@@ -31,7 +31,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Clean npm cache
         run: npm cache clean --force
@@ -54,7 +53,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Clean npm cache
         run: npm cache clean --force
@@ -81,7 +79,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Clean npm cache
         run: npm cache clean --force

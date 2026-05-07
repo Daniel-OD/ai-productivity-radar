@@ -8,6 +8,7 @@ Un ghid modern pentru tooluri AI, organizat pe categorii, regiuni, preț și tip
 - toggle pentru ascundere/afișare rapidă la filtrele **Categorie** + **Preț**;
 - stare filtre și toggle salvată în `localStorage`;
 - radar de trend + metadata extinsă pentru fiecare tool;
+- **Tool Decision Modal**: click pe orice card afișează detalii extinse (Best for, Strengths, Integrations, Pricing, Similar tools) cu acțiuni rapide (Open site, Compare, Favorite);
 - badge special pentru tooluri **🇷🇴 Made in Romania**;
 - import/export JSON.
 
@@ -69,6 +70,19 @@ Format acceptat: array de tooluri direct sau obiect `{ updatedAt, tools: [...] }
 | `apiInfo` | string | Detalii concrete despre API |
 | `integrations` | string[] | Platforme compatibile (Zapier, Make.com, n8n, LangChain etc.) |
 | `standaloneNote` | string | Cum îl poți folosi direct, fără integrare |
+
+### Câmpuri opționale pentru Tool Decision Modal
+
+Aceste câmpuri sunt afișate în modalul detaliat care se deschide la click pe un card. Toate sunt opționale; dacă lipsesc, modalul afișează un placeholder.
+
+| Câmp | Tip | Descriere |
+|---|---|---|
+| `bestFor` | string[] | Scenarii ideale de utilizare (ex: `["Cod complex", "Documente lungi"]`) |
+| `notIdeal` | string[] | Cazuri în care toolul nu e recomandat |
+| `strengths` | string[] | Puncte forte distinctive |
+| `similar` | string[] | Tooluri similare sau alternative (ex: `["Claude", "Gemini"]`) |
+| `pricing` | string | Detalii de preț (ex: `"Gratuit · Pro $20/lună · API pay-as-you-go"`) |
+| `trendExplanation` | string | Explicație narativă pentru scorul de trend |
 
 ### Actualizare automată (GitHub Actions + Render)
 
