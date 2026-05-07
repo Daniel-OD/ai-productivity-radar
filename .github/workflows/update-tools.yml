@@ -75,10 +75,10 @@ USAGE_BANDS = [
     (80, "ridicat"),
     (55, "mediu"),
     (25, "scăzut"),
-    (0, "neutilizare"),
+    (0, "nefolosire"),
 ]
 
-ACCESSIBLE_CODES = {200, 201, 202, 204, 301, 302, 303, 307, 308, 401, 403, 405, 429}
+ACCESSIBLE_SOFT_CODES = {401, 403, 405, 429}
 
 def normalize_url(url):
     if not isinstance(url, str):
@@ -96,29 +96,24 @@ def usage_from_trend(trend):
     for min_score, label in USAGE_BANDS:
         if score >= min_score:
             return score, label
-    return score, "neutilizare"
+    return score, "nefolosire"
 
 def is_url_accessible(url):
     session = requests.Session()
     session.headers.update({"User-Agent": "ai-productivity-radar-bot/1.0"})
-    methods = ("head", "get")
-    had_response = False
-    for method in methods:
+    for method in ("head", "get"):
         try:
             response = session.request(method, url, timeout=12, allow_redirects=True)
-            had_response = True
-            if response.status_code in ACCESSIBLE_CODES or response.status_code < 400:
+            if response.status_code < 400 or response.status_code in ACCESSIBLE_SOFT_CODES:
                 return True
-            if response.status_code >= 500:
+            if method == "head" and response.status_code >= 500:
                 continue
             return False
         except requests.Timeout:
             continue
         except requests.RequestException:
             continue
-    if had_response:
-        return False
-    return None
+    return None  # Unknown/unreachable from runner: keep tool to avoid accidental removals.
 
 with open('tools-market.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
