@@ -28,3 +28,19 @@ Un ghid modern pentru tooluri AI, organizat pe categorii, regiuni și use-case-u
 - favorite sync;
 - compare mode;
 - AI stack recommendations.
+
+## Îmbunătățiri recente
+
+### Ascundere Secțiuni "Categorie" și "Preț"
+Secțiunile "Categorie" și "Preț" sunt acum ascunse implicit și pot fi afișate prin apăsarea unui buton.
+
+#### Cum Funcționează
+- Clasele **CSS** utilizează `.hidden` pentru a ascunde elementele.
+- Funcția JavaScript `toggleFilters()` activează/dezactivează vizibilitatea secțiunilor corespunzătoare.
+
+#### Pași pentru utilizare
+1. Apasă butonul `Arată/Ascunde Detalii` pentru a comuta vizibilitatea.
+2. Stilurile pot fi personalizate în fișierul `styles.css`.
+
+---
+Pentru mai multe detalii, contribuie direct sau deschide un issue pe GitHub repo.
