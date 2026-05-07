@@ -52,3 +52,34 @@ Setul curent include:
 - GitHub Pages ready
 - JSON extensibil
 - fără backend obligatoriu
+
+## Cum funcționează tehnic
+
+### Sursa de date: `tools-market.json`
+
+Toate toolurile sunt definite în fișierul `tools-market.json` din rădăcina repo-ului. Pagina `index.html` îl citește direct în browser prin `fetch`.  
+Format acceptat: array de tooluri direct sau obiect `{ updatedAt, tools: [...] }`.
+
+### Câmpuri per tool
+
+| Câmp | Tip | Descriere |
+|---|---|---|
+| `type` | string | `standalone`, `api-based`, `hybrid`, `integrated`, `platform` |
+| `apiAvailable` | boolean | Dacă există un API public |
+| `apiInfo` | string | Detalii concrete despre API |
+| `integrations` | string[] | Platforme compatibile (Zapier, Make.com, n8n, LangChain etc.) |
+| `standaloneNote` | string | Cum îl poți folosi direct, fără integrare |
+
+### Actualizare automată (GitHub Actions + Render)
+
+GitHub Actions poate actualiza `tools-market.json` pe un schedule sau la push, iar Render redeployează pagina automat după fiecare commit pe `main`. Astfel ghidul rămâne viu fără backend propriu.
+
+### Sync / Export / Import JSON
+
+Funcționalitățile de Sync, Export și Import JSON sunt disponibile din cod (JavaScript) pentru scenarii de contribuție sau testare locală:
+
+- **Sync**: reîncarcă `tools-market.json` din rețea fără refresh de pagină.
+- **Export**: descarcă setul curent de tooluri ca fișier `.json`.
+- **Import**: înlocuiește dataset-ul cu un fișier `.json` local.
+
+Aceste butoane sunt omise din interfața principală pentru a păstra pagina curată pentru utilizatorul final. Poți reintroduce elementele cu ID-urile `syncBtn`, `exportBtn` și `importJson` dacă ai nevoie de ele.
