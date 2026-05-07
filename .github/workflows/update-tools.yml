@@ -75,7 +75,7 @@ USAGE_BANDS = [
     (80, "ridicat"),
     (55, "mediu"),
     (25, "scăzut"),
-    (0, "nefolosire"),
+    (0, "neutilizare"),
 ]
 
 ACCESSIBLE_SOFT_CODES = {401, 403, 405, 429}
@@ -96,14 +96,14 @@ def usage_from_trend(trend):
     for min_score, label in USAGE_BANDS:
         if score >= min_score:
             return score, label
-    return score, "nefolosire"
+    return score, "neutilizare"
 
 def is_url_accessible(url):
     session = requests.Session()
     session.headers.update({"User-Agent": "ai-productivity-radar-bot/1.0"})
     for method in ("head", "get"):
         try:
-            response = session.request(method, url, timeout=12, allow_redirects=True)
+            response = session.request(method, url, timeout=8, allow_redirects=True)
             if response.status_code < 400 or response.status_code in ACCESSIBLE_SOFT_CODES:
                 return True
             if method == "head" and response.status_code >= 500:
