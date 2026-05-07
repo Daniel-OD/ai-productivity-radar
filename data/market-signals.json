@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-08T12:00:00.000Z",
+  "sources": {
+    "github": {
+      "enabled": true,
+      "note": "Initial static snapshot",
+      "count": 5
+    },
+    "productHunt": {
+      "enabled": false,
+      "skipped": true,
+      "note": "PRODUCT_HUNT_TOKEN not configured yet",
+      "count": 0
+    }
+  },
+  "recommendations": [
+    {
+      "toolName": "LangChain",
+      "slug": "langchain",
+      "score": 94,
+      "recommendationType": "candidate-open-source",
+      "stars": 97000,
+      "rationale": "Open-source AI orchestration ecosystem with extremely high developer adoption."
+    },
+    {
+      "toolName": "Ollama",
+      "slug": "ollama",
+      "score": 91,
+      "recommendationType": "candidate-open-source",
+      "stars": 88000,
+      "rationale": "Local LLM runtime with explosive adoption and strong community momentum."
+    },
+    {
+      "toolName": "Open WebUI",
+      "slug": "open-webui",
+      "score": 88,
+      "recommendationType": "candidate-open-source",
+      "stars": 65000,
+      "rationale": "Popular self-hosted AI workspace rapidly growing in the open-source ecosystem."
+    }
+  ],
+  "raw": {
+    "github": [],
+    "productHunt": []
+  },
+  "errors": []
+}
