@@ -33,11 +33,11 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Clean npm cache (avoid EINTEGRITY)
-        run: npm cache clean --force
-
       - name: Install dependencies
-        run: npm ci
+        # Try npm ci first (uses the restored ~/.npm cache for speed).
+        # On transient EINTEGRITY / tarball-corruption errors, clear the
+        # npm cache and retry once to recover without manual intervention.
+        run: npm ci || (echo "⚠️  npm ci failed – clearing npm cache and retrying…" && npm cache clean --force && npm ci)
 
       - name: Run JSON validation
         run: npm run validate
@@ -56,11 +56,11 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Clean npm cache (avoid EINTEGRITY)
-        run: npm cache clean --force
-
       - name: Install dependencies
-        run: npm ci
+        # Try npm ci first (uses the restored ~/.npm cache for speed).
+        # On transient EINTEGRITY / tarball-corruption errors, clear the
+        # npm cache and retry once to recover without manual intervention.
+        run: npm ci || (echo "⚠️  npm ci failed – clearing npm cache and retrying…" && npm cache clean --force && npm ci)
 
       - name: Run link checker
         run: npm run check-links
@@ -83,11 +83,11 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Clean npm cache (avoid EINTEGRITY)
-        run: npm cache clean --force
-
       - name: Install dependencies
-        run: npm ci
+        # Try npm ci first (uses the restored ~/.npm cache for speed).
+        # On transient EINTEGRITY / tarball-corruption errors, clear the
+        # npm cache and retry once to recover without manual intervention.
+        run: npm ci || (echo "⚠️  npm ci failed – clearing npm cache and retrying…" && npm cache clean --force && npm ci)
 
       - name: Run all validations
         run: npm run validate-all
