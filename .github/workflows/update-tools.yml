@@ -22,25 +22,149 @@ jobs:
         run: |
           pip install requests beautifulsoup4 feedparser
 
-      - name: Update timestamps
+      - name: Refresh usage and availability
         run: |
           python3 - << 'PY'
-import json, datetime
+import datetime
+import json
+from urllib.parse import urlparse
+
+import requests
 
 today = datetime.date.today().isoformat()
+now_label = datetime.date.today().strftime('%B %Y')
+
+NAME_URLS = {
+    "ChatGPT": "https://chatgpt.com/",
+    "Claude": "https://claude.ai/",
+    "Perplexity": "https://www.perplexity.ai/",
+    "Cursor": "https://www.cursor.com/",
+    "DeepSeek": "https://chat.deepseek.com/",
+    "Qwen / Tongyi Qianwen": "https://chat.qwen.ai/",
+    "Kimi": "https://kimi.moonshot.cn/",
+    "Manus": "https://manus.im/",
+    "Mistral / Le Chat": "https://chat.mistral.ai/",
+    "Hugging Face": "https://huggingface.co/",
+    "Aleph Alpha": "https://www.aleph-alpha.com/",
+    "Synthesia": "https://www.synthesia.io/",
+    "NotebookLM": "https://notebooklm.google/",
+    "Julius AI": "https://julius.ai/",
+    "Power BI Copilot": "https://www.microsoft.com/en-us/microsoft-365/copilot",
+    "Tableau Pulse": "https://www.tableau.com/products/tableau-pulse",
+    "Hex": "https://hex.tech/",
+    "ThoughtSpot": "https://www.thoughtspot.com/",
+    "Databricks Assistant": "https://www.databricks.com/product/databricks-assistant",
+    "Naver HyperCLOVA X": "https://clova.ai/",
+    "AI21 Labs / Jamba": "https://www.ai21.com/",
+    "LobeChat": "https://lobehub.com/",
+    "Agora AI": "https://agora-ai.co/",
+    "NovaAI": "https://www.novaai.tools/",
+    "RoboChat": "https://robochat.io/",
+    "TextLang AI": "https://textlang.ai/",
+    "Brainscale": "https://brainscale.ai/",
+    "UiPath AI Center": "https://www.uipath.com/product/ai-center",
+    "Bitdefender AI Security": "https://www.bitdefender.com/",
+    "Gemini": "https://gemini.google.com/",
+    "Ollama": "https://ollama.com/",
+    "LM Studio": "https://lmstudio.ai/",
+    "Midjourney": "https://www.midjourney.com/",
+    "DALL·E 3": "https://openai.com/dall-e-3",
+}
+
+USAGE_BANDS = [
+    (80, "ridicat"),
+    (55, "mediu"),
+    (25, "scăzut"),
+    (0, "neutilizare"),
+]
+
+ACCESSIBLE_SOFT_CODES = {401, 403, 405, 429}
+URL_STATUS_ACCESSIBLE = "accessible"
+URL_STATUS_INACCESSIBLE = "inaccessible"
+URL_STATUS_UNKNOWN = "unknown"
+
+def normalize_url(url):
+    if not isinstance(url, str):
+        return ""
+    parsed = urlparse(url.strip())
+    if parsed.scheme in {"http", "https"} and parsed.netloc:
+        return url.strip()
+    return ""
+
+def usage_from_trend(trend):
+    try:
+        score = max(0, min(100, int(round(float(trend)))))
+    except (TypeError, ValueError):
+        score = 0
+    for min_score, label in USAGE_BANDS:
+        if score >= min_score:
+            return score, label
+    return score, "neutilizare"
+
+def is_url_accessible(url):
+    session = requests.Session()
+    session.headers.update({"User-Agent": "ai-productivity-radar-bot (+https://github.com/Daniel-OD/ai-productivity-radar)"})
+    for method in ("head", "get"):
+        try:
+            response = session.request(method, url, timeout=8, allow_redirects=False)
+            if response.status_code < 400 or response.status_code in ACCESSIBLE_SOFT_CODES:
+                return URL_STATUS_ACCESSIBLE
+            if method == "head" and response.status_code >= 500:
+                continue
+            return URL_STATUS_INACCESSIBLE
+        except requests.Timeout:
+            continue
+        except requests.RequestException:
+            continue
+    return URL_STATUS_UNKNOWN  # Unknown/unreachable from runner: keep tool to avoid accidental removals.
 
 with open('tools-market.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
+
+tools = data.get('tools', [])
+active_tools = []
+removed_tools = []
+unknown_tools = []
+
+for tool in tools:
+    tool_name = str(tool.get('name', '')).strip()
+    known_url = normalize_url(tool.get('url')) or NAME_URLS.get(tool_name, '')
+    if known_url:
+        tool['url'] = known_url
+
+    usage_score, usage_status = usage_from_trend(tool.get('trend', 0))
+    tool['globalUsageScore'] = usage_score
+    tool['globalUsage'] = usage_status
+    tool['lastCheckedAt'] = today
+    tool['lastUpdated'] = str(tool.get('lastUpdated') or now_label).strip()
+
+    if known_url:
+        accessible = is_url_accessible(known_url)
+        if accessible == URL_STATUS_INACCESSIBLE:
+            removed_tools.append(tool_name)
+            continue
+        if accessible == URL_STATUS_UNKNOWN:
+            unknown_tools.append(tool_name)
+
+    active_tools.append(tool)
+
+data['tools'] = active_tools
 data['updatedAt'] = today
+data['sourceNote'] = "Dataset auto-verificat zilnic: status utilizare globală + eliminare tooluri inaccesibile."
+
 with open('tools-market.json', 'w', encoding='utf-8') as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 
 with open('health.json', 'r', encoding='utf-8') as f:
     health = json.load(f)
 health['updated'] = today
+health['features'] = sorted(set(list(health.get('features', [])) + ['usage-scan', 'availability-prune']))
 with open('health.json', 'w', encoding='utf-8') as f:
     json.dump(health, f, ensure_ascii=False, indent=2)
 
+print('Updated tools:', len(active_tools))
+print('Removed inaccessible tools:', ', '.join(removed_tools) if removed_tools else 'none')
+print('Unknown accessibility checks:', ', '.join(unknown_tools) if unknown_tools else 'none')
 print('Updated timestamps to', today)
 PY
 
