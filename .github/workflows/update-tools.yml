@@ -22,12 +22,26 @@ jobs:
         run: |
           pip install requests beautifulsoup4 feedparser
 
-      - name: Placeholder refresh
+      - name: Update timestamps
         run: |
-          echo "Future: fetch Product Hunt, Hugging Face, OpenRouter, GitHub Trending"
-          python - << 'PY'
-from datetime import datetime
-print('Radar refresh placeholder:', datetime.utcnow())
+          python3 - << 'PY'
+import json, datetime
+
+today = datetime.date.today().isoformat()
+
+with open('tools-market.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+data['updatedAt'] = today
+with open('tools-market.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+
+with open('health.json', 'r', encoding='utf-8') as f:
+    health = json.load(f)
+health['updated'] = today
+with open('health.json', 'w', encoding='utf-8') as f:
+    json.dump(health, f, ensure_ascii=False, indent=2)
+
+print('Updated timestamps to', today)
 PY
 
       - name: Commit changes if any
