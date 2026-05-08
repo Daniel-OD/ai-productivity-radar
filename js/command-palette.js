@@ -1,265 +1,226 @@
 /**
  * Command Palette for AI Productivity Radar
- * Enhanced version with:
- * - Semantic task search
- * - Fuzzy matching
- * - Intent-based ranking
- * - Keyboard navigation
- * - Mobile support
  * 
- * Runtime dependencies (from global scope):
- *   tools, normKey, TASK_INTENTS, flag, priceLabels, openDecision, openToolDetails
+ * Features:
+ * - Open with Cmd+K / Ctrl+K
+ * - Real-time search with debounce
+ * - Arrow key navigation
+ * - Enter to select
+ * - Escape to close
+ * - Highlights matching text
+ * - Mobile support
  */
 
-(function () {
-  'use strict';
+let commandIndex = 0;
+let commandMatches = [];
 
-  /* ── Internal state ───────────────────────────────────────────────────────── */
-  var cpOpen = false;
-  var cpIndex = 0;
-  var cpMatches = [];
-  var cpPrevFocus = null;
-  var cpRenderTimer = null;
+// Open Command Palette
+function openCommandPalette() {
+  const modal = document.getElementById('commandModal');
+  const input = document.getElementById('commandInput');
+  
+  if (!modal || !input) return;
+  
+  modal.classList.add('show');
+  input.focus();
+  input.value = '';
+  commandIndex = 0;
+  renderCommandResults([]);
+}
 
-  /* Expose cpOpen as window.commandOpen for backward-compat. */
-  function setOpen(val) { cpOpen = val; window.commandOpen = val; }
-  window.commandOpen = false;
+// Close Command Palette
+function closeCommandPalette() {
+  const modal = document.getElementById('commandModal');
+  if (modal) modal.classList.remove('show');
+}
 
-  /* ── Search / ranking ─────────────────────────────────────────────────────── */
+// Filter tools based on query
+function filterTools(query) {
+  if (!query.trim() || !window.tools) return [];
+  
+  const q = query.toLowerCase();
+  return window.tools.filter(tool => {
+    const haystack = [
+      tool.name,
+      ...(tool.cats || []),
+      tool.country,
+      tool.region,
+      tool.tagline,
+      tool.when,
+      tool.audience
+    ].join(' ').toLowerCase();
+    return haystack.includes(q);
+  }).slice(0, 8); // Limit to 8 results
+}
 
-  function commandHay(t) {
-    return [
-      t.name, t.tagline, t.when,
-      t.country, t.region, t.price,
-      t.apiInfo || '', t.standaloneNote || '', t.audience || ''
-    ].concat(t.cats || [], t.badges || []).join(' ').toLowerCase();
+// Highlight matching text
+function highlightMatch(text, query) {
+  if (!query) return text;
+  const regex = new RegExp(`(${query})`, 'gi');
+  return text.replace(regex, '<mark>$1</mark>');
+}
+
+// Render command results
+function renderCommandResults(results) {
+  commandMatches = results;
+  const container = document.getElementById('commandResults');
+  const countEl = document.getElementById('commandCount');
+  
+  if (!container || !countEl) return;
+  
+  if (results.length === 0) {
+    container.innerHTML = '<div class="command-item"><span class="command-tagline">Niciun rezultat găsit</span></div>';
+    countEl.textContent = '0 rezultate';
+    return;
   }
+  
+  container.innerHTML = results.map((tool, index) => {
+    const query = document.getElementById('commandInput')?.value.toLowerCase() || '';
+    const name = highlightMatch(tool.name, query);
+    const tagline = highlightMatch(tool.tagline || '', query);
+    const when = highlightMatch(tool.when || '', query);
+    
+    // Get tool logos from window scope
+    const toolLogos = window.toolLogos || {};
+    const logo = toolLogos[tool.name] || '🛠️';
+    
+    return `
+      <div class="command-item ${index === commandIndex ? 'active' : ''}"
+           data-index="${index}"
+           role="option"
+           aria-selected="${index === commandIndex}"
+           tabindex="0">
+        <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+          <span class="tool-logo" style="font-size: 18px;" aria-label="${tool.name} logo">${logo}</span>
+          <div style="flex: 1;">
+            <div class="command-name">${name}</div>
+            <div class="command-meta" style="margin-top: 4px;">
+              ${(tool.cats || []).slice(0, 2).map(cat => `<span class="tool-tag" style="font-size: 11px; padding: 2px 6px;">${cat}</span>`).join('')}
+            </div>
+            <div class="command-tagline" style="margin-top: 6px; font-size: 13px;">${tagline || when || tool.tagline}</div>
+          </div>
+        </div>
+        <div class="command-score" style="color: var(--gold); font-family: var(--mono);">↗ ${tool.trend || 80}</div>
+      </div>
+    `;
+  }).join('');
+  
+  countEl.textContent = `${results.length} rezultate`;
+}
 
-  function intentMatches(q) {
-    var nq = normKey(q);
-    return (window.TASK_INTENTS || []).map(function (intent) {
-      var hits = intent.words.filter(function (w) { return nq.includes(normKey(w)); });
-      return hits.length ? { intent: intent, hits: hits } : null;
-    }).filter(Boolean);
-  }
+// Update active command item
+function updateActiveCommandItem() {
+  const items = document.querySelectorAll('.command-item');
+  items.forEach((item, index) => {
+    item.classList.toggle('active', index === commandIndex);
+    item.setAttribute('aria-selected', index === commandIndex);
+  });
+}
 
-  /** Simple fuzzy-match score: fraction of needle chars found in order in haystack. */
-  function fuzzyScore(needle, haystack) {
-    if (!needle || !haystack) return 0;
-    var score = 0, hi = 0;
-    for (var ni = 0; ni < needle.length && hi < haystack.length; ni++) {
-      while (hi < haystack.length && haystack[hi] !== needle[ni]) hi++;
-      if (hi < haystack.length) { score++; hi++; }
-    }
-    return score / needle.length;
-  }
-
-  function rankForTask(t, q) {
-    var nq = normKey(q);
-    var hay = normKey(commandHay(t));
-    var words = nq.split(/\s+/).filter(Boolean);
-    var score = 0;
-    var reasons = [];
-
-    if (!nq) { score += t.trend / 2; }
-
-    words.forEach(function (w) {
-      if (w.length > 1 && hay.includes(w)) score += 7;
-    });
-
-    var toolNameNorm = normKey(t.name);
-    if (nq && toolNameNorm.includes(nq)) score += 60;
-    if (nq && toolNameNorm === nq) score += 30;
-
-    /* Fuzzy name bonus for queries ≥ 3 chars */
-    if (nq && nq.length >= 3) {
-      var fs = fuzzyScore(nq, toolNameNorm);
-      if (fs > 0.7) score += Math.round(fs * 20);
-    }
-
-    (window.TASK_INTENTS || []).forEach(function (intent) {
-      var it = intent;
-      if (it.cats) {
-        var overlap = it.cats.filter(function (c) { return t.cats.includes(c); }).length;
-        if (overlap) { score += 34 * overlap; reasons.push(it.label); }
+// Handle keyboard navigation
+function handleCommandKeydown(e) {
+  const results = document.querySelectorAll('.command-item');
+  if (results.length === 0) return;
+  
+  switch (e.key) {
+    case 'ArrowDown':
+      e.preventDefault();
+      commandIndex = (commandIndex + 1) % results.length;
+      updateActiveCommandItem();
+      results[commandIndex]?.scrollIntoView({ block: 'nearest' });
+      break;
+    case 'ArrowUp':
+      e.preventDefault();
+      commandIndex = (commandIndex - 1 + results.length) % results.length;
+      updateActiveCommandItem();
+      results[commandIndex]?.scrollIntoView({ block: 'nearest' });
+      break;
+    case 'Enter':
+      e.preventDefault();
+      if (commandMatches[commandIndex]) {
+        if (typeof window.openToolDetails === 'function') {
+          window.openToolDetails(commandMatches[commandIndex].name);
+        }
+        closeCommandPalette();
       }
-      if (it.price && it.price.includes(t.price)) { score += 16; reasons.push(it.label); }
-      if (it.region && t.region === it.region)    { score += 18; reasons.push(it.label); }
-    });
-
-    if (t.trend >= 85) score += 8;
-    if (t.price === 'gratuit' || t.price === 'freemium') score += 3;
-
-    var deduped = [];
-    reasons.forEach(function (r) { if (!deduped.includes(r)) deduped.push(r); });
-    var reason = deduped.slice(0, 2).join(' · ')
-      || (nq ? 'Potrivire după nume, descriere sau categorie' : 'Popular acum');
-
-    return { tool: t, score: score, reason: reason };
+      break;
+    case 'Escape':
+      closeCommandPalette();
+      break;
+    case 'Tab':
+      e.preventDefault(); // Prevent tab from leaving modal
+      break;
   }
+}
 
-  /* ── Rendering ────────────────────────────────────────────────────────────── */
-
-  function updateActive() {
-    document.querySelectorAll('.command-item').forEach(function (el, j) {
-      el.classList.toggle('active', j === cpIndex);
-      el.setAttribute('aria-selected', String(j === cpIndex));
-    });
-  }
-
-  function renderCommandResults() {
-    var inputEl  = document.getElementById('commandInput');
-    var resultsEl = document.getElementById('commandResults');
-    var countEl   = document.getElementById('commandCount');
-    if (!inputEl || !resultsEl) return;
-
-    var q = inputEl.value.trim();
-
-    if (!q) {
-      cpMatches = Array.prototype.slice.call(window.tools || [])
-        .sort(function (a, b) { return b.trend - a.trend; })
-        .slice(0, 8)
-        .map(function (t) { return { tool: t, score: t.trend, reason: 'Popular acum' }; });
-    } else {
-      cpMatches = (window.tools || [])
-        .map(function (t) { return rankForTask(t, q); })
-        .filter(function (r) { return r.score > 0; })
-        .sort(function (a, b) { return b.score - a.score || b.tool.trend - a.tool.trend; })
-        .slice(0, 8);
+// Initialize Command Palette
+function initCommandPalette() {
+  const input = document.getElementById('commandInput');
+  const modal = document.getElementById('commandModal');
+  
+  if (!input || !modal) return;
+  
+  // Open with Cmd+K / Ctrl+K
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      openCommandPalette();
     }
-
-    if (cpIndex >= cpMatches.length) cpIndex = 0;
-    if (countEl) countEl.textContent = cpMatches.length + ' recomandări';
-
-    if (!cpMatches.length) {
-      resultsEl.innerHTML = '<div class="loading-state">Nu am găsit o potrivire bună. Încearcă: „analizez excel", „fac video", „scriu cod".</div>';
-      return;
+  });
+  
+  // Close with Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('show')) {
+      closeCommandPalette();
     }
-
-    resultsEl.innerHTML = cpMatches.map(function (r, i) {
-      var t = r.tool;
-      var flagEmoji = window.flag ? (window.flag[t.country] || '🌍') : '🌍';
-      var priceLabel = window.priceLabels ? (window.priceLabels[t.price] || t.price) : t.price;
-      return '<div class="command-item' + (i === cpIndex ? ' active' : '') +
-        '" data-command-index="' + i +
-        '" role="option" aria-selected="' + (i === cpIndex) + '">' +
-        '<div>' +
-        '<div class="command-name">' + (typeof escapeHtml === 'function' ? escapeHtml(flagEmoji + ' ' + t.name) : flagEmoji + ' ' + t.name) + '</div>' +
-        '<div class="command-meta">' + (typeof escapeHtml === 'function' ? escapeHtml(t.country + ' · ' + priceLabel + ' · ' + (t.cats || []).join(', ')) : t.country + ' · ' + priceLabel + ' · ' + (t.cats || []).join(', ')) + '</div>' +
-        '<div class="command-tagline">' + (typeof escapeHtml === 'function' ? escapeHtml(t.tagline) : t.tagline) + '</div>' +
-        '<div class="command-reason">Potrivire: ' + (typeof escapeHtml === 'function' ? escapeHtml(r.reason) : r.reason) + '</div>' +
-        '</div>' +
-        '<div class="command-score">↗ ' + (typeof escapeHtml === 'function' ? escapeHtml(String(t.trend)) : String(t.trend)) + '</div>' +
-        '</div>';
-    }).join('');
-
-    document.querySelectorAll('[data-command-index]').forEach(function (el) {
-      el.addEventListener('mouseenter', function () {
-        cpIndex = +el.dataset.commandIndex;
-        updateActive();
-      });
-      el.addEventListener('mousedown', function (e) {
-        e.preventDefault();
-        cpIndex = +el.dataset.commandIndex;
-        selectCommand(false);
-      });
-    });
-  }
-
-  /* Debounce delay for command palette input (ms) */
-  var DEBOUNCE_DELAY = 120;
-
-  function debouncedRender() {
-    clearTimeout(cpRenderTimer);
-    cpRenderTimer = setTimeout(renderCommandResults, DEBOUNCE_DELAY);
-  }
-
-  /* ── Selection ────────────────────────────────────────────────────────────── */
-
-  function selectCommand(openLink) {
-    var r = cpMatches[cpIndex];
-    var t = r && r.tool;
-    if (!t) return;
-    closeCommandPalette();
-    if (openLink) { window.open(t.url, '_blank', 'noopener,noreferrer'); return; }
-    if (typeof window.openDecision === 'function') {
-      window.openDecision(t.name);
-    } else if (typeof window.openToolDetails === 'function') {
-      window.openToolDetails(t.name);
-    }
-  }
-
-  /* ── Public API ───────────────────────────────────────────────────────────── */
-
-  window.openCommandPalette = function (seed) {
-    setOpen(true);
-    cpIndex = 0;
-    cpPrevFocus = document.activeElement;
-    var modal = document.getElementById('commandModal');
-    var input = document.getElementById('commandInput');
-    if (!modal || !input) return;
-    modal.classList.add('show');
-    input.value = seed != null ? String(seed) : '';
-    renderCommandResults();
-    setTimeout(function () { input.focus(); }, 20);
-  };
-
-  window.closeCommandPalette = function () {
-    setOpen(false);
-    var modal = document.getElementById('commandModal');
-    if (modal) modal.classList.remove('show');
-    if (cpPrevFocus) { try { cpPrevFocus.focus(); } catch (e) {} }
-    cpPrevFocus = null;
-  };
-
-  /* ── Init (called from app.js after tools are loaded) ────────────────────── */
-
-  window.initCommandPalette = function () {
-    var input = document.getElementById('commandInput');
-    var modal = document.getElementById('commandModal');
-    var btn   = document.getElementById('commandBtn');
-
-    if (input) {
-      input.addEventListener('input', function () {
-        cpIndex = 0;
-        debouncedRender();
-      });
-    }
-
-    if (modal) {
-      modal.addEventListener('click', function (e) {
-        if (e.target === modal) closeCommandPalette();
-      });
-    }
-
-    if (btn) {
-      btn.addEventListener('click', function () { openCommandPalette(); });
-    }
-
-    /* Keyboard navigation – only active when palette is open */
-    document.addEventListener('keydown', function (e) {
-      if (!cpOpen) return;
-      var len = Math.max(cpMatches.length, 1);
-      if (e.key === 'Escape') { e.preventDefault(); closeCommandPalette(); return; }
-      if (e.key === 'ArrowDown') { e.preventDefault(); cpIndex = (cpIndex + 1) % len; updateActive(); return; }
-      if (e.key === 'ArrowUp')   { e.preventDefault(); cpIndex = (cpIndex - 1 + len) % len; updateActive(); return; }
-      if (e.key === 'Enter')     { e.preventDefault(); selectCommand(e.metaKey || e.ctrlKey); }
-    });
-
-    /* Global Cmd+K / Ctrl+K shortcut */
-    document.addEventListener('keydown', function (e) {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        openCommandPalette();
+  });
+  
+  // Real-time search with debounce
+  let searchTimeout;
+  input.addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      const results = filterTools(e.target.value);
+      renderCommandResults(results);
+      commandIndex = 0;
+      updateActiveCommandItem();
+    }, 100);
+  });
+  
+  // Keyboard navigation
+  input.addEventListener('keydown', handleCommandKeydown);
+  
+  // Click on item
+  modal.querySelector('.command-results')?.addEventListener('click', (e) => {
+    const item = e.target.closest('.command-item');
+    if (item) {
+      const index = parseInt(item.dataset.index);
+      if (commandMatches[index] && typeof window.openToolDetails === 'function') {
+        window.openToolDetails(commandMatches[index].name);
       }
-    });
-  };
+      closeCommandPalette();
+    }
+  });
+  
+  // Close on overlay click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeCommandPalette();
+    }
+  });
+  
+  // Close on blur (for mobile)
+  input.addEventListener('blur', () => {
+    // Don't close immediately on mobile to allow clicking results
+    setTimeout(() => {
+      if (document.activeElement !== input && !modal.contains(document.activeElement)) {
+        closeCommandPalette();
+      }
+    }, 200);
+  });
+}
 
-  /* Auto-initialize when DOM is ready */
-  if (document.readyState !== 'loading') {
-    window.initCommandPalette();
-  } else {
-    document.addEventListener('DOMContentLoaded', window.initCommandPalette);
-  }
-
-})();
+// Export for global scope
+window.initCommandPalette = initCommandPalette;
+window.openCommandPalette = openCommandPalette;
+window.closeCommandPalette = closeCommandPalette;
