@@ -205,17 +205,15 @@ function syncUrl() {
 /* ── Initialisation ─────────────────────────────────────────────────────── */
 async function init() {
   loadState();
-  if ($('search')) $('search').value = searchQuery;
-  if ($('compactSearch')) $('compactSearch').value = searchQuery;
   tools = FALLBACK_TOOLS.map(normalize);
   isLoading = false;
   if ($('metaTools')) $('metaTools').textContent = tools.length;
   renderWizard();
-  renderPills();
   renderTrending();
   renderRadar();
   renderTools();
   setupUiEnhancements();
+  setupToolbar();
 
   try {
     const r = await fetch('tools-market.json');
@@ -229,12 +227,10 @@ async function init() {
   }
 
   if ($('metaTools')) $('metaTools').textContent = tools.length;
-  if ($('search')) $('search').value = searchQuery;
-  if ($('compactSearch')) $('compactSearch').value = searchQuery;
-  renderPills();
   renderTrending();
   renderRadar();
   renderTools();
+  if (typeof setupToolbar.__repopulate === 'function') setupToolbar.__repopulate();
 
   if (typeof initCommandPalette === 'function') initCommandPalette();
   if (typeof initDecisionModal   === 'function') initDecisionModal();
@@ -313,24 +309,7 @@ function pills(items, active, kind) {
   ).join('');
 }
 
-function renderPills() {
-  if ($('categoryPills')) $('categoryPills').innerHTML = pills(categories, activeCat, 'cat');
-  if ($('pricePills')) $('pricePills').innerHTML = pills(prices, activePrice, 'price');
-  if ($('regionPills')) $('regionPills').innerHTML = pills(regions, activeRegion, 'region');
-  document.querySelectorAll('[data-cat]').forEach(   b => b.onclick = () => { hasInteracted=true; activeCat   =b.dataset.cat;    save(); renderPills(); renderTools(); });
-  document.querySelectorAll('[data-price]').forEach(  b => b.onclick = () => { hasInteracted=true; activePrice =b.dataset.price;  save(); renderPills(); renderTools(); });
-  document.querySelectorAll('[data-region]').forEach( b => b.onclick = () => { hasInteracted=true; activeRegion=b.dataset.region; save(); renderPills(); renderTools(); });
-  document.querySelectorAll('[data-sort]').forEach(b => {
-    b.classList.toggle('active', b.dataset.sort === sortMode);
-    b.onclick = () => {
-      hasInteracted = true;
-      sortMode = b.dataset.sort;
-      save();
-      renderPills();
-      renderTools();
-    };
-  });
-}
+/* renderPills removed — replaced by setupToolbar */
 
 /* ── Wizard ──────────────────────────────────────────────────────────────── */
 function renderWizard() {
@@ -342,11 +321,10 @@ function renderWizard() {
   document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => {
     const p = profiles[+b.dataset.profile];
     hasInteracted = true; activeCat = p.cat; activePrice = activeRegion = 'all'; searchQuery = '';
-    if ($('search')) $('search').value = '';
-    if ($('compactSearch')) $('compactSearch').value = '';
     $('recommendation').innerHTML = 'Recomandare: <strong>' + escapeHtml(p.rec) + '</strong>';
-    save(); renderPills();
+    save();
     renderTools('Am filtrat pentru: <strong>' + escapeHtml(p.title) + '</strong>');
+    if (typeof setupToolbar.__syncToUI === 'function') setupToolbar.__syncToUI();
     document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
   });
 }
@@ -381,9 +359,10 @@ function renderTrending() {
     '<p>' + escapeHtml(t.tagline) + '</p></div>'
   ).join('');
   document.querySelectorAll('[data-trendtool]').forEach(c => c.onclick = () => {
-    hasInteracted=true; searchQuery=c.dataset.trendtool; $('search').value=searchQuery;
-    if ($('compactSearch')) $('compactSearch').value = searchQuery;
-    activeCat=activePrice=activeRegion='all'; save(); renderPills(); renderTools();
+    hasInteracted=true; searchQuery=c.dataset.trendtool;
+    activeCat=activePrice=activeRegion='all'; save();
+    renderTools();
+    if (typeof setupToolbar.__syncToUI === 'function') setupToolbar.__syncToUI();
     document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
   });
 }
@@ -464,6 +443,7 @@ function renderTools(msg) {
     '</div></div>'
   ).join('');
   if ($('resultsCount')) $('resultsCount').innerHTML = msg || 'Afișez <strong>' + out.length + '</strong> din <strong>' + tools.length + '</strong> tooluri';
+  if (window.__stbUpdateCount) window.__stbUpdateCount(out.length);
   wireCards();
 }
 
@@ -474,8 +454,9 @@ function wireCards() {
   document.querySelectorAll('[data-detail]').forEach(  b => b.onclick = () => openDecision(b.dataset.detail));
   document.querySelectorAll('[data-similar]').forEach( b => b.onclick = () => {
     hasInteracted=true; activeCat=b.dataset.similar; activePrice=activeRegion='all'; searchQuery='';
-    $('search').value=''; save(); renderPills();
+    save();
     renderTools('Tooluri similare cu <strong>' + escapeHtml(b.dataset.name) + '</strong>');
+    if (typeof setupToolbar.__syncToUI === 'function') setupToolbar.__syncToUI();
   });
   document.querySelectorAll('[data-fav]').forEach(b => b.onclick = () => {
     favorites.has(b.dataset.fav) ? favorites.delete(b.dataset.fav) : favorites.add(b.dataset.fav);
@@ -524,55 +505,245 @@ function openCompare() {
 function setQuery(v) {
   hasInteracted = true;
   searchQuery = v;
-  if ($('search')) $('search').value = v;
-  if ($('compactSearch')) $('compactSearch').value = v;
   save();
   renderTools();
+  if (typeof setupToolbar.__syncToUI === 'function') setupToolbar.__syncToUI();
 }
 
 window.filterByCategory = function (cat) {
   hasInteracted = true;
-  activeCat = cat;
+  activeCat = cat || 'all';
   activePrice = 'all';
   activeRegion = 'all';
   searchQuery = '';
-  setQuery('');
   save();
-  renderPills();
-  renderTools('Stack: <strong>' + escapeHtml(cat) + '</strong>');
+  renderTools();
+  var stbCat = document.getElementById('stbCat');
+  if (stbCat) stbCat.value = activeCat;
+  var mfsCat = document.getElementById('mfsCat');
+  if (mfsCat) mfsCat.value = activeCat;
+  if (typeof setupToolbar.__syncToUI === 'function') setupToolbar.__syncToUI();
   document.querySelector('#tools')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 
+/* ── Contextual Filter Toolbar ───────────────────────────────────────────── */
+function setupToolbar() {
+  var CAT_LABELS    = { all:'Categorie', programare:'Programare', scris:'Scris', cercetare:'Cercetare', design:'Design', productivitate:'Productivitate', studiu:'Studiu', date:'Date' };
+  var PRICE_LABELS  = { all:'Preț', gratuit:'Gratuit', freemium:'Freemium', platit:'Plătit' };
+  var REGION_LABELS = { all:'Regiune', america:'America', europa:'Europa', asia:'Asia', israel:'Israel' };
+
+  function buildOpts(items, labels) {
+    return items.map(function(item) {
+      var id = Array.isArray(item) ? item[0] : item;
+      var lbl = labels[id] || (Array.isArray(item) ? item[1] : (id.charAt(0).toUpperCase() + id.slice(1)));
+      return { id: id, lbl: lbl };
+    });
+  }
+
+  function fillSelect(el, opts) {
+    if (!el) return;
+    var cur = el.value;
+    el.innerHTML = '';
+    opts.forEach(function(o) {
+      var opt = document.createElement('option');
+      opt.value = o.id;
+      opt.textContent = o.lbl;
+      el.appendChild(opt);
+    });
+    el.value = opts.some(function(o) { return o.id === cur; }) ? cur : opts[0].id;
+  }
+
+  var catOpts    = buildOpts(categories, CAT_LABELS);
+  var priceOpts  = buildOpts(prices, PRICE_LABELS);
+  var regionOpts = buildOpts(regions, REGION_LABELS);
+
+  var stbSearch  = document.getElementById('stbSearch');
+  var stbCat     = document.getElementById('stbCat');
+  var stbPrice   = document.getElementById('stbPrice');
+  var stbRegion  = document.getElementById('stbRegion');
+  var stbSort    = document.getElementById('stbSort');
+  var stbReset   = document.getElementById('stbReset');
+  var stbCount   = document.getElementById('stbCount');
+  var stbActiveBadge      = document.getElementById('stbActiveBadge');
+  var stbActiveBadgeCount = document.getElementById('stbActiveBadgeCount');
+  var mfsCat    = document.getElementById('mfsCat');
+  var mfsPrice  = document.getElementById('mfsPrice');
+  var mfsRegion = document.getElementById('mfsRegion');
+  var mfsSort   = document.getElementById('mfsSort');
+  var mobileBtn    = document.getElementById('stbMobileFilterBtn');
+  var mobileSheet  = document.getElementById('mobileFilterSheet');
+  var mfsBadge     = document.getElementById('stbMobileBadge');
+  var mfsClose     = document.getElementById('mfsClose');
+  var mfsBackdrop  = document.getElementById('mfsBackdrop');
+  var mfsReset     = document.getElementById('mfsReset');
+  var mfsApply     = document.getElementById('mfsApply');
+
+  // Fill selects
+  fillSelect(stbCat,    catOpts);
+  fillSelect(stbPrice,  priceOpts);
+  fillSelect(stbRegion, regionOpts);
+  fillSelect(mfsCat,    catOpts);
+  fillSelect(mfsPrice,  priceOpts);
+  fillSelect(mfsRegion, regionOpts);
+
+  function syncToUI() {
+    if (stbSearch) stbSearch.value = searchQuery;
+    if (stbCat)    stbCat.value    = activeCat;
+    if (stbPrice)  stbPrice.value  = activePrice;
+    if (stbRegion) stbRegion.value = activeRegion;
+    if (stbSort)   stbSort.value   = sortMode;
+    if (mfsCat)    mfsCat.value    = activeCat;
+    if (mfsPrice)  mfsPrice.value  = activePrice;
+    if (mfsRegion) mfsRegion.value = activeRegion;
+    if (mfsSort)   mfsSort.value   = sortMode;
+
+    var activeCount = (activeCat !== 'all' ? 1 : 0) + (activePrice !== 'all' ? 1 : 0) + (activeRegion !== 'all' ? 1 : 0) + (sortMode !== 'default' ? 1 : 0);
+    var showReset   = activeCount > 0 || searchQuery.trim().length > 0;
+
+    if (stbCat)    stbCat.classList.toggle('active',    activeCat    !== 'all');
+    if (stbPrice)  stbPrice.classList.toggle('active',  activePrice  !== 'all');
+    if (stbRegion) stbRegion.classList.toggle('active', activeRegion !== 'all');
+    if (stbSort)   stbSort.classList.toggle('active',   sortMode     !== 'default');
+
+    if (stbReset) stbReset.style.display = showReset ? '' : 'none';
+    if (stbActiveBadge) {
+      stbActiveBadge.style.display = activeCount > 0 ? '' : 'none';
+      if (stbActiveBadgeCount) stbActiveBadgeCount.textContent = activeCount;
+    }
+    if (mfsBadge) {
+      mfsBadge.style.display = activeCount > 0 ? '' : 'none';
+      mfsBadge.textContent   = activeCount;
+    }
+    if (mobileBtn) mobileBtn.setAttribute('aria-expanded', mobileSheet && !mobileSheet.hidden ? 'true' : 'false');
+  }
+
+  function updateCount(n) {
+    if (stbCount) stbCount.textContent = n + ' tooluri';
+  }
+
+  // Expose on setupToolbar for external callers
+  setupToolbar.__syncToUI   = syncToUI;
+  setupToolbar.__repopulate = function() {
+    fillSelect(stbCat,    catOpts);
+    fillSelect(stbPrice,  priceOpts);
+    fillSelect(stbRegion, regionOpts);
+    fillSelect(mfsCat,    catOpts);
+    fillSelect(mfsPrice,  priceOpts);
+    fillSelect(mfsRegion, regionOpts);
+    syncToUI();
+  };
+
+  // Debounced search
+  var searchTimer;
+  if (stbSearch) {
+    stbSearch.addEventListener('input', function() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(function() {
+        hasInteracted = true;
+        searchQuery = stbSearch.value;
+        save(); renderTools(); syncToUI();
+      }, 150);
+    });
+    stbSearch.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        stbSearch.value = ''; searchQuery = '';
+        save(); renderTools(); syncToUI();
+      }
+    });
+  }
+
+  // Desktop selects
+  if (stbCat)    stbCat.addEventListener('change',    function() { hasInteracted=true; activeCat    = stbCat.value;    save(); renderTools(); syncToUI(); });
+  if (stbPrice)  stbPrice.addEventListener('change',  function() { hasInteracted=true; activePrice  = stbPrice.value;  save(); renderTools(); syncToUI(); });
+  if (stbRegion) stbRegion.addEventListener('change', function() { hasInteracted=true; activeRegion = stbRegion.value; save(); renderTools(); syncToUI(); });
+  if (stbSort)   stbSort.addEventListener('change',   function() { hasInteracted=true; sortMode     = stbSort.value;   save(); renderTools(); syncToUI(); });
+
+  // Reset
+  function doReset() {
+    hasInteracted = false; hasDeepLink = false;
+    activeCat = activePrice = activeRegion = 'all';
+    searchQuery = ''; sortMode = 'default';
+    safeStorageSet('aiRadarState', '{}'); syncUrl();
+    syncToUI(); renderTools(); toast('Filtre resetate');
+  }
+  if (stbReset) stbReset.addEventListener('click', doReset);
+
+  // Mobile sheet
+  function openSheet() {
+    if (!mobileSheet) return;
+    mobileSheet.hidden = false;
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function() { mobileSheet.classList.add('open'); });
+    if (mobileBtn) mobileBtn.setAttribute('aria-expanded', 'true');
+    setTimeout(function() { if (mfsClose) mfsClose.focus(); }, 50);
+  }
+  function closeSheet() {
+    if (!mobileSheet) return;
+    mobileSheet.classList.remove('open');
+    document.body.style.overflow = '';
+    if (mobileBtn) mobileBtn.setAttribute('aria-expanded', 'false');
+    setTimeout(function() { mobileSheet.hidden = true; }, 300);
+  }
+  if (mobileBtn)   mobileBtn.addEventListener('click', openSheet);
+  if (mfsClose)    mfsClose.addEventListener('click', closeSheet);
+  if (mfsBackdrop) mfsBackdrop.addEventListener('click', closeSheet);
+  if (mfsReset)    mfsReset.addEventListener('click', function() {
+    doReset();
+    if (mfsCat)    mfsCat.value    = 'all';
+    if (mfsPrice)  mfsPrice.value  = 'all';
+    if (mfsRegion) mfsRegion.value = 'all';
+    if (mfsSort)   mfsSort.value   = 'default';
+  });
+  if (mfsApply)    mfsApply.addEventListener('click', function() {
+    hasInteracted = true;
+    if (mfsCat)    activeCat    = mfsCat.value;
+    if (mfsPrice)  activePrice  = mfsPrice.value;
+    if (mfsRegion) activeRegion = mfsRegion.value;
+    if (mfsSort)   sortMode     = mfsSort.value;
+    save(); renderTools(); syncToUI(); closeSheet();
+  });
+
+  // Esc closes sheet
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && mobileSheet && !mobileSheet.hidden) closeSheet();
+  });
+
+  // Focus trap inside mobile sheet
+  if (mobileSheet) {
+    mobileSheet.addEventListener('keydown', function(e) {
+      if (e.key !== 'Tab') return;
+      var focusable = Array.from(mobileSheet.querySelectorAll('button, select, [tabindex]:not([tabindex="-1"])'));
+      var visible = focusable.filter(function(el) { return !el.closest('[hidden]'); });
+      if (!visible.length) return;
+      var first = visible[0], last = visible[visible.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  }
+
+  // Toolbar elevation on scroll
+  var toolbar = document.getElementById('signalToolbar');
+  if (toolbar) {
+    window.addEventListener('scroll', function() {
+      toolbar.classList.toggle('elevated', window.scrollY > 100);
+    }, { passive: true });
+  }
+
+  // Expose updateCount
+  window.__stbUpdateCount = updateCount;
+
+  // Initial sync
+  syncToUI();
+}
+
 function setupUiEnhancements() {
-  setupScrollHide();
+  /* setupScrollHide removed — replaced by toolbar elevation in setupToolbar */
   setupStackButtons();
   setupTheme();
   setupFooterSubscribe();
-}
-
-function setupScrollHide() {
-  const filtersEl = $('filters');
-  const compactEl = $('compactBar');
-  if (!filtersEl || !compactEl) return;
-
-  let last = 0;
-  window.addEventListener('scroll', () => {
-    const now = window.scrollY;
-    if (now > last && now > 120) {
-      filtersEl.classList.add('filters-hidden');
-      compactEl.classList.add('show');
-    } else {
-      filtersEl.classList.remove('filters-hidden');
-      compactEl.classList.remove('show');
-    }
-    last = now;
-  });
-
-  $('showFilters')?.addEventListener('click', () => {
-    filtersEl.classList.remove('filters-hidden');
-    compactEl.classList.remove('show');
-    filtersEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
 }
 
 function setupStackButtons() {
@@ -583,10 +754,10 @@ function setupStackButtons() {
       activeCat = btn.dataset.stack;
       activePrice = 'all';
       activeRegion = 'all';
-      setQuery('');
+      searchQuery = '';
       save();
-      renderPills();
       renderTools('Stack: <strong>' + escapeHtml(btn.dataset.stack) + '</strong>');
+      if (typeof setupToolbar.__syncToUI === 'function') setupToolbar.__syncToUI();
       document.querySelector('#tools')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
   });
@@ -597,10 +768,10 @@ function setupStackButtons() {
       activeRegion = btn.dataset.regionStack;
       activeCat = 'all';
       activePrice = 'all';
-      setQuery('');
+      searchQuery = '';
       save();
-      renderPills();
       renderTools('Radar: <strong>' + escapeHtml(btn.dataset.regionStack) + '</strong>');
+      if (typeof setupToolbar.__syncToUI === 'function') setupToolbar.__syncToUI();
       document.querySelector('#tools')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
   });
@@ -647,24 +818,13 @@ function setupFooterSubscribe() {
 }
 
 /* ── Event wiring ────────────────────────────────────────────────────────── */
-$('search').oninput = e => setQuery(e.target.value);
-$('compactSearch')?.addEventListener('input', e => setQuery(e.target.value));
-
-$('resetBtn').onclick = () => {
-  hasInteracted=false; hasDeepLink=false;
-  activeCat=activePrice=activeRegion='all';
-  searchQuery=''; sortMode='default';
-  if ($('search')) $('search').value='';
-  if ($('compactSearch')) $('compactSearch').value='';
-  safeStorageSet('aiRadarState','{}'); syncUrl();
-  renderPills(); renderTools(); toast('Filtre resetate');
-};
+/* Note: search/reset are now handled by setupToolbar() */
 
 $('favQuick').onclick = () => {
   hasInteracted=true; sortMode='favorites';
   save();
-  renderPills();
   renderTools('Favoritele sunt afișate primele.');
+  if (typeof setupToolbar.__syncToUI === 'function') setupToolbar.__syncToUI();
 };
 
 $('openCompare').onclick  = openCompare;
