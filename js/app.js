@@ -88,6 +88,12 @@ let favorites = new Set(JSON.parse(safeStorageGet('aiRadarFavorites', '[]')));
 let compare   = new Set();
 const $ = id => document.getElementById(id);
 
+/* Push local vars → SignalState so other modules can read reactive state */
+function _statePush() {
+  if (!window.SignalState) return;
+  SignalState.patch({ activeCat, activePrice, activeRegion, searchQuery, sortMode, hasInteracted, hasDeepLink, isLoading }, true);
+}
+
 /* ── Storage helpers ─────────────────────────────────────────────────────── */
 function safeStorageGet(k, f) { try { return localStorage.getItem(k) || f; } catch (e) { return f; } }
 function safeStorageSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -174,6 +180,7 @@ function readUrlState() {
 function save() {
   safeStorageSet('aiRadarState', JSON.stringify({activeCat, activePrice, activeRegion, searchQuery, sortMode}));
   syncUrl();
+  _statePush();
 }
 
 function loadState() {
@@ -186,6 +193,7 @@ function loadState() {
     sortMode     = s.sortMode     || sortMode;
   } catch (e) {}
   readUrlState();
+  _statePush();
 }
 
 function syncUrl() {
@@ -195,6 +203,9 @@ function syncUrl() {
   if (activeRegion !== 'all') p.set('region', activeRegion);
   if (searchQuery.trim())     p.set('q',      searchQuery.trim());
   if (sortMode !== 'default') p.set('sort',   sortMode);
+  /* preserve ?tool= if a decision modal is open */
+  const tool = new URLSearchParams(location.search).get('tool');
+  if (tool) p.set('tool', tool);
   const qs = p.toString();
   history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
 }
