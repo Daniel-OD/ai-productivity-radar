@@ -1285,6 +1285,8 @@ footer {
 
 <!-- SignalState reactive store (must load before inline app script) -->
 <script src="js/state.js"></script>
+<!-- SignalRouter — client-side ?tool= deep-link routing -->
+<script src="js/router.js"></script>
 
 <!-- Service Worker Registration -->
 <script>
@@ -1700,20 +1702,19 @@ function setDataStatus(mode, msg) {
 }
 
 // ==================== TOOL DETAILS MODAL ====================
-function openToolDetails(toolName) {
+function _openToolModal(toolName) {
   const tool = tools.find(t => t.name === toolName);
   if (!tool) return;
-  
+
   const modal = $('toolDetailsModal');
   const nameEl = $('toolDetailsName');
   const contentEl = $('toolDetailsContent');
-  
+
   nameEl.textContent = tool.name;
-  
-  // Generate star rating
+
   const stars = '⭐'.repeat(Math.floor((tool.trend || 80) / 20));
   const emptyStars = '☆'.repeat(5 - Math.floor((tool.trend || 80) / 20));
-  
+
   contentEl.innerHTML = `
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
       <div class="tool-logo" style="width: 48px; height: 48px; font-size: 24px;">${toolLogos[tool.name] || '🛠️'}</div>
@@ -1733,12 +1734,35 @@ function openToolDetails(toolName) {
       <button class="secondary" onclick="closeToolDetails()">Închide</button>
     </div>
   `;
-  
+
   modal.classList.add('show');
 }
 
-function closeToolDetails() {
+function _closeToolModal() {
   $('toolDetailsModal').classList.remove('show');
+}
+
+// Public API — routes through SignalRouter so the back button works
+function openToolDetails(toolName) {
+  if (window.SignalRouter) {
+    SignalRouter.push(toolName);
+  } else {
+    _openToolModal(toolName);
+  }
+}
+
+function closeToolDetails() {
+  if (window.SignalRouter) {
+    SignalRouter.pop();
+  } else {
+    _closeToolModal();
+  }
+}
+
+// Register modal open/close with the router once the module is loaded
+if (window.SignalRouter) {
+  SignalRouter.registerOpen(_openToolModal);
+  SignalRouter.registerClose(_closeToolModal);
 }
 
 // ==================== RENDER FUNCTIONS ====================
@@ -2162,8 +2186,16 @@ async function init() {
         toast('Filtru din URL aplicat');
       }, 350);
     }
+
+    // Handle ?tool= deep-link after tools are loaded
+    if (window.SignalRouter) {
+      SignalRouter.handleDeepLink();
+    } else {
+      const toolParam = new URLSearchParams(location.search).get('tool');
+      if (toolParam) setTimeout(() => _openToolModal(toolParam), 400);
+    }
   }
-  
+
   // Initialize theme toggle
   const themeBtn = document.getElementById('themeToggle');
   if (themeBtn) {
