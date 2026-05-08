@@ -108,7 +108,7 @@ function renderCommandResults(results) {
     const logo = toolLogos[tool.name] || '🛠️';
     
     // Escape tool name for use in onclick
-    const escapedName = tool.name.replace(/'/g, "\\'\\'");
+    const escapedName = tool.name.replace(/'/g, "\\'\"");
     
     return `
       <div class="command-item ${index === commandIndex ? 'active' : ''}"
