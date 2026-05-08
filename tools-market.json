@@ -61,7 +61,8 @@
         "Mistral / Le Chat"
       ],
       "pricing": "Gratuit (GPT-4o limitat) · Plus $20/lună · Team $30/user/lună · API pay-as-you-go",
-      "trendExplanation": "Rămâne liderul pieței cu cea mai mare bază de utilizatori și ecosistemul de plugin-uri/GPTs."
+      "trendExplanation": "Rămâne liderul pieței cu cea mai mare bază de utilizatori și ecosistemul de plugin-uri/GPTs.",
+      "url": "https://chat.openai.com"
     },
     {
       "name": "Claude",
@@ -121,7 +122,8 @@
         "DeepSeek"
       ],
       "pricing": "Gratuit (Claude Sonnet limitat) · Pro $20/lună · Team $25/user/lună · API pay-as-you-go",
-      "trendExplanation": "Creștere rapidă în mediu enterprise pentru task-uri de codare și analiză unde precizia contează mai mult decât viteza."
+      "trendExplanation": "Creștere rapidă în mediu enterprise pentru task-uri de codare și analiză unde precizia contează mai mult decât viteza.",
+      "url": "https://claude.ai"
     },
     {
       "name": "Perplexity",
@@ -149,7 +151,8 @@
         "iOS",
         "Android"
       ],
-      "standaloneNote": "Ideal ca motor de research direct în interfața web."
+      "standaloneNote": "Ideal ca motor de research direct în interfața web.",
+      "url": "https://www.perplexity.ai"
     },
     {
       "name": "Cursor",
@@ -178,7 +181,8 @@
         "OpenAI",
         "Anthropic"
       ],
-      "standaloneNote": "Se folosește ca editor desktop cu AI inclus."
+      "standaloneNote": "Se folosește ca editor desktop cu AI inclus.",
+      "url": "https://www.cursor.com"
     },
     {
       "name": "DeepSeek",
@@ -209,7 +213,8 @@
         "LlamaIndex",
         "n8n"
       ],
-      "standaloneNote": "Poți testa direct în chat-ul oficial fără integrare."
+      "standaloneNote": "Poți testa direct în chat-ul oficial fără integrare.",
+      "url": "https://www.deepseek.com"
     },
     {
       "name": "Qwen / Tongyi Qianwen",
@@ -239,7 +244,8 @@
         "LangChain",
         "Hugging Face"
       ],
-      "standaloneNote": "Are și interfață de chat pentru utilizare directă."
+      "standaloneNote": "Are și interfață de chat pentru utilizare directă.",
+      "url": "https://tongyi.aliyun.com"
     },
     {
       "name": "Kimi",
@@ -268,7 +274,8 @@
         "iOS",
         "Android"
       ],
-      "standaloneNote": "Excelent pentru citit documente lungi direct din aplicație."
+      "standaloneNote": "Excelent pentru citit documente lungi direct din aplicație.",
+      "url": "https://kimi.moonshot.cn"
     },
     {
       "name": "Manus",
@@ -294,7 +301,8 @@
       "integrations": [
         "Browser automation"
       ],
-      "standaloneNote": "Rulezi task-uri end-to-end direct din interfață."
+      "standaloneNote": "Rulezi task-uri end-to-end direct din interfață.",
+      "url": "https://manus.im"
     },
     {
       "name": "Mistral / Le Chat",
@@ -326,7 +334,8 @@
         "LangChain",
         "Hugging Face"
       ],
-      "standaloneNote": "Le Chat acoperă utilizarea de zi cu zi fără cod."
+      "standaloneNote": "Le Chat acoperă utilizarea de zi cu zi fără cod.",
+      "url": "https://chat.mistral.ai"
     },
     {
       "name": "Hugging Face",
@@ -358,7 +367,8 @@
         "Gradio",
         "GitHub Actions"
       ],
-      "standaloneNote": "Poți testa modele direct în Spaces fără infrastructură proprie."
+      "standaloneNote": "Poți testa modele direct în Spaces fără infrastructură proprie.",
+      "url": "https://huggingface.co"
     },
     {
       "name": "Aleph Alpha",
@@ -388,7 +398,8 @@
         "Enterprise middleware",
         "Custom REST"
       ],
-      "standaloneNote": "Se adoptă în special prin implementări enterprise asistate."
+      "standaloneNote": "Se adoptă în special prin implementări enterprise asistate.",
+      "url": "https://www.aleph-alpha.com"
     },
     {
       "name": "Synthesia",
@@ -416,7 +427,8 @@
         "PowerPoint",
         "LMS export"
       ],
-      "standaloneNote": "Creezi video cu avatar direct din dashboard, fără editare clasică."
+      "standaloneNote": "Creezi video cu avatar direct din dashboard, fără editare clasică.",
+      "url": "https://www.synthesia.io"
     },
     {
       "name": "NotebookLM",
@@ -446,7 +458,8 @@
         "Docs",
         "PDF upload"
       ],
-      "standaloneNote": "Upload documente și discută cu ele direct în interfață."
+      "standaloneNote": "Upload documente și discută cu ele direct în interfață.",
+      "url": "https://notebooklm.google.com"
     },
     {
       "name": "Julius AI",
@@ -475,7 +488,8 @@
         "Excel",
         "Google Sheets"
       ],
-      "standaloneNote": "Încarci date și primești analize fără SQL/Python."
+      "standaloneNote": "Încarci date și primești analize fără SQL/Python.",
+      "url": "https://julius.ai"
     },
     {
       "name": "Power BI Copilot",
@@ -506,7 +520,8 @@
         "Teams",
         "Excel"
       ],
-      "standaloneNote": "Ideal dacă deja folosești Power BI în organizație."
+      "standaloneNote": "Ideal dacă deja folosești Power BI în organizație.",
+      "url": "https://powerbi.microsoft.com"
     },
     {
       "name": "Tableau Pulse",
@@ -535,7 +550,8 @@
         "Slack",
         "Tableau Cloud"
       ],
-      "standaloneNote": "Funcționează în ecosistemul Tableau pentru monitorizare KPI."
+      "standaloneNote": "Funcționează în ecosistemul Tableau pentru monitorizare KPI.",
+      "url": "https://www.tableau.com"
     },
     {
       "name": "Hex",
@@ -566,7 +582,8 @@
         "dbt",
         "GitHub"
       ],
-      "standaloneNote": "Poți lucra direct în interfața colaborativă Hex."
+      "standaloneNote": "Poți lucra direct în interfața colaborativă Hex.",
+      "url": "https://hex.tech"
     },
     {
       "name": "ThoughtSpot",
@@ -596,7 +613,8 @@
         "Salesforce",
         "Google Cloud"
       ],
-      "standaloneNote": "Îl poți folosi standalone ca search analytics platform."
+      "standaloneNote": "Îl poți folosi standalone ca search analytics platform.",
+      "url": "https://www.thoughtspot.com"
     },
     {
       "name": "Databricks Assistant",
@@ -626,7 +644,8 @@
         "Delta Lake",
         "MLflow"
       ],
-      "standaloneNote": "Asistentul este disponibil în workspace-ul Databricks."
+      "standaloneNote": "Asistentul este disponibil în workspace-ul Databricks.",
+      "url": "https://www.databricks.com"
     },
     {
       "name": "Naver HyperCLOVA X",
@@ -655,7 +674,8 @@
         "Naver Cloud",
         "Custom REST"
       ],
-      "standaloneNote": "Cel mai des adoptat prin integrare în produse coreene."
+      "standaloneNote": "Cel mai des adoptat prin integrare în produse coreene.",
+      "url": "https://clova.ai"
     },
     {
       "name": "AI21 Labs / Jamba",
@@ -685,7 +705,8 @@
         "AWS Bedrock",
         "OpenRouter"
       ],
-      "standaloneNote": "Folosire principală prin API pentru produse proprii."
+      "standaloneNote": "Folosire principală prin API pentru produse proprii.",
+      "url": "https://www.ai21.com"
     },
     {
       "name": "LobeChat",
@@ -716,7 +737,8 @@
         "OpenAI-compatible APIs"
       ],
       "standaloneNote": "Poate rula local/self-hosted pentru confidențialitate.",
-      "type": "hybrid"
+      "type": "hybrid",
+      "url": "https://lobehub.com"
     },
     {
       "name": "Agora AI",
@@ -747,7 +769,8 @@
         "Microsoft Teams"
       ],
       "standaloneNote": "Funcționează imediat în web app pentru sesiuni de studiu.",
-      "type": "hybrid"
+      "type": "hybrid",
+      "url": "https://agora-ai.ro"
     },
     {
       "name": "NovaAI",
@@ -778,7 +801,8 @@
         "Google Sheets"
       ],
       "standaloneNote": "Poate fi folosit direct în portalul web pentru rapoarte rapide.",
-      "type": "hybrid"
+      "type": "hybrid",
+      "url": "https://nova-ai.ro"
     },
     {
       "name": "RoboChat",
@@ -809,7 +833,8 @@
         "HubSpot"
       ],
       "standaloneNote": "Pornești rapid din editorul vizual, fără cod.",
-      "type": "hybrid"
+      "type": "hybrid",
+      "url": "https://robochat.ro"
     },
     {
       "name": "TextLang AI",
@@ -839,7 +864,8 @@
         "Zendesk"
       ],
       "standaloneNote": "Are editor web dedicat pentru lucru rapid pe texte.",
-      "type": "hybrid"
+      "type": "hybrid",
+      "url": "https://textlang.ai"
     },
     {
       "name": "Brainscale",
@@ -868,7 +894,8 @@
         "Notion"
       ],
       "standaloneNote": "Se folosește ca aplicație de coaching cu ghidare zilnică.",
-      "type": "standalone"
+      "type": "standalone",
+      "url": "https://brainscale.ai"
     },
     {
       "name": "UiPath AI Center",
@@ -900,7 +927,8 @@
         "Microsoft 365"
       ],
       "standaloneNote": "Funcționează în ecosistemul UiPath ca soluție integrată.",
-      "type": "platform"
+      "type": "platform",
+      "url": "https://www.uipath.com/product/ai-center"
     },
     {
       "name": "Bitdefender AI Security",
@@ -931,7 +959,8 @@
         "SIEM tools"
       ],
       "standaloneNote": "Poate fi folosit direct prin consola GravityZone.",
-      "type": "hybrid"
+      "type": "hybrid",
+      "url": "https://www.bitdefender.com"
     },
     {
       "name": "Gemini",
@@ -962,7 +991,8 @@
         "Firebase"
       ],
       "standaloneNote": "Disponibil direct în aplicația Gemini și în produsele Google.",
-      "type": "hybrid"
+      "type": "hybrid",
+      "url": "https://gemini.google.com"
     },
     {
       "name": "Ollama",
@@ -992,7 +1022,8 @@
         "VS Code"
       ],
       "standaloneNote": "Instalare desktop simplă, rulezi modele direct local.",
-      "type": "hybrid"
+      "type": "hybrid",
+      "url": "https://ollama.com"
     },
     {
       "name": "LM Studio",
@@ -1021,7 +1052,8 @@
         "AnythingLLM"
       ],
       "standaloneNote": "Rulează ca aplicație desktop, ideal pentru testare locală.",
-      "type": "hybrid"
+      "type": "hybrid",
+      "url": "https://lmstudio.ai"
     },
     {
       "name": "Midjourney",
@@ -1047,7 +1079,8 @@
         "Discord"
       ],
       "standaloneNote": "Utilizare directă în interfața Midjourney/Discord.",
-      "type": "standalone"
+      "type": "standalone",
+      "url": "https://www.midjourney.com"
     },
     {
       "name": "DALL·E 3",
@@ -1075,7 +1108,8 @@
         "Make.com"
       ],
       "standaloneNote": "Poți genera imagini direct și din ChatGPT fără setup tehnic.",
-      "type": "hybrid"
+      "type": "hybrid",
+      "url": "https://openai.com/dall-e-3"
     },
     {
       "name": "GitHub Copilot",
@@ -1151,7 +1185,8 @@
         }
       ],
       "pricing": "$10/lună individual · $19/user/lună business · $39/user/lună enterprise",
-      "trendExplanation": "Standardul de facto pentru asistență cod în enterprise. GitHub raportează peste 1,8 milioane utilizatori plătitori."
+      "trendExplanation": "Standardul de facto pentru asistență cod în enterprise. GitHub raportează peste 1,8 milioane utilizatori plătitori.",
+      "url": "https://github.com/features/copilot"
     },
     {
       "name": "Windsurf",
@@ -1224,7 +1259,8 @@
         }
       ],
       "pricing": "Gratuit (limitat) · $15/lună Pro · $35/user/lună Team",
-      "trendExplanation": "Windsurf crește rapid ca alternativă la Cursor, cu focus pe experiența de agent autonom."
+      "trendExplanation": "Windsurf crește rapid ca alternativă la Cursor, cu focus pe experiența de agent autonom.",
+      "url": "https://windsurf.com"
     },
     {
       "name": "Grammarly",
@@ -1300,7 +1336,8 @@
         }
       ],
       "pricing": "Gratuit · Premium $12/lună · Business $15/user/lună",
-      "trendExplanation": "Standard în scriere profesională, cu 30M+ utilizatori zilnici."
+      "trendExplanation": "Standard în scriere profesională, cu 30M+ utilizatori zilnici.",
+      "url": "https://www.grammarly.com"
     },
     {
       "name": "Jasper AI",
@@ -1372,7 +1409,8 @@
         }
       ],
       "pricing": "$49/lună Creator · $69/lună Pro · Enterprise custom",
-      "trendExplanation": "Rămâne lider în marketing teams enterprise cu nevoi de brand voice."
+      "trendExplanation": "Rămâne lider în marketing teams enterprise cu nevoi de brand voice.",
+      "url": "https://www.jasper.ai"
     },
     {
       "name": "Copy.ai",
@@ -1443,7 +1481,8 @@
         }
       ],
       "pricing": "Gratuit · $36/lună Starter · $186/lună Advanced",
-      "trendExplanation": "Rămâne relevant datorită planului gratuit și workflow-urilor automate."
+      "trendExplanation": "Rămâne relevant datorită planului gratuit și workflow-urilor automate.",
+      "url": "https://www.copy.ai"
     },
     {
       "name": "Notion AI",
@@ -1518,7 +1557,8 @@
         }
       ],
       "pricing": "$8/user/lună AI add-on (pe lângă planul Notion)",
-      "trendExplanation": "Adopție crescută în echipe tech și product. AI Q&A pe workspace propriu este killer feature."
+      "trendExplanation": "Adopție crescută în echipe tech și product. AI Q&A pe workspace propriu este killer feature.",
+      "url": "https://www.notion.so/product/ai"
     },
     {
       "name": "Granola",
@@ -1591,7 +1631,8 @@
         }
       ],
       "pricing": "Gratuit (25 meeting-uri) · $10/lună Pro · $20/user/lună Business",
-      "trendExplanation": "Crește rapid în nișa meeting AI, apreciat pentru abordarea privacy-first față de Otter.ai."
+      "trendExplanation": "Crește rapid în nișa meeting AI, apreciat pentru abordarea privacy-first față de Otter.ai.",
+      "url": "https://www.granola.ai"
     },
     {
       "name": "Reclaim AI",
@@ -1665,7 +1706,8 @@
         }
       ],
       "pricing": "Gratuit · $8/user/lună Starter · $12/user/lună Business",
-      "trendExplanation": "Nișă clară și produs matur. Creștere solidă în echipe tech care adoptă time-blocking."
+      "trendExplanation": "Nișă clară și produs matur. Creștere solidă în echipe tech care adoptă time-blocking.",
+      "url": "https://reclaim.ai"
     },
     {
       "name": "Stable Diffusion",
@@ -1739,7 +1781,8 @@
         }
       ],
       "pricing": "Gratuit (open-source, local) · API pay-as-you-go",
-      "trendExplanation": "Pilonul ecosistemului open-source pentru image AI. SDXL și SD3 mențin relevanța tehnică."
+      "trendExplanation": "Pilonul ecosistemului open-source pentru image AI. SDXL și SD3 mențin relevanța tehnică.",
+      "url": "https://stability.ai"
     },
     {
       "name": "Adobe Firefly",
@@ -1811,7 +1854,8 @@
         }
       ],
       "pricing": "25 credite gratuite/lună · $4.99/lună Premium · inclusiv în Creative Cloud",
-      "trendExplanation": "Singurul model major safe comercial. Adoptare rapidă în Photoshop."
+      "trendExplanation": "Singurul model major safe comercial. Adoptare rapidă în Photoshop.",
+      "url": "https://firefly.adobe.com"
     },
     {
       "name": "Leonardo AI",
@@ -1881,7 +1925,8 @@
         }
       ],
       "pricing": "Gratuit (150 credite/zi) · $10/lună Apprentice · $24/lună Artisan",
-      "trendExplanation": "Crește puternic în comunitatea game dev datorită modelelor specializate și planului gratuit generos."
+      "trendExplanation": "Crește puternic în comunitatea game dev datorită modelelor specializate și planului gratuit generos.",
+      "url": "https://leonardo.ai"
     },
     {
       "name": "Runway ML",
@@ -1952,7 +1997,8 @@
         }
       ],
       "pricing": "125 credite gratuite · $15/lună Standard · $35/lună Pro",
-      "trendExplanation": "Standard de facto în video AI creativ. Gen-3 Alpha a redefinit calitatea video generativ în 2024."
+      "trendExplanation": "Standard de facto în video AI creativ. Gen-3 Alpha a redefinit calitatea video generativ în 2024.",
+      "url": "https://runwayml.com"
     },
     {
       "name": "HeyGen",
@@ -2023,7 +2069,8 @@
         }
       ],
       "pricing": "Gratuit (1 video) · $29/lună Creator · $89/lună Business",
-      "trendExplanation": "Cel mai rapid crescând în segmentul avatar video, câștigând cotă de la Synthesia."
+      "trendExplanation": "Cel mai rapid crescând în segmentul avatar video, câștigând cotă de la Synthesia.",
+      "url": "https://www.heygen.com"
     },
     {
       "name": "ElevenLabs",
@@ -2097,7 +2144,8 @@
         }
       ],
       "pricing": "Gratuit (10k caractere/lună) · $5/lună Starter · $22/lună Creator",
-      "trendExplanation": "Standard de facto în voice AI. Cel mai bun raport calitate/preț pe piața text-to-speech."
+      "trendExplanation": "Standard de facto în voice AI. Cel mai bun raport calitate/preț pe piața text-to-speech.",
+      "url": "https://elevenlabs.io"
     },
     {
       "name": "Gamma",
@@ -2168,7 +2216,8 @@
         }
       ],
       "pricing": "Gratuit (400 credite) · $10/lună Plus · $20/lună Pro",
-      "trendExplanation": "Gamma este liderul clar în categoria prezentări AI."
+      "trendExplanation": "Gamma este liderul clar în categoria prezentări AI.",
+      "url": "https://gamma.app"
     },
     {
       "name": "Consensus",
@@ -2234,7 +2283,8 @@
         }
       ],
       "pricing": "Gratuit (20 căutări) · $8.99/lună Premium",
-      "trendExplanation": "Creștere solidă în academia și healthcare. Singura soluție AI dedicată exclusiv cercetării peer-reviewed."
+      "trendExplanation": "Creștere solidă în academia și healthcare. Singura soluție AI dedicată exclusiv cercetării peer-reviewed.",
+      "url": "https://consensus.app"
     },
     {
       "name": "Elicit",
@@ -2300,7 +2350,8 @@
         }
       ],
       "pricing": "Gratuit (5.000 credite) · $10/lună Plus",
-      "trendExplanation": "Mai puternic decât Consensus pentru extracție date din papers."
+      "trendExplanation": "Mai puternic decât Consensus pentru extracție date din papers.",
+      "url": "https://elicit.com"
     },
     {
       "name": "Grok",
@@ -2373,7 +2424,8 @@
         }
       ],
       "pricing": "Gratuit (limitat) · $8/lună X Premium · $16/lună X Premium+",
-      "trendExplanation": "Grok 3 a surprins piața cu benchmark-uri competitive. Unicul avantaj: acces real-time la X/Twitter."
+      "trendExplanation": "Grok 3 a surprins piața cu benchmark-uri competitive. Unicul avantaj: acces real-time la X/Twitter.",
+      "url": "https://grok.com"
     },
     {
       "name": "Meta AI",
@@ -2438,7 +2490,8 @@
         }
       ],
       "pricing": "Complet gratuit",
-      "trendExplanation": "Distribuție masivă prin platformele Meta cu miliarde de utilizatori."
+      "trendExplanation": "Distribuție masivă prin platformele Meta cu miliarde de utilizatori.",
+      "url": "https://www.meta.ai"
     },
     {
       "name": "Microsoft Copilot",
@@ -2518,7 +2571,8 @@
         }
       ],
       "pricing": "Gratuit · $20/lună Copilot Pro · $30/user/lună Microsoft 365 Copilot",
-      "trendExplanation": "Cel mai larg deployment enterprise AI datorită integrării în M365."
+      "trendExplanation": "Cel mai larg deployment enterprise AI datorită integrării în M365.",
+      "url": "https://copilot.microsoft.com"
     },
     {
       "name": "Bolt.new",
@@ -2588,7 +2642,8 @@
         }
       ],
       "pricing": "Gratuit (limitat) · $20/lună Basic · $50/lună Pro",
-      "trendExplanation": "Explozie de popularitate în val vibe-coding 2024-2025."
+      "trendExplanation": "Explozie de popularitate în val vibe-coding 2024-2025.",
+      "url": "https://bolt.new"
     },
     {
       "name": "V0.dev",
@@ -2660,7 +2715,8 @@
         }
       ],
       "pricing": "Gratuit (200 credite/lună) · $20/lună Premium",
-      "trendExplanation": "Standard pentru generare UI în ecosistemul Vercel/Next.js."
+      "trendExplanation": "Standard pentru generare UI în ecosistemul Vercel/Next.js.",
+      "url": "https://v0.dev"
     },
     {
       "name": "Lovable",
@@ -2730,7 +2786,8 @@
         }
       ],
       "pricing": "Gratuit (5 msg/zi) · $20/lună Starter · $50/lună Launch",
-      "trendExplanation": "Puternic în Europa cu calitate tehnică superioară pentru app-uri complete."
+      "trendExplanation": "Puternic în Europa cu calitate tehnică superioară pentru app-uri complete.",
+      "url": "https://lovable.dev"
     },
     {
       "name": "Suno AI",
@@ -2800,7 +2857,8 @@
         }
       ],
       "pricing": "Gratuit (50 credite/zi) · $8/lună Pro · $24/lună Premier",
-      "trendExplanation": "Viral în categoria muzică generativă."
+      "trendExplanation": "Viral în categoria muzică generativă.",
+      "url": "https://suno.com"
     },
     {
       "name": "Descript",
@@ -2873,7 +2931,8 @@
         }
       ],
       "pricing": "Gratuit (1 oră/lună) · $12/lună Hobbyist · $24/lună Creator",
-      "trendExplanation": "Lider în editare podcast și video prin text. Workflow unic."
+      "trendExplanation": "Lider în editare podcast și video prin text. Workflow unic.",
+      "url": "https://www.descript.com"
     },
     {
       "name": "Kling AI",
@@ -2941,7 +3000,8 @@
         }
       ],
       "pricing": "Gratuit (66 credite/zi) · $9.99/lună Standard · $29.99/lună Pro",
-      "trendExplanation": "Unul din cele mai competitive modele video AI din Asia."
+      "trendExplanation": "Unul din cele mai competitive modele video AI din Asia.",
+      "url": "https://klingai.com"
     },
     {
       "name": "Ideogram",
@@ -3011,7 +3071,8 @@
         }
       ],
       "pricing": "Gratuit (10 imagini/zi) · $7/lună Basic · $16/lună Plus",
-      "trendExplanation": "Nișă clară și unică: text în imagini."
+      "trendExplanation": "Nișă clară și unică: text în imagini.",
+      "url": "https://ideogram.ai"
     },
     {
       "name": "Murf AI",
@@ -3082,7 +3143,8 @@
         }
       ],
       "pricing": "Gratuit (10 min) · $19/lună Basic · $26/lună Pro",
-      "trendExplanation": "Standard în eLearning voiceover."
+      "trendExplanation": "Standard în eLearning voiceover.",
+      "url": "https://murf.ai"
     },
     {
       "name": "Amazon Q Developer",
@@ -3151,7 +3213,8 @@
         }
       ],
       "pricing": "Gratuit (limitat) · $19/user/lună Pro",
-      "trendExplanation": "Adopție naturală în echipele care rulează deja AWS."
+      "trendExplanation": "Adopție naturală în echipele care rulează deja AWS.",
+      "url": "https://aws.amazon.com/q/developer/"
     },
     {
       "name": "Cohere",
@@ -3225,7 +3288,8 @@
         }
       ],
       "pricing": "Trial gratuit · Pay-as-you-go production · Enterprise custom",
-      "trendExplanation": "Poziționare clară în enterprise RAG și search semantic."
+      "trendExplanation": "Poziționare clară în enterprise RAG și search semantic.",
+      "url": "https://cohere.com"
     }
   ]
 }
