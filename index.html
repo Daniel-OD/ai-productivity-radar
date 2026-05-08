@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
 <style>
 :root {
   --bg: #0f0d0a;
@@ -1493,6 +1494,7 @@ footer {
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Sari la conținut</a>
 <nav class="topnav">
   <div class="container">
     <div class="brand">SIGNAL</div>
@@ -1524,6 +1526,8 @@ footer {
     </div>
   </div>
 </header>
+
+<main id="main-content">
 
 <section class="section wg-section" id="workflow-genome" aria-label="Workflow Genome">
   <div class="container">
@@ -1581,45 +1585,45 @@ footer {
   </div>
 </section>
 
-<section class="filters-section" id="filters">
+<section class="filters-section" id="filters" aria-label="Filtre tooluri">
   <div class="container">
-    <div class="filter-row">
-      <span class="filter-label">Categorie</span>
+    <div class="filter-row" role="group" aria-labelledby="filterLabelCat">
+      <span class="filter-label" id="filterLabelCat">Categorie</span>
       <div class="pills" id="categoryPills"></div>
     </div>
-    <div class="filter-row">
-      <span class="filter-label">Preț</span>
+    <div class="filter-row" role="group" aria-labelledby="filterLabelPrice">
+      <span class="filter-label" id="filterLabelPrice">Preț</span>
       <div class="pills" id="pricePills"></div>
     </div>
-    <div class="filter-row">
-      <span class="filter-label">Regiune</span>
+    <div class="filter-row" role="group" aria-labelledby="filterLabelRegion">
+      <span class="filter-label" id="filterLabelRegion">Regiune</span>
       <div class="pills" id="regionPills"></div>
     </div>
-    <div class="filter-row">
-      <span class="filter-label">Sortare</span>
+    <div class="filter-row" role="group" aria-labelledby="filterLabelSort">
+      <span class="filter-label" id="filterLabelSort">Sortare</span>
       <div class="pills">
-        <button class="pill" data-sort="default">Implicit</button>
-        <button class="pill" data-sort="trend">Trend</button>
-        <button class="pill" data-sort="rating">Rating</button>
-        <button class="pill" data-sort="name">Nume A-Z</button>
-        <button class="pill" data-sort="price">Preț</button>
-        <button class="pill" data-sort="favorites">Favorite</button>
+        <button class="pill" data-sort="default" aria-pressed="true">Implicit</button>
+        <button class="pill" data-sort="trend" aria-pressed="false">Trend</button>
+        <button class="pill" data-sort="rating" aria-pressed="false">Rating</button>
+        <button class="pill" data-sort="name" aria-pressed="false">Nume A-Z</button>
+        <button class="pill" data-sort="price" aria-pressed="false">Preț</button>
+        <button class="pill" data-sort="favorites" aria-pressed="false">Favorite</button>
       </div>
     </div>
     <div class="search-row">
       <div class="search-box">
-        <input id="search" aria-label="Caută tooluri AI" placeholder="Caută: excel, video, cod, Europa, open-source..." />
+        <input id="search" type="search" aria-label="Caută tooluri AI" placeholder="Caută: excel, video, cod, Europa, open-source..." />
       </div>
-      <button class="reset-btn" id="resetBtn">Reset</button>
+      <button class="reset-btn" id="resetBtn" aria-label="Resetează toate filtrele">Reset</button>
     </div>
     <div class="results-count" id="resultsCount" aria-live="polite">Se încarcă radarul...</div>
   </div>
 </section>
 
 <div class="compact-filter-bar" id="compactBar">
-  <input id="compactSearch" aria-label="Căutare rapidă" placeholder="Caută rapid..." />
+  <input id="compactSearch" type="search" aria-label="Căutare rapidă" placeholder="Caută rapid..." />
   <span id="compactCount">0 rezultate</span>
-  <button id="showFilters">Filtre</button>
+  <button id="showFilters" aria-label="Arată filtrele">Filtre</button>
 </div>
 
 <section class="section" id="signal-feed" aria-label="SIGNAL Feed">
@@ -1643,6 +1647,8 @@ footer {
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="container">
@@ -1671,7 +1677,7 @@ footer {
 </footer>
 
 <!-- Modal pentru detalii tool -->
-<div class="modal" id="toolDetailsModal">
+<div class="modal" id="toolDetailsModal" role="dialog" aria-modal="true" aria-labelledby="toolDetailsName">
   <div class="modal-card">
     <button class="modal-close" id="closeToolDetails" aria-label="Închide">×</button>
     <h2 class="section-title" id="toolDetailsName">Nume Tool</h2>
@@ -1684,7 +1690,7 @@ footer {
   <div class="command-card">
     <div class="command-top">
       <span>⌘K</span>
-      <input id="commandInput" autocomplete="off" placeholder="Caută tool, categorie, țară, use-case..." />
+      <input id="commandInput" aria-label="Caută tool sau comandă" autocomplete="off" placeholder="Caută tool, categorie, țară, use-case..." />
     </div>
     <div class="command-results" id="commandResults"></div>
     <div class="command-footer">
@@ -1700,16 +1706,16 @@ footer {
 </div>
 
 <!-- Compare Bar -->
-<div class="compare-bar" id="compareBar">
+<div class="compare-bar" id="compareBar" role="region" aria-label="Comparare tooluri selectate" aria-live="polite">
   <span id="compareText">0 selectate</span>
   <button class="mini-btn" id="openCompare" disabled>Compară</button>
   <button class="mini-btn" id="clearCompare">Curăță</button>
 </div>
 
 <!-- Compare Modal -->
-<div class="modal" id="compareModal">
+<div class="modal" id="compareModal" role="dialog" aria-modal="true" aria-labelledby="compareModalTitle">
   <div class="modal-card">
-    <h2 class="section-title">Comparare tooluri</h2>
+    <h2 class="section-title" id="compareModalTitle">Comparare tooluri</h2>
     <div id="compareContent"></div>
     <button class="primary" id="closeCompare" style="margin-top:18px">Închide</button>
   </div>

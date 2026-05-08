@@ -322,6 +322,7 @@ function renderPills() {
   document.querySelectorAll('[data-region]').forEach( b => b.onclick = () => { hasInteracted=true; activeRegion=b.dataset.region; save(); renderPills(); renderTools(); });
   document.querySelectorAll('[data-sort]').forEach(b => {
     b.classList.toggle('active', b.dataset.sort === sortMode);
+    b.setAttribute('aria-pressed', String(b.dataset.sort === sortMode));
     b.onclick = () => {
       hasInteracted = true;
       sortMode = b.dataset.sort;
@@ -375,16 +376,21 @@ function renderTrending() {
   if (!$('trendingStrip')) return;
   const top = [...tools].sort((a,b) => b.trend - a.trend).slice(0,4);
   $('trendingStrip').innerHTML = top.map(t =>
-    '<div class="trend-card" data-trendtool="' + escapeAttr(t.name) + '">' +
+    '<div class="trend-card" role="button" tabindex="0" data-trendtool="' + escapeAttr(t.name) + '">' +
     '<div class="score">↗ trend ' + escapeHtml(String(t.trend)) + '</div>' +
     '<h3>' + escapeHtml(t.name) + '</h3>' +
     '<p>' + escapeHtml(t.tagline) + '</p></div>'
   ).join('');
-  document.querySelectorAll('[data-trendtool]').forEach(c => c.onclick = () => {
-    hasInteracted=true; searchQuery=c.dataset.trendtool; $('search').value=searchQuery;
-    if ($('compactSearch')) $('compactSearch').value = searchQuery;
-    activeCat=activePrice=activeRegion='all'; save(); renderPills(); renderTools();
-    document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('[data-trendtool]').forEach(c => {
+    c.onclick = () => {
+      hasInteracted=true; searchQuery=c.dataset.trendtool; $('search').value=searchQuery;
+      if ($('compactSearch')) $('compactSearch').value = searchQuery;
+      activeCat=activePrice=activeRegion='all'; save(); renderPills(); renderTools();
+      document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
+    };
+    c.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); }
+    });
   });
 }
 
