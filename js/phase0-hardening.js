@@ -276,72 +276,76 @@
   if (typeof window.closeDecision !== 'function') window.closeDecision = closeDecisionRescue;
 
   document.addEventListener('DOMContentLoaded', function () {
-    if (window.__signalCoreUiReady) return;
-    loadTools();
+    // Give the main deferred app bundle a brief window to finish init() and set
+    // `__signalCoreUiReady` before the rescue layer binds duplicate handlers.
+    setTimeout(function () {
+      if (window.__signalCoreUiReady) return;
+      loadTools();
 
-    $('commandBtn')?.addEventListener('click', function (event) {
-      event.preventDefault();
-      openPalette();
-    });
-
-    $('commandInput')?.addEventListener('input', function (event) {
-      rescue.activeIndex = 0;
-      renderCommandResults(event.target.value);
-    });
-
-    $('commandResults')?.addEventListener('mousedown', function (event) {
-      const item = event.target.closest('[data-rescue-index]');
-      if (!item) return;
-      event.preventDefault();
-      rescue.activeIndex = Number(item.dataset.rescueIndex || 0);
-      selectActive(false);
-    });
-
-    $('commandModal')?.addEventListener('click', function (event) {
-      if (event.target === $('commandModal')) closePalette();
-    });
-
-    $('decisionModal')?.addEventListener('click', function (event) {
-      if (event.target === $('decisionModal')) closeDecisionRescue();
-      const similar = event.target.closest('[data-rescue-tool]');
-      if (similar) openDecisionRescue(similar.dataset.rescueTool);
-    });
-
-    document.addEventListener('click', function (event) {
-      const detail = event.target.closest('[data-detail]');
-      if (detail) {
-        event.preventDefault();
-        openDecisionRescue(detail.dataset.detail);
-        return;
-      }
-      const card = event.target.closest('.tool-card[data-tool-name]');
-      if (card && !event.target.closest('a, button')) {
-        event.preventDefault();
-        openDecisionRescue(card.dataset.toolName);
-      }
-    });
-
-    document.addEventListener('keydown', function (event) {
-      const active = document.activeElement;
-      const typing = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable);
-      const paletteOpen = $('commandModal')?.classList.contains('show');
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+      $('commandBtn')?.addEventListener('click', function (event) {
         event.preventDefault();
         openPalette();
-        return;
-      }
-      if (event.key === '/' && !typing) {
+      });
+
+      $('commandInput')?.addEventListener('input', function (event) {
+        rescue.activeIndex = 0;
+        renderCommandResults(event.target.value);
+      });
+
+      $('commandResults')?.addEventListener('mousedown', function (event) {
+        const item = event.target.closest('[data-rescue-index]');
+        if (!item) return;
         event.preventDefault();
-        openPalette();
-        return;
-      }
-      if (paletteOpen) {
-        if (event.key === 'Escape') { event.preventDefault(); closePalette(); return; }
-        if (event.key === 'ArrowDown') { event.preventDefault(); rescue.activeIndex = (rescue.activeIndex + 1) % Math.max(rescue.matches.length, 1); renderCommandResults($('commandInput')?.value || ''); return; }
-        if (event.key === 'ArrowUp') { event.preventDefault(); rescue.activeIndex = (rescue.activeIndex - 1 + Math.max(rescue.matches.length, 1)) % Math.max(rescue.matches.length, 1); renderCommandResults($('commandInput')?.value || ''); return; }
-        if (event.key === 'Enter') { event.preventDefault(); selectActive(event.ctrlKey || event.metaKey); return; }
-      }
-      if (event.key === 'Escape') closeDecisionRescue();
-    });
+        rescue.activeIndex = Number(item.dataset.rescueIndex || 0);
+        selectActive(false);
+      });
+
+      $('commandModal')?.addEventListener('click', function (event) {
+        if (event.target === $('commandModal')) closePalette();
+      });
+
+      $('decisionModal')?.addEventListener('click', function (event) {
+        if (event.target === $('decisionModal')) closeDecisionRescue();
+        const similar = event.target.closest('[data-rescue-tool]');
+        if (similar) openDecisionRescue(similar.dataset.rescueTool);
+      });
+
+      document.addEventListener('click', function (event) {
+        const detail = event.target.closest('[data-detail]');
+        if (detail) {
+          event.preventDefault();
+          openDecisionRescue(detail.dataset.detail);
+          return;
+        }
+        const card = event.target.closest('.tool-card[data-tool-name]');
+        if (card && !event.target.closest('a, button')) {
+          event.preventDefault();
+          openDecisionRescue(card.dataset.toolName);
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        const active = document.activeElement;
+        const typing = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable);
+        const paletteOpen = $('commandModal')?.classList.contains('show');
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+          event.preventDefault();
+          openPalette();
+          return;
+        }
+        if (event.key === '/' && !typing) {
+          event.preventDefault();
+          openPalette();
+          return;
+        }
+        if (paletteOpen) {
+          if (event.key === 'Escape') { event.preventDefault(); closePalette(); return; }
+          if (event.key === 'ArrowDown') { event.preventDefault(); rescue.activeIndex = (rescue.activeIndex + 1) % Math.max(rescue.matches.length, 1); renderCommandResults($('commandInput')?.value || ''); return; }
+          if (event.key === 'ArrowUp') { event.preventDefault(); rescue.activeIndex = (rescue.activeIndex - 1 + Math.max(rescue.matches.length, 1)) % Math.max(rescue.matches.length, 1); renderCommandResults($('commandInput')?.value || ''); return; }
+          if (event.key === 'Enter') { event.preventDefault(); selectActive(event.ctrlKey || event.metaKey); return; }
+        }
+        if (event.key === 'Escape') closeDecisionRescue();
+      });
+    }, 600);
   });
 })();

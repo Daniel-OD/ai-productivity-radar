@@ -30,6 +30,8 @@ const validPrices  = new Set(prices.map(x => x[0]));
 const validRegions = new Set(regions.map(x => x[0]));
 
 const flag = {SUA:'🇺🇸',Canada:'🇨🇦',China:'🇨🇳',Franța:'🇫🇷',Germania:'🇩🇪',UK:'🇬🇧',Israel:'🇮🇱','Coreea de Sud':'🇰🇷',Japonia:'🇯🇵',India:'🇮🇳',Australia:'🇦🇺',România:'🇷🇴'};
+const RATING_BADGE_WEIGHT = 2;
+const RATING_API_WEIGHT = 4;
 
 const OFFICIAL_URLS = {'chatgpt':'https://chatgpt.com','claude':'https://claude.ai','perplexity':'https://www.perplexity.ai','cursor':'https://cursor.com','deepseek':'https://chat.deepseek.com','qwen':'https://chat.qwen.ai','tongyi qianwen':'https://chat.qwen.ai','mistral':'https://chat.mistral.ai','le chat':'https://chat.mistral.ai','hugging face':'https://huggingface.co','notebooklm':'https://notebooklm.google.com','julius':'https://julius.ai','power bi copilot':'https://powerbi.microsoft.com','synthesia':'https://www.synthesia.io','kimi':'https://kimi.com','manus':'https://manus.im','photoroom':'https://www.photoroom.com','stability ai':'https://stability.ai','stable diffusion':'https://stability.ai','github copilot':'https://github.com/features/copilot','canva':'https://www.canva.com','figma':'https://www.figma.com/ai'};
 
@@ -254,7 +256,20 @@ async function init() {
 function mergeTools(localTools, remoteTools) {
   const merged = new Map();
   localTools.forEach(tool => merged.set(normKey(tool.name), tool));
-  remoteTools.forEach(tool => merged.set(normKey(tool.name), tool));
+  remoteTools.forEach(tool => {
+    const key = normKey(tool.name);
+    const localTool = merged.get(key);
+    merged.set(key, localTool ? {
+      ...localTool,
+      ...tool,
+      badges: (tool.badges && tool.badges.length) ? tool.badges : localTool.badges,
+      integrations: (tool.integrations && tool.integrations.length) ? tool.integrations : localTool.integrations,
+      features: (tool.features && tool.features.length) ? tool.features : localTool.features,
+      useCases: (tool.useCases && tool.useCases.length) ? tool.useCases : localTool.useCases,
+      platforms: (tool.platforms && tool.platforms.length) ? tool.platforms : localTool.platforms,
+      pricingTiers: (tool.pricingTiers && tool.pricingTiers.length) ? tool.pricingTiers : localTool.pricingTiers,
+    } : tool);
+  });
   return Array.from(merged.values());
 }
 
@@ -332,7 +347,10 @@ function renderWizard() {
 function getFiltered() {
   const q = searchQuery.toLowerCase().trim();
   const ratingScore = (tool) => {
-    return (tool.trend || 0) + ((tool.badges || []).length * 2) + ((tool.integrations || []).length || 0) + (tool.apiAvailable ? 4 : 0);
+    return (tool.trend || 0)
+      + ((tool.badges || []).length * RATING_BADGE_WEIGHT)
+      + ((tool.integrations || []).length || 0)
+      + (tool.apiAvailable ? RATING_API_WEIGHT : 0);
   };
   let out = tools.filter(t => {
     const hay = [t.name,t.tagline,t.when,t.country,t.region,t.price,t.apiInfo,t.standaloneNote,t.audience,...t.cats,...t.badges].join(' ').toLowerCase();
@@ -609,7 +627,10 @@ function setupFooterSubscribe() {
   if (!subscribe || !emailInput) return;
   subscribe.addEventListener('click', () => {
     const email = emailInput.value.trim();
-    if (!email || !email.includes('@')) {
+    const emailLooksValid = emailInput.checkValidity
+      ? emailInput.checkValidity()
+      : /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
+    if (!email || !emailLooksValid) {
       toast('Introdu o adresă de email validă.');
       return;
     }

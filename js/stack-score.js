@@ -132,7 +132,9 @@
 
     var recsHtml = '';
     for (var i = 0; i < recs.length; i++) {
-      recsHtml += '<div class="ss-rec"><strong>' + escHtml(recs[i].icon + ' ' + recs[i].title) + '.</strong> ' + escHtml(recs[i].desc) + '</div>';
+      var recTitle = recs[i].icon + ' ' + recs[i].title;
+      if (!/[.!?]$/.test(recTitle)) recTitle += '.';
+      recsHtml += '<div class="ss-rec"><strong>' + escHtml(recTitle) + '</strong> ' + escHtml(recs[i].desc) + '</div>';
     }
 
     container.innerHTML =
@@ -200,11 +202,15 @@
           b.classList.remove('active');
         });
         btn.classList.add('active');
-        container.querySelector('#ssSubmit').disabled = Object.keys(answers).length !== QUESTIONS.length;
+        var submitBtn = container.querySelector('#ssSubmit');
+        if (submitBtn) submitBtn.disabled = Object.keys(answers).length !== QUESTIONS.length;
       });
     });
 
-    container.querySelector('#ssSubmit').addEventListener('click', function () {
+    var submitBtn = container.querySelector('#ssSubmit');
+    if (!submitBtn) return;
+
+    submitBtn.addEventListener('click', function () {
       var total = 0;
       for (var k in answers) total += answers[k];
       total = Math.min(1000, total);

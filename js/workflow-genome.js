@@ -36,7 +36,7 @@
   }
 
   function analyzeWorkflow(text) {
-    var normalized = String(text || '').toLowerCase();
+    var normalized = String(text ?? '').toLowerCase();
     var matched = [];
     for (var i = 0; i < WORKFLOW_PATTERNS.length; i++) {
       var pattern = WORKFLOW_PATTERNS[i];
@@ -95,8 +95,12 @@
 
     var totalHours = 0;
     for (var i = 0; i < patterns.length; i++) {
-      var match = patterns[i].saving.match(/(\d+)/);
-      if (match) totalHours += parseInt(match[1], 10);
+      var match = patterns[i].saving.match(/(\d+)(?:\s*-\s*(\d+))?/);
+      if (match) {
+        var low = parseInt(match[1], 10);
+        var high = match[2] ? parseInt(match[2], 10) : low;
+        totalHours += Math.round((low + high) / 2);
+      }
     }
 
     totalEl.innerHTML = '<div class="wg-total-inner">⚡ Potențial total: <strong>' + totalHours + '+</strong> ore/săptămână recuperabile cu AI</div>';
