@@ -1,23 +1,22 @@
 /**
- * SIGNAL - Command Palette (Cmd+K)
+ * Command Palette for AI Productivity Radar
  * 
- * Implementare:
- * - Shortcut global: Cmd+K (Mac) / Ctrl+K (Windows)
- * - Căutare în timp real pe tool-uri, categorii, descrieri
- * - Navigare cu săgeți + Enter pentru selectare
- * - Esc pentru a închide
- * - Highlight pentru textul care se potrivește
- * - Suport mobil
+ * Features:
+ * - Open with Cmd+K / Ctrl+K
+ * - Real-time search with debounce
+ * - Navigate with arrow keys
+ * - Select with Enter
+ * - Close with Esc
+ * - Highlight matching text
+ * - Mobile support
  */
 
-// State global pentru Command Palette
+// Global state for command palette
 let commandIndex = 0;
 let commandMatches = [];
 
-// ==================== FUNCȚII PRINCIPALE ====================
-
 /**
- * Deschide Command Palette
+ * Open the command palette
  */
 function openCommandPalette() {
   const modal = document.getElementById('commandModal');
@@ -30,23 +29,22 @@ function openCommandPalette() {
   input.value = '';
   commandIndex = 0;
   renderCommandResults([]);
-  
-  // Adaugă event listener pentru click pe overlay
-  modal.onclick = (e) => {
-    if (e.target === modal) closeCommandPalette();
-  };
 }
 
 /**
- * Închide Command Palette
+ * Close the command palette
  */
 function closeCommandPalette() {
   const modal = document.getElementById('commandModal');
-  if (modal) modal.classList.remove('show');
+  if (modal) {
+    modal.classList.remove('show');
+  }
 }
 
 /**
- * Filtrează tool-urile după query
+ * Filter tools based on search query
+ * @param {string} query - Search query
+ * @returns {Array} - Filtered tools
  */
 function filterTools(query) {
   if (!query.trim() || !window.tools) return [];
@@ -63,11 +61,28 @@ function filterTools(query) {
       tool.audience
     ].join(' ').toLowerCase();
     return haystack.includes(q);
-  }).slice(0, 8); // Limitează la 8 rezultate
+  }).slice(0, 8); // Limit to 8 results
 }
 
 /**
- * Randează rezultatele în Command Palette
+ * Highlight matching text in search results
+ * @param {string} text - Text to highlight
+ * @param {string} query - Search query
+ * @returns {string} - Text with matching parts wrapped in <mark>
+ */
+function highlightMatch(text, query) {
+  if (!query) return text;
+  try {
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  } catch (e) {
+    return text; // Fallback if regex is invalid
+  }
+}
+
+/**
+ * Render command palette results
+ * @param {Array} results - Tools to display
  */
 function renderCommandResults(results) {
   commandMatches = results;
@@ -83,14 +98,12 @@ function renderCommandResults(results) {
   }
   
   const query = document.getElementById('commandInput')?.value.toLowerCase() || '';
+  const toolLogos = window.toolLogos || {};
   
   container.innerHTML = results.map((tool, index) => {
     const name = highlightMatch(tool.name, query);
     const tagline = highlightMatch(tool.tagline || '', query);
     const when = highlightMatch(tool.when || '', query);
-    
-    // Get tool logos from window scope
-    const toolLogos = window.toolLogos || {};
     const logo = toolLogos[tool.name] || '🛠️';
     
     return `
@@ -102,11 +115,11 @@ function renderCommandResults(results) {
         <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
           <span class="tool-logo" style="font-size: 18px;" aria-label="${tool.name} logo">${logo}</span>
           <div style="flex: 1;">
-            <div class="command-name">${name}</div>
-            <div class="command-meta" style="margin-top: 4px;">
-              ${(tool.cats || []).slice(0, 2).map(cat => `<span class="tool-tag" style="font-size: 11px; padding: 2px 6px;">${cat}</span>`).join('')}
+            <div class="command-name" style="font-family: var(--serif); font-size: 16px; margin-bottom: 4px;">${name}</div>
+            <div class="command-meta" style="font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-bottom: 4px;">
+              ${(tool.cats || []).slice(0, 2).map(cat => `<span class="tool-tag" style="font-size: 10px; padding: 2px 6px; margin-right: 4px;">${cat}</span>`).join('')}
             </div>
-            <div class="command-tagline" style="margin-top: 6px; font-size: 13px;">${tagline || when || tool.tagline}</div>
+            <div class="command-tagline" style="font-size: 13px; color: var(--text-muted);">${tagline || when || tool.tagline}</div>
           </div>
         </div>
         <div class="command-score" style="color: var(--gold); font-family: var(--mono);">↗ ${tool.trend || 80}</div>
@@ -119,20 +132,7 @@ function renderCommandResults(results) {
 }
 
 /**
- * Evidențiază match-ul în text
- */
-function highlightMatch(text, query) {
-  if (!query) return text;
-  try {
-    const regex = new RegExp(`(${query})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
-  } catch (e) {
-    return text; // Fallback dacă regex e invalid
-  }
-}
-
-/**
- * Actualizează item-ul activ în Command Palette
+ * Update active command item
  */
 function updateActiveCommandItem() {
   const items = document.querySelectorAll('#commandResults .command-item');
@@ -142,10 +142,9 @@ function updateActiveCommandItem() {
   });
 }
 
-// ==================== EVENT HANDLERS ====================
-
 /**
- * Gestionează navigarea cu săgeți și Enter
+ * Handle keyboard navigation in command palette
+ * @param {KeyboardEvent} e - Keyboard event
  */
 function handleCommandKeydown(e) {
   const results = document.querySelectorAll('#commandResults .command-item');
@@ -166,10 +165,8 @@ function handleCommandKeydown(e) {
       break;
     case 'Enter':
       e.preventDefault();
-      if (commandMatches[commandIndex]) {
-        if (typeof window.openToolDetails === 'function') {
-          window.openToolDetails(commandMatches[commandIndex].name);
-        }
+      if (commandMatches[commandIndex] && typeof window.openToolDetails === 'function') {
+        window.openToolDetails(commandMatches[commandIndex].name);
         closeCommandPalette();
       }
       break;
@@ -177,15 +174,13 @@ function handleCommandKeydown(e) {
       closeCommandPalette();
       break;
     case 'Tab':
-      e.preventDefault(); // Prevent tab from leaving modal
+      e.preventDefault();
       break;
   }
 }
 
-// ==================== SETUP ====================
-
 /**
- * Initializează Command Palette
+ * Initialize Command Palette
  */
 function setupCommandPalette() {
   const input = document.getElementById('commandInput');
@@ -244,7 +239,6 @@ function setupCommandPalette() {
   
   // Close on blur (for mobile)
   input.addEventListener('blur', () => {
-    // Don't close immediately on mobile to allow clicking results
     setTimeout(() => {
       if (document.activeElement !== input && !modal.contains(document.activeElement)) {
         closeCommandPalette();
@@ -253,8 +247,14 @@ function setupCommandPalette() {
   });
 }
 
-// ==================== EXPORT ====================
-// Expune funcțiile în scope-ul global
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupCommandPalette);
+} else {
+  setupCommandPalette();
+}
+
+// Export functions to global scope
 window.openCommandPalette = openCommandPalette;
 window.closeCommandPalette = closeCommandPalette;
 window.filterTools = filterTools;
