@@ -68,6 +68,65 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 #decisionShare { background: transparent; border: 1px solid var(--border-strong); color: var(--text-muted); border-radius: 999px; width: 36px; height: 36px; cursor: pointer; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; }
 #decisionShare:hover { border-color: var(--gold); color: var(--gold); }
 
+/* ── Decision modal: enriched topai-style layout ─────────────────── */
+.decision-head-info { display: flex; align-items: flex-start; gap: 16px; flex: 1; min-width: 0; }
+.decision-head-text { flex: 1; min-width: 0; }
+.decision-head-controls { display: flex; gap: 8px; align-items: flex-start; flex-shrink: 0; }
+.dm-head-cats { margin-top: 12px; }
+.dm-share-btn { background: transparent; border: 1px solid var(--border-strong); color: var(--text-muted); border-radius: 999px; padding: 0 12px; height: 36px; cursor: pointer; font-size: 13px; display: inline-flex; align-items: center; gap: 4px; }
+.dm-share-btn:hover { border-color: var(--gold); color: var(--gold); }
+.badge-tag { background: rgba(212,165,116,.12) !important; color: var(--gold) !important; border-color: rgba(212,165,116,.4) !important; }
+
+/* Decision modal logo (large, in header) */
+.dm-logo-wrap { width: 64px; height: 64px; flex-shrink: 0; border-radius: 14px; overflow: hidden; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+.dm-logo-wrap img { width: 48px; height: 48px; object-fit: contain; display: block; }
+.dm-logo-letter { font-family: var(--serif); font-size: 28px; font-weight: 600; color: var(--gold); line-height: 1; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+
+/* Feature list with check marks */
+.dm-feature-list { padding-left: 0; list-style: none; }
+.dm-feature-list li { padding: 6px 0 6px 22px; position: relative; color: var(--text-muted); font-size: 14px; line-height: 1.55; border-bottom: 1px solid var(--border); }
+.dm-feature-list li:last-child { border-bottom: none; }
+.dm-feature-list li::before { content: '✓'; position: absolute; left: 0; color: var(--sage); font-size: 12px; top: 7px; }
+
+/* Platform availability badges */
+.dm-platforms { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.dm-platform-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 999px; padding: 5px 12px; font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+
+/* Pricing tier cards */
+.dm-pricing-tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; margin-top: 6px; }
+.dm-pricing-tier { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 8px; padding: 12px 10px; text-align: center; }
+.dm-tier-highlight { border-color: var(--gold); background: rgba(212,165,116,.08); }
+.dm-tier-name { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--text-dim); margin-bottom: 6px; }
+.dm-tier-highlight .dm-tier-name { color: var(--gold); }
+.dm-tier-price { font-family: var(--serif); font-size: 17px; font-weight: 500; color: var(--text); line-height: 1.2; }
+.dm-tier-desc { font-family: var(--mono); font-size: 10px; color: var(--text-dim); margin-top: 5px; line-height: 1.4; }
+
+/* Score bars */
+.dm-scores { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.dm-score-row { display: grid; grid-template-columns: 70px 1fr 32px; align-items: center; gap: 8px; }
+.dm-score-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; color: var(--text-dim); }
+.dm-score-bar-wrap { height: 6px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
+.dm-score-bar { height: 100%; border-radius: 99px; transition: width .4s ease; }
+.dm-score-val { font-family: var(--mono); font-size: 11px; color: var(--text-muted); text-align: right; }
+
+/* Trend score display */
+.dm-trend-score { display: inline-flex; align-items: baseline; gap: 3px; margin-bottom: 6px; }
+.dm-trend-score strong { font-family: var(--serif); font-size: 36px; font-weight: 400; color: var(--gold); }
+.dm-trend-score span { font-family: var(--mono); font-size: 13px; color: var(--text-dim); }
+.dm-trend-note { font-size: 13px; color: var(--text-muted); font-style: italic; line-height: 1.55; }
+
+/* Integration chips */
+.dm-integrations { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+.dm-integrations span { display: inline-block; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px; font-family: var(--mono); font-size: 10px; color: var(--text-dim); }
+
+@media (max-width: 720px) {
+  .dm-logo-wrap { width: 48px; height: 48px; border-radius: 10px; }
+  .dm-logo-wrap img { width: 36px; height: 36px; }
+  .dm-logo-letter { font-size: 22px; }
+  .dm-pricing-tiers { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); }
+  .dm-score-row { grid-template-columns: 60px 1fr 28px; }
+}
+
 /* ── Phase 7: Skip-to-content link ──────────────────────────────────── */
 .skip-link { position: absolute; top: -40px; left: 16px; background: var(--gold); color: var(--bg); padding: 8px 16px; border-radius: 0 0 6px 6px; font-family: var(--mono); font-size: 12px; z-index: 9999; text-decoration: none; }
 .skip-link:focus { top: 0; }
