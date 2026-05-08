@@ -113,8 +113,9 @@
 
     var btn = document.getElementById('wgAnalyze');
     var textarea = document.getElementById('wgInput');
-    var resultsWrapperEl = document.getElementById('wgResults');
-    var resultsEl = document.getElementById('wgNodes') || resultsWrapperEl;
+    var resultsEl = document.getElementById('wgNodes');
+    var resultsWrapperEl = document.getElementById('wgResults') || (resultsEl && resultsEl.parentElement);
+    if (!resultsEl && resultsWrapperEl) resultsEl = resultsWrapperEl;
     var totalEl = document.getElementById('wgTotal');
 
     if (!btn || !textarea || !resultsWrapperEl || !resultsEl || !totalEl) return;
