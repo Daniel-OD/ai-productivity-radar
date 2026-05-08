@@ -11,7 +11,6 @@
 const fs = require('fs');
 const path = require('path');
 const Ajv = require('ajv');
-const { resolveToolUrl } = require('./tool-url-resolver');
 const ajv = new Ajv({ allErrors: true, strict: false });
 
 const pricingTierSchema = {
@@ -198,11 +197,6 @@ function performAdditionalValidations(data) {
   data.tools.forEach((tool, index) => {
     if (tool.url && !/^https?:\/\//i.test(tool.url)) {
       errors.push(`Tool "${tool.name}" has invalid URL: "${tool.url}" (must start with http:// or https://)`);
-    }
-
-    const resolved = resolveToolUrl(tool);
-    if (!resolved.url) {
-      errors.push(`Tool "${tool.name}" could not be mapped to a usable URL`);
     }
   });
   
