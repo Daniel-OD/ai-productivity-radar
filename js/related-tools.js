@@ -24,21 +24,20 @@ function calculateSimilarity(a, b) {
   // Same price (5 points)
   if (a.price === b.price) score += 5;
   
-  // Same country (5 points)
-  if (a.country === b.country) score += 5;
+  // Same audience (5 points)
+  if (a.audience && b.audience && a.audience === b.audience) score += 5;
   
   return score;
 }
 
 // Get related tools for a given tool
 function getRelatedTools(currentTool, max = 4) {
-  const tools = window.tools || [];
-  if (!currentTool || tools.length === 0) return [];
+  if (!window.tools || !currentTool) return [];
   
-  return tools
+  return window.tools
     .filter(tool => tool.name !== currentTool.name)
     .map(tool => ({
-      tool: tool,
+      tool,
       score: calculateSimilarity(currentTool, tool)
     }))
     .sort((a, b) => b.score - a.score)
@@ -46,9 +45,9 @@ function getRelatedTools(currentTool, max = 4) {
     .map(item => item.tool);
 }
 
-// Render related tools section
-function renderRelatedTools(tool) {
-  const relatedTools = getRelatedTools(tool);
+// Render related tools section for modal
+function renderRelatedTools(currentTool) {
+  const relatedTools = getRelatedTools(currentTool);
   if (relatedTools.length === 0) return '';
   
   const toolLogos = window.toolLogos || {};
