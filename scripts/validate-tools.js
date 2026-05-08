@@ -54,7 +54,42 @@ const toolSchema = {
       type: 'array', 
       items: { type: 'string' } 
     },
-    standaloneNote: { type: 'string' }
+    standaloneNote: { type: 'string' },
+    bestFor: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    notIdeal: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    strengths: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    similar: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    pricing: { type: 'string' },
+    trendExplanation: { type: 'string' },
+    longDescription: { type: 'string' },
+    features: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    useCases: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    platforms: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    pricingTiers: {
+      type: 'array',
+      items: { type: 'object' }
+    }
   },
   additionalProperties: false
 };
@@ -123,7 +158,8 @@ function validateTools() {
   } else {
     console.error('❌ tools-market.json validation failed:\n');
     validate.errors.forEach(error => {
-      const toolIndex = error.instancePath.split('/')[1];
+      const parts = error.instancePath.split('/');
+      const toolIndex = parts[2];
       const toolName = toolIndex !== undefined && data.tools[toolIndex] 
         ? data.tools[toolIndex].name 
         : 'Unknown';
@@ -165,7 +201,7 @@ function performAdditionalValidations(data) {
     const countryToRegion = {
       'SUA': 'america', 'Canada': 'america',
       'China': 'asia', 'Japonia': 'asia', 'Coreea de Sud': 'asia', 'India': 'asia', 'Australia': 'asia',
-      'Franța': 'europa', 'Germania': 'europa', 'UK': 'europa', 'România': 'europa',
+      'Franța': 'europa', 'Germania': 'europa', 'UK': 'europa', 'Suedia': 'europa', 'România': 'romania',
       'Israel': 'israel'
     };
     
