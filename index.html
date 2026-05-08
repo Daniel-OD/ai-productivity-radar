@@ -1287,6 +1287,10 @@ footer {
 <script src="js/state.js"></script>
 <!-- SignalRouter — client-side ?tool= deep-link routing -->
 <script src="js/router.js"></script>
+<!-- SignalFilters — pure filter + sort logic -->
+<script src="js/filters.js"></script>
+<!-- SignalGrid — pure card HTML builder -->
+<script src="js/tools-grid.js"></script>
 
 <!-- Service Worker Registration -->
 <script>
@@ -1835,6 +1839,10 @@ function renderWizard() {
 }
 
 function getFiltered() {
+  if (window.SignalFilters) {
+    return SignalFilters.getFiltered({ tools, activeCat, activePrice, activeRegion, searchQuery, sortMode, favorites, priceOrder });
+  }
+  // fallback (identical logic)
   const q = searchQuery.toLowerCase().trim();
   let out = tools.filter(t => {
     const hay = [t.name, t.tagline, t.when, t.country, t.region, t.price, ...t.cats, ...t.badges].join(' ').toLowerCase();
@@ -1843,25 +1851,24 @@ function getFiltered() {
            (activeRegion === 'all' || t.region === activeRegion) &&
            (!q || hay.includes(q));
   });
-  
-  // Sorting
-  if (sortMode === 'trend') out.sort((a, b) => b.trend - a.trend);
-  else if (sortMode === 'rating') out.sort((a, b) => (b.trend || 0) - (a.trend || 0));
-  else if (sortMode === 'name') out.sort((a, b) => a.name.localeCompare(b.name, 'ro'));
-  else if (sortMode === 'price') out.sort((a, b) => priceOrder[a.price] - priceOrder[b.price]);
+  if (sortMode === 'trend')     out.sort((a, b) => b.trend - a.trend);
+  else if (sortMode === 'rating')    out.sort((a, b) => (b.trend || 0) - (a.trend || 0));
+  else if (sortMode === 'name')      out.sort((a, b) => a.name.localeCompare(b.name, 'ro'));
+  else if (sortMode === 'price')     out.sort((a, b) => priceOrder[a.price] - priceOrder[b.price]);
   else if (sortMode === 'favorites') out.sort((a, b) => favorites.has(b.name) - favorites.has(a.name));
   else out.sort((a, b) => a._i - b._i);
-  
   return out;
 }
 
-// Updated renderToolCard with modern design and logo
 function renderToolCard(t) {
+  if (window.SignalGrid) {
+    return SignalGrid.buildCard(t, { favorites, toolLogos, flag, priceLabels });
+  }
+  // fallback (identical logic)
   const isFav = favorites.has(t.name);
   const logo = toolLogos[t.name] || '🛠️';
   const stars = '⭐'.repeat(Math.floor((t.trend || 80) / 20));
   const emptyStars = '☆'.repeat(5 - Math.floor((t.trend || 80) / 20));
-  
   return `
     <div class="tool-card" data-tool="${t.name}" onclick="openToolDetails('${t.name.replace(/'/g, "\\'")}')">
       <div class="tool-header">
