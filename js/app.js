@@ -633,7 +633,7 @@ function setupFooterSubscribe() {
       ? emailInput.checkValidity()
       : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!email || !emailLooksValid) {
-      toast('Introdu o adresă de email validă.');
+      toast('Email invalid');
       return;
     }
     try {
@@ -641,7 +641,7 @@ function setupFooterSubscribe() {
     } catch (error) {
       console.warn('[SIGNAL] unable to save email preference');
     }
-    toast('✓ Te-am înregistrat! Primul Signal Weekly vine în curând.');
+    toast('Abonare salvată!');
     emailInput.value = '';
   });
 }
