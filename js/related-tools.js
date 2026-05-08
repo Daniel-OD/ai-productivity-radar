@@ -1,38 +1,48 @@
 /**
- * Related Tools for AI Productivity Radar
+ * SIGNAL - Related Tools
  * 
- * Features:
- * - Finds similar tools based on categories, region, and trend
- * - Displays in tool details modal
- * - Configurable similarity scoring
+ * Implementare:
+ * - Afișează tool-uri similare în modalul de detalii
+ * - Bazat pe: categorii comune, regiune, trend similar
+ * - Integrare automată cu modalul existent
  */
 
-// Calculate similarity score between two tools
+/**
+ * Calculează similaritatea între 2 tool-uri
+ * @param {Object} a - Primul tool
+ * @param {Object} b - Al doilea tool
+ * @returns {number} Scorul de similaritate
+ */
 function calculateSimilarity(a, b) {
   let score = 0;
   
-  // Common categories (20 points per match)
-  const commonCats = a.cats.filter(cat => b.cats.includes(cat));
+  // Categorii comune (20 puncte per categorie comună)
+  const commonCats = (a.cats || []).filter(cat => (b.cats || []).includes(cat));
   score += commonCats.length * 20;
   
-  // Same region (15 points)
+  // Regiune comună (15 puncte)
   if (a.region === b.region) score += 15;
   
-  // Similar trend (±10 points)
+  // Trend similar (±10 puncte)
   if (Math.abs((a.trend || 80) - (b.trend || 80)) <= 10) score += 10;
   
-  // Same price (5 points)
+  // Preț comun (5 puncte)
   if (a.price === b.price) score += 5;
   
-  // Same audience (5 points)
+  // Audience comună (5 puncte)
   if (a.audience && b.audience && a.audience === b.audience) score += 5;
   
   return score;
 }
 
-// Get related tools for a given tool
+/**
+ * Găsește tool-uri similare pentru un tool dat
+ * @param {Object} currentTool - Tool-ul curent
+ * @param {number} max - Numărul maxim de tool-uri (default: 4)
+ * @returns {Array} Lista de tool-uri similare
+ */
 function getRelatedTools(currentTool, max = 4) {
-  if (!window.tools || !currentTool) return [];
+  if (!window.tools || !window.tools.length) return [];
   
   return window.tools
     .filter(tool => tool.name !== currentTool.name)
@@ -45,14 +55,18 @@ function getRelatedTools(currentTool, max = 4) {
     .map(item => item.tool);
 }
 
-// Render related tools section for modal
-function renderRelatedTools(currentTool) {
-  const relatedTools = getRelatedTools(currentTool);
+/**
+ * Randează secțiunea "Related Tools" în modal
+ * @param {Object} tool - Tool-ul curent
+ * @returns {string} HTML pentru secțiunea Related Tools
+ */
+function renderRelatedTools(tool) {
+  const relatedTools = getRelatedTools(tool);
+  
   if (relatedTools.length === 0) return '';
   
   const toolLogos = window.toolLogos || {};
   const flag = window.flag || {};
-  const priceLabels = window.priceLabels || {};
   
   return `
     <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
@@ -60,6 +74,7 @@ function renderRelatedTools(currentTool) {
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
         ${relatedTools.map(relatedTool => {
           const logo = toolLogos[relatedTool.name] || '🛠️';
+          const countryFlag = flag[relatedTool.country] || '🌍';
           const stars = '⭐'.repeat(Math.floor((relatedTool.trend || 80) / 20));
           const emptyStars = '☆'.repeat(5 - Math.floor((relatedTool.trend || 80) / 20));
           
@@ -67,8 +82,10 @@ function renderRelatedTools(currentTool) {
             <div class="tool-card" 
                  style="padding: 12px; cursor: pointer; background: var(--bg-soft); border: 1px solid var(--border);"
                  onclick="window.openToolDetails && window.openToolDetails('${relatedTool.name.replace(/'/g, "\\'\\'")}')"
-                 onkeydown="if (event.key === 'Enter') { window.openToolDetails && window.openToolDetails('${relatedTool.name.replace(/'/g, "\\'\\'")}'); }"
-                 tabindex="0">
+                 onkeydown="if (event.key === 'Enter' || event.key === ' ') { window.openToolDetails && window.openToolDetails('${relatedTool.name.replace(/'/g, "\\'\\'")}'); event.preventDefault(); }"
+                 tabindex="0"
+                 role="button"
+                 aria-label="Deschide detalii pentru ${relatedTool.name}">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                 <span class="tool-logo" style="width: 24px; height: 24px; font-size: 14px;" aria-label="${relatedTool.name} logo">${logo}</span>
                 <span style="font-family: var(--serif); font-size: 14px;">${relatedTool.name}</span>
@@ -77,7 +94,7 @@ function renderRelatedTools(currentTool) {
                 ${(relatedTool.tagline || '').slice(0, 50)}${relatedTool.tagline && relatedTool.tagline.length > 50 ? '...' : ''}
               </p>
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                <span style="font-size: 12px; color: var(--text-dim);">${flag[relatedTool.country] || '🌍'} ${relatedTool.country}</span>
+                <span style="font-size: 12px; color: var(--text-dim);">${countryFlag} ${relatedTool.country}</span>
                 <span class="tool-rating" style="font-size: 12px;">${stars}${emptyStars} ${relatedTool.trend || 80}</span>
               </div>
               <div style="display: flex; gap: 4px; flex-wrap: wrap;">
@@ -93,7 +110,9 @@ function renderRelatedTools(currentTool) {
   `;
 }
 
-// Enhanced openToolDetails with related tools
+/**
+ * Funcție îmbunătățită openToolDetails care include Related Tools
+ */
 function enhancedOpenToolDetails(toolName) {
   const tool = (window.tools || []).find(t => t.name === toolName);
   if (!tool) return;
@@ -147,14 +166,25 @@ function enhancedOpenToolDetails(toolName) {
   modal.classList.add('show');
 }
 
-// Override openToolDetails if it exists
-if (typeof window.openToolDetails === 'function') {
-  window.openToolDetails = enhancedOpenToolDetails;
-} else {
+// ==================== SETUP ====================
+
+/**
+ * Initializează Related Tools
+ * - Suprascriere funcția openToolDetails pentru a include Related Tools
+ */
+function initRelatedTools() {
+  // Salvează referința la funcția originală dacă există
+  if (typeof window.openToolDetails === 'function' && !window.openToolDetailsOriginal) {
+    window.openToolDetailsOriginal = window.openToolDetails;
+  }
+  
+  // Suprascriere cu funcția îmbunătățită
   window.openToolDetails = enhancedOpenToolDetails;
 }
 
-// Make functions globally available
+// ==================== EXPORT ====================
+// Expune funcțiile în scope-ul global
 window.getRelatedTools = getRelatedTools;
 window.calculateSimilarity = calculateSimilarity;
 window.renderRelatedTools = renderRelatedTools;
+window.initRelatedTools = initRelatedTools;
