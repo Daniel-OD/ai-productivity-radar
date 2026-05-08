@@ -29,28 +29,33 @@ const validCats    = new Set(categories.map(x => x[0]));
 const validPrices  = new Set(prices.map(x => x[0]));
 const validRegions = new Set(regions.map(x => x[0]));
 
-const flag = {SUA:'🇺🇸',Canada:'🇨🇦',China:'🇨🇳',Franța:'🇫🇷',Germania:'🇩🇪',UK:'🇬🇧',Israel:'🇮��','Coreea de Sud':'🇰🇷',Japonia:'🇯🇵',India:'🇮🇳',Australia:'🇦🇺',România:'🇷🇴'};
+const flag = {SUA:'🇺🇸',Canada:'🇨🇦',China:'🇨🇳',Franța:'🇫🇷',Germania:'🇩🇪',UK:'🇬🇧',Israel:'🇮🇱','Coreea de Sud':'🇰🇷',Japonia:'🇯🇵',India:'🇮🇳',Australia:'🇦🇺',România:'🇷🇴'};
 
 const OFFICIAL_URLS = {'chatgpt':'https://chatgpt.com','claude':'https://claude.ai','perplexity':'https://www.perplexity.ai','cursor':'https://cursor.com','deepseek':'https://chat.deepseek.com','qwen':'https://chat.qwen.ai','tongyi qianwen':'https://chat.qwen.ai','mistral':'https://chat.mistral.ai','le chat':'https://chat.mistral.ai','hugging face':'https://huggingface.co','notebooklm':'https://notebooklm.google.com','julius':'https://julius.ai','power bi copilot':'https://powerbi.microsoft.com','synthesia':'https://www.synthesia.io','kimi':'https://kimi.com','manus':'https://manus.im','photoroom':'https://www.photoroom.com','stability ai':'https://stability.ai','stable diffusion':'https://stability.ai','github copilot':'https://github.com/features/copilot','canva':'https://www.canva.com','figma':'https://www.figma.com/ai'};
 
-const TOOL_DOMAINS = {'chatgpt':'chatgpt.com','claude':'claude.ai','perplexity':'perplexity.ai','cursor':'cursor.com','deepseek':'deepseek.com','mistral':'mistral.ai','le chat':'mistral.ai','hugging face':'huggingface.co','notebooklm':'notebooklm.google.com','julius':'julius.ai','julius ai':'julius.ai','power bi copilot':'powerbi.microsoft.com','synthesia':'synthesia.io','canva':'canva.com','figma':'figma.com','github copilot':'github.com','midjourney':'midjourney.com','runway':'runwayml.com','stability ai':'stability.ai','stable diffusion':'stability.ai','kimi':'kimi.moonshot.cn','manus':'manus.im','photoroom':'photoroom.com','notion ai':'notion.so','grammarly':'grammarly.com','gemini':'gemini.google.com','copilot':'copilot.microsoft.com','qwen':'qwen.ai','tongyi qianwen':'qwen.ai','n8n':'n8n.io','make':'make.com','zapier':'zapier.com','hex':'hex.tech','reclaim':'reclaim.ai','granola':'granola.so'};
-
-function toolFaviconUrl(name) {
-  const key = normKey(name);
-  const domain = TOOL_DOMAINS[key] || Object.entries(TOOL_DOMAINS).find(([k]) => key.includes(k) || k.includes(key))?.[1];
-  if (!domain) return '';
-  return 'https://www.google.com/s2/favicons?domain=' + domain + '&sz=64';
+/* ── ★ TopAI element 1: Favicon/logo din Google favicon API ─────────────── */
+function getFaviconUrl(url) {
+  try {
+    const domain = new URL(url).hostname;
+    return 'https://www.google.com/s2/favicons?domain=' + domain + '&sz=64';
+  } catch (e) {
+    return '';
+  }
 }
 
-function toolLogoHtml(t) {
-  const src = toolFaviconUrl(t.name);
-  const letter = escapeHtml((t.name || '?')[0].toUpperCase());
-  if (!src) return '<div class="tool-logo-wrap"><span class="tool-logo-letter">' + letter + '</span></div>';
-  return '<div class="tool-logo-wrap">' +
-    '<img src="' + escapeAttr(src) + '" alt="" loading="lazy" ' +
-    'onerror="this.classList.add(\'errored\')" />' +
-    '<span class="tool-logo-letter">' + letter + '</span>' +
-    '</div>';
+/* ── ★ TopAI element 2: Badge "Nou" — tool adăugat în ultimele 90 de zile ── */
+function isNewTool(lastUpdated) {
+  const months = ['ian','feb','mar','apr','mai','iun','iul','aug','sep','oct','nov','dec'];
+  const parts = String(lastUpdated || '').trim().split(' ');
+  if (parts.length < 2) return false;
+  const mIdx = months.indexOf(parts[0].toLowerCase());
+  if (mIdx === -1) return false;
+  const year = parseInt(parts[1]);
+  if (isNaN(year)) return false;
+  const toolDate = new Date(year, mIdx, 1);
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 90);
+  return toolDate >= cutoff;
 }
 
 /* Semantic intent taxonomy – also consumed by command-palette.js */
@@ -78,7 +83,6 @@ const profiles = [
 ];
 
 /* ── App state ───────────────────────────────────────────────────────────── */
-/* commandOpen / commandIndex / commandMatches live in command-palette.js     */
 let tools = [], activeCat = 'all', activePrice = 'all', activeRegion = 'all';
 let searchQuery = '', sortMode = 'default', hasInteracted = false, isLoading = true, hasDeepLink = false;
 let favorites = new Set(JSON.parse(safeStorageGet('aiRadarFavorites', '[]')));
@@ -199,13 +203,11 @@ async function init() {
   tools = FALLBACK_TOOLS.map(normalize);
   $('metaTools').textContent = tools.length;
   renderWizard();
-  initHero();
   renderPills();
   renderLoading();
   renderRadar();
 
   try {
-    /* Phase 5: removed cache:'no-store' – let the SW / browser cache strategy handle it */
     const r = await fetch('tools-market.json');
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const data = await r.json();
@@ -228,7 +230,6 @@ async function init() {
     renderRadar();
     renderTools();
 
-    /* Phase 2 & 3: initialise extracted modules after tools are available */
     if (typeof initCommandPalette === 'function') initCommandPalette();
     if (typeof initDecisionModal   === 'function') initDecisionModal();
     if (typeof handleToolDeepLink  === 'function') handleToolDeepLink();
@@ -244,7 +245,6 @@ async function init() {
   registerServiceWorker();
 }
 
-/* Phase 5: register service worker */
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(e => console.warn('[SW] Registration failed:', e));
@@ -284,50 +284,6 @@ function renderPills() {
   document.querySelectorAll('[data-cat]').forEach(   b => b.onclick = () => { hasInteracted=true; activeCat   =b.dataset.cat;    save(); renderPills(); renderTools(); });
   document.querySelectorAll('[data-price]').forEach(  b => b.onclick = () => { hasInteracted=true; activePrice =b.dataset.price;  save(); renderPills(); renderTools(); });
   document.querySelectorAll('[data-region]').forEach( b => b.onclick = () => { hasInteracted=true; activeRegion=b.dataset.region; save(); renderPills(); renderTools(); });
-}
-
-/* ── Hero search & category chips ────────────────────────────────────────── */
-function initHero() {
-  const heroInput = document.getElementById('heroSearch');
-  const heroBtn   = document.getElementById('heroSearchBtn');
-  const heroOpen  = () => {
-    if (typeof openCommandPalette === 'function') { openCommandPalette(); return; }
-    const modal = document.getElementById('commandModal');
-    if (modal) { modal.classList.add('show'); document.getElementById('commandInput').focus(); }
-  };
-  if (heroBtn)   heroBtn.onclick = heroOpen;
-  if (heroInput) {
-    heroInput.oninput = () => {
-      const v = heroInput.value.trim();
-      if (!v) return;
-      searchQuery = v;
-      $('search').value = v;
-      hasInteracted = true;
-      save(); renderPills(); renderTools();
-      document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
-    };
-    heroInput.onkeydown = e => {
-      if (e.key === 'Enter' && heroInput.value.trim()) {
-        searchQuery = heroInput.value.trim();
-        $('search').value = searchQuery;
-        hasInteracted = true;
-        save(); renderPills(); renderTools();
-        document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
-      }
-    };
-  }
-  document.querySelectorAll('[data-hero-cat]').forEach(btn => {
-    btn.onclick = () => {
-      hasInteracted = true;
-      activeCat = btn.dataset.heroCat;
-      activePrice = activeRegion = 'all';
-      searchQuery = '';
-      $('search').value = '';
-      if (heroInput) heroInput.value = '';
-      save(); renderPills(); renderTools();
-      document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
-    };
-  });
 }
 
 /* ── Wizard ──────────────────────────────────────────────────────────────── */
@@ -412,19 +368,32 @@ function renderTools(msg) {
   }
   $('toolsGrid').innerHTML = out.map((t, i) =>
     '<div class="tool-card" data-tool-name="' + escapeAttr(t.name) + '" style="animation-delay:' + Math.min(i*22,350) + 'ms">' +
-    '<div class="tool-head"><div style="display:flex;align-items:center;gap:12px">' +
-    toolLogoHtml(t) +
-    '<div class="tool-name">' + escapeHtml(t.name) + '</div></div>' +
+
+    /* ★ TopAI element: tool-head cu favicon icon */
+    '<div class="tool-head">' +
+    '<div class="tool-head-left">' +
+    '<img class="tool-icon" src="' + getFaviconUrl(t.url) + '" alt="" aria-hidden="true" loading="lazy"' +
+    ' onerror="this.style.display=\'none\';var fb=this.nextElementSibling;if(fb)fb.style.display=\'flex\';">' +
+    '<span class="tool-icon-fallback" style="display:none">' + escapeHtml(t.name.charAt(0).toUpperCase()) + '</span>' +
+    '<div class="tool-name">' + escapeHtml(t.name) +
+    /* ★ TopAI element: badge "Nou" */
+    (isNewTool(t.lastUpdated) ? '<span class="badge-new">Nou</span>' : '') +
+    '</div>' +
+    '</div>' +
     '<div class="price-stack">' +
     '<span class="price-tag price-' + escapeAttr(t.price) + '">' + escapeHtml(priceLabels[t.price]) + '</span>' +
     '<span class="trend-tag">↗ ' + escapeHtml(String(t.trend)) + '</span></div></div>' +
+
     '<div class="country-line">' + escapeHtml(flag[t.country]||'🌍') + ' ' + escapeHtml(t.country) + ' · 🔄 ' + escapeHtml(t.lastUpdated) + '</div>' +
     '<div class="tool-tagline">' + escapeHtml(t.tagline) + '</div>' +
     '<div class="tool-when">↳ ' + escapeHtml(t.when) + '</div>' +
+
+    /* ★ TopAI element: cat-tag colorate per categorie */
     '<div class="tool-cats">' +
-    t.cats.map(c => '<span class="cat-tag">' + escapeHtml(c) + '</span>').join('') +
+    t.cats.map(c => '<span class="cat-tag cat-' + escapeAttr(c) + '">' + escapeHtml(c) + '</span>').join('') +
     t.badges.map(b => '<span class="cat-tag">' + escapeHtml(b) + '</span>').join('') +
     '</div>' +
+
     '<div class="tool-actions">' +
     '<button class="details-btn" data-detail="' + escapeAttr(t.name) + '">Analiză decizie</button>' +
     '<a class="tool-link" href="' + escapeAttr(t.url) + '" target="_blank" rel="noopener noreferrer">Deschide →</a>' +
@@ -494,9 +463,6 @@ function openCompare() {
 function setQuery(v) { hasInteracted=true; searchQuery=v; $('search').value=v; save(); renderTools(); }
 
 /* ── Event wiring ────────────────────────────────────────────────────────── */
-/* Command palette & decision modal wiring is deferred to initCommandPalette()
-   and initDecisionModal() which are called from init() after tools load.     */
-
 $('search').oninput    = e => setQuery(e.target.value);
 $('sortSelect').onchange = e => { hasInteracted=true; sortMode=e.target.value; save(); renderTools(); };
 
@@ -520,9 +486,6 @@ $('clearCompare').onclick = () => { compare.clear(); updateCompare(); renderTool
 $('closeCompare').onclick = () => $('compareModal').classList.remove('show');
 $('compareModal').onclick = e => { if (e.target.id === 'compareModal') $('compareModal').classList.remove('show'); };
 
-/* Global keyboard shortcuts
-   – command palette navigation is handled by command-palette.js
-   – here we only handle global openers and non-palette Escape              */
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !window.commandOpen) {
     if (typeof closeDecision === 'function') closeDecision();
