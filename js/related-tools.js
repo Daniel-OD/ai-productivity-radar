@@ -87,7 +87,7 @@ function renderRelatedTools(tool) {
           const priceLabel = priceLabels[relatedTool.price] || relatedTool.price;
           
           // Escape tool name for use in onclick
-          const escapedName = relatedTool.name.replace(/'/g, "\\'\\'");
+          const escapedName = relatedTool.name.replace(/'/g, "\\'\"");
           
           return `
             <div class="tool-card" 
