@@ -1,20 +1,24 @@
 /**
- * Command Palette for AI Productivity Radar
+ * SIGNAL - Command Palette (Cmd+K)
  * 
- * Features:
- * - Open with Cmd+K / Ctrl+K
- * - Real-time search with debounce
- * - Arrow key navigation
- * - Enter to select
- * - Escape to close
- * - Highlights matching text
- * - Mobile support
+ * Implementare:
+ * - Shortcut global: Cmd+K (Mac) / Ctrl+K (Windows)
+ * - Căutare în timp real pe tool-uri, categorii, descrieri
+ * - Navigare cu săgeți + Enter pentru selectare
+ * - Esc pentru a închide
+ * - Highlight pentru textul care se potrivește
+ * - Suport mobil
  */
 
+// State global pentru Command Palette
 let commandIndex = 0;
 let commandMatches = [];
 
-// Open Command Palette
+// ==================== FUNCȚII PRINCIPALE ====================
+
+/**
+ * Deschide Command Palette
+ */
 function openCommandPalette() {
   const modal = document.getElementById('commandModal');
   const input = document.getElementById('commandInput');
@@ -26,15 +30,24 @@ function openCommandPalette() {
   input.value = '';
   commandIndex = 0;
   renderCommandResults([]);
+  
+  // Adaugă event listener pentru click pe overlay
+  modal.onclick = (e) => {
+    if (e.target === modal) closeCommandPalette();
+  };
 }
 
-// Close Command Palette
+/**
+ * Închide Command Palette
+ */
 function closeCommandPalette() {
   const modal = document.getElementById('commandModal');
   if (modal) modal.classList.remove('show');
 }
 
-// Filter tools based on query
+/**
+ * Filtrează tool-urile după query
+ */
 function filterTools(query) {
   if (!query.trim() || !window.tools) return [];
   
@@ -50,17 +63,12 @@ function filterTools(query) {
       tool.audience
     ].join(' ').toLowerCase();
     return haystack.includes(q);
-  }).slice(0, 8); // Limit to 8 results
+  }).slice(0, 8); // Limitează la 8 rezultate
 }
 
-// Highlight matching text
-function highlightMatch(text, query) {
-  if (!query) return text;
-  const regex = new RegExp(`(${query})`, 'gi');
-  return text.replace(regex, '<mark>$1</mark>');
-}
-
-// Render command results
+/**
+ * Randează rezultatele în Command Palette
+ */
 function renderCommandResults(results) {
   commandMatches = results;
   const container = document.getElementById('commandResults');
@@ -74,8 +82,9 @@ function renderCommandResults(results) {
     return;
   }
   
+  const query = document.getElementById('commandInput')?.value.toLowerCase() || '';
+  
   container.innerHTML = results.map((tool, index) => {
-    const query = document.getElementById('commandInput')?.value.toLowerCase() || '';
     const name = highlightMatch(tool.name, query);
     const tagline = highlightMatch(tool.tagline || '', query);
     const when = highlightMatch(tool.when || '', query);
@@ -106,20 +115,40 @@ function renderCommandResults(results) {
   }).join('');
   
   countEl.textContent = `${results.length} rezultate`;
+  updateActiveCommandItem();
 }
 
-// Update active command item
+/**
+ * Evidențiază match-ul în text
+ */
+function highlightMatch(text, query) {
+  if (!query) return text;
+  try {
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  } catch (e) {
+    return text; // Fallback dacă regex e invalid
+  }
+}
+
+/**
+ * Actualizează item-ul activ în Command Palette
+ */
 function updateActiveCommandItem() {
-  const items = document.querySelectorAll('.command-item');
+  const items = document.querySelectorAll('#commandResults .command-item');
   items.forEach((item, index) => {
     item.classList.toggle('active', index === commandIndex);
     item.setAttribute('aria-selected', index === commandIndex);
   });
 }
 
-// Handle keyboard navigation
+// ==================== EVENT HANDLERS ====================
+
+/**
+ * Gestionează navigarea cu săgeți și Enter
+ */
 function handleCommandKeydown(e) {
-  const results = document.querySelectorAll('.command-item');
+  const results = document.querySelectorAll('#commandResults .command-item');
   if (results.length === 0) return;
   
   switch (e.key) {
@@ -153,8 +182,12 @@ function handleCommandKeydown(e) {
   }
 }
 
-// Initialize Command Palette
-function initCommandPalette() {
+// ==================== SETUP ====================
+
+/**
+ * Initializează Command Palette
+ */
+function setupCommandPalette() {
   const input = document.getElementById('commandInput');
   const modal = document.getElementById('commandModal');
   
@@ -220,7 +253,10 @@ function initCommandPalette() {
   });
 }
 
-// Export for global scope
-window.initCommandPalette = initCommandPalette;
+// ==================== EXPORT ====================
+// Expune funcțiile în scope-ul global
 window.openCommandPalette = openCommandPalette;
 window.closeCommandPalette = closeCommandPalette;
+window.filterTools = filterTools;
+window.renderCommandResults = renderCommandResults;
+window.setupCommandPalette = setupCommandPalette;
