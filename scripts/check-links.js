@@ -13,6 +13,7 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const { resolveToolUrl } = require('./tool-url-resolver');
 
 // Cale către fișierul tools-market.json
 const toolsFilePath = path.join(__dirname, '..', 'tools-market.json');
@@ -62,17 +63,28 @@ async function checkLinks() {
   console.log(`📊 Found ${data.tools.length} tools to check...\n`);
   
   // Filtrează tool-urile cu URL-uri
-  const toolsWithUrls = data.tools.filter(tool => tool.url);
-  console.log(`🔍 Checking ${toolsWithUrls.length} unique URLs...\n`);
+  const toolsWithUrls = data.tools.map(tool => {
+    const resolved = resolveToolUrl(tool);
+    return {
+      ...tool,
+      resolvedUrl: resolved.url,
+      resolvedUrlSource: resolved.source
+    };
+  }).filter(tool => tool.resolvedUrl);
   
   // Grupează URL-urile pentru a evita duplicate
   const uniqueUrls = new Map();
   toolsWithUrls.forEach(tool => {
-    if (!uniqueUrls.has(tool.url)) {
-      uniqueUrls.set(tool.url, []);
+    if (!uniqueUrls.has(tool.resolvedUrl)) {
+      uniqueUrls.set(tool.resolvedUrl, []);
     }
-    uniqueUrls.get(tool.url).push(tool.name);
+    uniqueUrls.get(tool.resolvedUrl).push({
+      name: tool.name,
+      source: tool.resolvedUrlSource,
+      explicitUrl: tool.url || null
+    });
   });
+  console.log(`🔍 Checking ${uniqueUrls.size} unique URLs...\n`);
   
   // Rezultate
   const results = {
@@ -84,14 +96,12 @@ async function checkLinks() {
   };
   
   // Verifică fiecare URL
-  for (const [url, toolNames] of uniqueUrls) {
+  for (const [url, toolRefs] of uniqueUrls) {
+    const toolNames = toolRefs.map(tool => tool.name);
     try {
       // Alege un user-agent aleatoriu pentru a evita blocarea
       const userAgent = userAgents[Math.floor(Math.random() * userAgents.length)];
-      
-      const response = await axiosInstance.head(url, {
-        headers: { 'User-Agent': userAgent }
-      });
+      const response = await requestUrl(url, userAgent);
       
       const status = response.status;
       
@@ -102,7 +112,8 @@ async function checkLinks() {
           url,
           toolNames,
           status,
-          statusText: response.statusText
+          statusText: response.statusText,
+          requestMethod: response.config.method.toUpperCase()
         });
       } else if (status >= 300 && status < 400) {
         // Redirect - considerăm OK
@@ -113,7 +124,8 @@ async function checkLinks() {
           toolNames,
           status,
           statusText: response.statusText,
-          note: 'Redirect'
+          note: 'Redirect',
+          requestMethod: response.config.method.toUpperCase()
         });
       } else {
         console.log(`❌ ${url} (used by: ${toolNames.join(', ')}) - Status: ${status}`);
@@ -123,7 +135,8 @@ async function checkLinks() {
           toolNames,
           status,
           statusText: response.statusText,
-          error: `HTTP ${status}`
+          error: `HTTP ${status}`,
+          requestMethod: response.config.method.toUpperCase()
         });
       }
     } catch (error) {
@@ -166,6 +179,25 @@ async function checkLinks() {
     console.log('\n✅ All URLs are valid!');
     process.exit(0);
   }
+}
+
+async function requestUrl(url, userAgent) {
+  const headers = { 'User-Agent': userAgent };
+  let response = await axiosInstance.head(url, {
+    headers,
+    maxRedirects: 5,
+    validateStatus: () => true
+  });
+
+  if ([403, 405].includes(response.status)) {
+    response = await axiosInstance.get(url, {
+      headers,
+      maxRedirects: 5,
+      validateStatus: () => true
+    });
+  }
+
+  return response;
 }
 
 // Rulează verificarea

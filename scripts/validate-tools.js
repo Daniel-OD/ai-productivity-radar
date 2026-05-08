@@ -11,12 +11,25 @@
 const fs = require('fs');
 const path = require('path');
 const Ajv = require('ajv');
+const { resolveToolUrl } = require('./tool-url-resolver');
 const ajv = new Ajv({ allErrors: true, strict: false });
+
+const pricingTierSchema = {
+  type: 'object',
+  required: ['name', 'price', 'desc'],
+  properties: {
+    name: { type: 'string', minLength: 1 },
+    price: { type: 'string', minLength: 1 },
+    desc: { type: 'string', minLength: 1 },
+    highlight: { type: 'boolean' }
+  },
+  additionalProperties: false
+};
 
 // Schema pentru validarea unui tool individual
 const toolSchema = {
   type: 'object',
-  required: ['name', 'cats', 'price', 'country', 'region', 'tagline', 'url'],
+  required: ['name', 'cats', 'price', 'country', 'region', 'tagline'],
   properties: {
     name: { type: 'string', minLength: 1 },
     cats: { 
@@ -54,7 +67,42 @@ const toolSchema = {
       type: 'array', 
       items: { type: 'string' } 
     },
-    standaloneNote: { type: 'string' }
+    standaloneNote: { type: 'string' },
+    bestFor: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    notIdeal: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    strengths: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    similar: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    pricing: { type: 'string' },
+    trendExplanation: { type: 'string' },
+    longDescription: { type: 'string' },
+    features: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    useCases: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    platforms: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    pricingTiers: {
+      type: 'array',
+      items: pricingTierSchema
+    }
   },
   additionalProperties: false
 };
@@ -150,6 +198,11 @@ function performAdditionalValidations(data) {
   data.tools.forEach((tool, index) => {
     if (tool.url && !/^https?:\/\//i.test(tool.url)) {
       errors.push(`Tool "${tool.name}" has invalid URL: "${tool.url}" (must start with http:// or https://)`);
+    }
+
+    const resolved = resolveToolUrl(tool);
+    if (!resolved.url) {
+      errors.push(`Tool "${tool.name}" could not be mapped to a usable URL`);
     }
   });
   
