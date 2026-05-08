@@ -4,11 +4,12 @@
  * Features:
  * - Open with Cmd+K / Ctrl+K
  * - Real-time search with debounce
- * - Navigate with arrow keys
- * - Select with Enter
- * - Close with Esc
- * - Highlight matching text
+ * - Arrow key navigation
+ * - Enter to select
+ * - Escape to close
+ * - Highlights matching text
  * - Mobile support
+ * - Accessibility support
  */
 
 // Global state for command palette
@@ -16,7 +17,7 @@ let commandIndex = 0;
 let commandMatches = [];
 
 /**
- * Open the command palette
+ * Open the command palette modal
  */
 function openCommandPalette() {
   const modal = document.getElementById('commandModal');
@@ -32,7 +33,7 @@ function openCommandPalette() {
 }
 
 /**
- * Close the command palette
+ * Close the command palette modal
  */
 function closeCommandPalette() {
   const modal = document.getElementById('commandModal');
@@ -43,7 +44,7 @@ function closeCommandPalette() {
 
 /**
  * Filter tools based on search query
- * @param {string} query - Search query
+ * @param {string} query - Search term
  * @returns {Array} - Filtered tools
  */
 function filterTools(query) {
@@ -61,7 +62,7 @@ function filterTools(query) {
       tool.audience
     ].join(' ').toLowerCase();
     return haystack.includes(q);
-  }).slice(0, 8); // Limit to 8 results
+  }).slice(0, 8); // Limit to 8 results for performance
 }
 
 /**
@@ -106,12 +107,17 @@ function renderCommandResults(results) {
     const when = highlightMatch(tool.when || '', query);
     const logo = toolLogos[tool.name] || '🛠️';
     
+    // Escape tool name for use in onclick
+    const escapedName = tool.name.replace(/'/g, "\\'\\'");
+    
     return `
       <div class="command-item ${index === commandIndex ? 'active' : ''}"
            data-index="${index}"
            role="option"
            aria-selected="${index === commandIndex}"
-           tabindex="0">
+           tabindex="0"
+           onclick="if (typeof window.openToolDetails === 'function') window.openToolDetails('${escapedName}'); window.closeCommandPalette();"
+           onkeydown="if (event.key === 'Enter' || event.key === ' ') { if (typeof window.openToolDetails === 'function') window.openToolDetails('${escapedName}'); window.closeCommandPalette(); event.preventDefault(); }">
         <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
           <span class="tool-logo" style="font-size: 18px;" aria-label="${tool.name} logo">${logo}</span>
           <div style="flex: 1;">
@@ -164,6 +170,7 @@ function handleCommandKeydown(e) {
       results[commandIndex]?.scrollIntoView({ block: 'nearest' });
       break;
     case 'Enter':
+    case ' ':
       e.preventDefault();
       if (commandMatches[commandIndex] && typeof window.openToolDetails === 'function') {
         window.openToolDetails(commandMatches[commandIndex].name);
