@@ -1,45 +1,49 @@
 /**
- * SIGNAL - Related Tools
+ * Related Tools for AI Productivity Radar
  * 
- * Implementare:
- * - Afișează tool-uri similare în modalul de detalii
- * - Bazat pe: categorii comune, regiune, trend similar
- * - Integrare automată cu modalul existent
+ * Features:
+ * - Find similar tools based on categories, region, and trend
+ * - Display in tool details modal
+ * - Configurable similarity scoring
  */
 
 /**
- * Calculează similaritatea între 2 tool-uri
- * @param {Object} a - Primul tool
- * @param {Object} b - Al doilea tool
- * @returns {number} Scorul de similaritate
+ * Calculate similarity score between two tools
+ * @param {Object} a - First tool
+ * @param {Object} b - Second tool
+ * @returns {number} - Similarity score (higher = more similar)
  */
 function calculateSimilarity(a, b) {
+  if (!a || !b) return 0;
+  
   let score = 0;
   
-  // Categorii comune (20 puncte per categorie comună)
+  // Common categories (20 points per match)
   const commonCats = (a.cats || []).filter(cat => (b.cats || []).includes(cat));
   score += commonCats.length * 20;
   
-  // Regiune comună (15 puncte)
+  // Same region (15 points)
   if (a.region === b.region) score += 15;
   
-  // Trend similar (±10 puncte)
-  if (Math.abs((a.trend || 80) - (b.trend || 80)) <= 10) score += 10;
+  // Similar trend (±10 = 10 points, ±20 = 5 points)
+  const trendDiff = Math.abs((a.trend || 80) - (b.trend || 80));
+  if (trendDiff <= 10) score += 10;
+  else if (trendDiff <= 20) score += 5;
   
-  // Preț comun (5 puncte)
+  // Same price (5 points)
   if (a.price === b.price) score += 5;
   
-  // Audience comună (5 puncte)
-  if (a.audience && b.audience && a.audience === b.audience) score += 5;
+  // Same country (3 points)
+  if (a.country === b.country) score += 3;
   
   return score;
 }
 
 /**
- * Găsește tool-uri similare pentru un tool dat
- * @param {Object} currentTool - Tool-ul curent
- * @param {number} max - Numărul maxim de tool-uri (default: 4)
- * @returns {Array} Lista de tool-uri similare
+ * Get related tools for a given tool
+ * @param {Object} currentTool - The tool to find related ones for
+ * @param {number} max - Maximum number of related tools to return
+ * @returns {Array} - Array of related tools
  */
 function getRelatedTools(currentTool, max = 4) {
   if (!window.tools || !window.tools.length) return [];
@@ -56,9 +60,9 @@ function getRelatedTools(currentTool, max = 4) {
 }
 
 /**
- * Randează secțiunea "Related Tools" în modal
- * @param {Object} tool - Tool-ul curent
- * @returns {string} HTML pentru secțiunea Related Tools
+ * Render related tools section in tool details modal
+ * @param {Object} tool - The current tool being viewed
+ * @returns {string} - HTML for related tools section
  */
 function renderRelatedTools(tool) {
   const relatedTools = getRelatedTools(tool);
@@ -67,10 +71,11 @@ function renderRelatedTools(tool) {
   
   const toolLogos = window.toolLogos || {};
   const flag = window.flag || {};
+  const priceLabels = window.priceLabels || {};
   
   return `
     <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
-      <h3 style="font-family: var(--serif); font-size: 18px; margin-bottom: 12px;">Tool-uri similare</h3>
+      <h3 style="font-family: var(--serif); font-size: 18px; margin-bottom: 12px; color: var(--text);">Tool-uri similare</h3>
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
         ${relatedTools.map(relatedTool => {
           const logo = toolLogos[relatedTool.name] || '🛠️';
@@ -87,7 +92,7 @@ function renderRelatedTools(tool) {
                  role="button"
                  aria-label="Deschide detalii pentru ${relatedTool.name}">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                <span class="tool-logo" style="width: 24px; height: 24px; font-size: 14px;" aria-label="${relatedTool.name} logo">${logo}</span>
+                <span class="tool-logo" style="font-size: 18px;" aria-label="${relatedTool.name} logo">${logo}</span>
                 <span style="font-family: var(--serif); font-size: 14px;">${relatedTool.name}</span>
               </div>
               <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
@@ -111,7 +116,7 @@ function renderRelatedTools(tool) {
 }
 
 /**
- * Funcție îmbunătățită openToolDetails care include Related Tools
+ * Enhanced openToolDetails function that includes Related Tools
  */
 function enhancedOpenToolDetails(toolName) {
   const tool = (window.tools || []).find(t => t.name === toolName);
@@ -169,21 +174,21 @@ function enhancedOpenToolDetails(toolName) {
 // ==================== SETUP ====================
 
 /**
- * Initializează Related Tools
- * - Suprascriere funcția openToolDetails pentru a include Related Tools
+ * Initialize Related Tools
+ * - Override openToolDetails to include Related Tools
  */
 function initRelatedTools() {
-  // Salvează referința la funcția originală dacă există
+  // Save reference to original function if it exists
   if (typeof window.openToolDetails === 'function' && !window.openToolDetailsOriginal) {
     window.openToolDetailsOriginal = window.openToolDetails;
   }
   
-  // Suprascriere cu funcția îmbunătățită
+  // Override with enhanced function
   window.openToolDetails = enhancedOpenToolDetails;
 }
 
 // ==================== EXPORT ====================
-// Expune funcțiile în scope-ul global
+// Expose functions to global scope
 window.getRelatedTools = getRelatedTools;
 window.calculateSimilarity = calculateSimilarity;
 window.renderRelatedTools = renderRelatedTools;
