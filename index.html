@@ -3,168 +3,1230 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AI Productivity Radar · Ghid interactiv tooluri AI</title>
-<!-- Phase 9: SEO meta -->
-<meta name="description" content="Descoperă și compară tooluri AI pentru productivitate, cod, design, cercetare și date. Găsește rapid soluția potrivită cu Command Palette semantic și analiză decizională.">
-<meta name="robots" content="index, follow">
-<!-- OpenGraph / Social -->
-<meta property="og:type"        content="website">
-<meta property="og:title"       content="AI Productivity Radar · Ghid interactiv tooluri AI">
-<meta property="og:description" content="Descoperă și compară tooluri AI pentru productivitate, cod, design, cercetare și date.">
-<meta property="og:url"         content="https://ai-productivity-radar.onrender.com/">
-<meta property="og:site_name"   content="AI Productivity Radar">
-<!-- Twitter Card -->
-<meta name="twitter:card"        content="summary">
-<meta name="twitter:title"       content="AI Productivity Radar">
-<meta name="twitter:description" content="Ghid interactiv pentru tooluri AI – productivitate, cod, design, cercetare, date.">
-<!-- PWA manifest -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f0d0a">
-<!-- Fonts -->
+<title>AI Productivity Radar · Ghid interactiv</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<!-- Styles -->
-<link rel="stylesheet" href="css/styles.css" />
+<style>
+:root {
+  --bg: #0f0d0a;
+  --bg-soft: #15110d;
+  --surface: #1c1712;
+  --surface-2: #241e17;
+  --border: #2e2620;
+  --border-strong: #44382d;
+  --text: #f4ede2;
+  --text-muted: #a89a85;
+  --text-dim: #6e6354;
+  --gold: #d4a574;
+  --sage: #94b08c;
+  --sage-bg: rgba(148, 176, 140, 0.12);
+  --coral: #d97757;
+  --coral-bg: rgba(217, 119, 87, 0.12);
+  --blue: #7fa3bf;
+  --blue-bg: rgba(127, 163, 191, 0.12);
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+}
+
+/* Light Theme */
+.light-mode {
+  --bg: #f8f9fa;
+  --bg-soft: #f1f3f5;
+  --surface: #ffffff;
+  --surface-2: #e9ecef;
+  --border: #dee2e6;
+  --border-strong: #ced4da;
+  --text: #212529;
+  --text-muted: #6c757d;
+  --text-dim: #495057;
+  --gold: #ffc107;
+  --sage: #28a745;
+  --sage-bg: rgba(40, 167, 69, 0.12);
+  --coral: #dc3545;
+  --coral-bg: rgba(220, 53, 69, 0.12);
+  --blue: #0d6efd;
+  --blue-bg: rgba(13, 110, 253, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212, 165, 116, 0.1), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(217, 119, 87, 0.05), transparent 70%);
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 32px;
+}
+
+/* Header */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 220;
+  background: rgba(15, 13, 10, 0.82);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.light-mode .topnav {
+  background: rgba(248, 249, 250, 0.82);
+}
+
+.topnav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.brand {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.navlinks {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.navlinks a, .mini-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-decoration: none;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.navlinks a:hover, .mini-btn:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+  color: var(--gold);
+  background: var(--bg-soft);
+}
+
+/* Header Content */
+header {
+  padding: 72px 0 42px;
+  border-bottom: 1px solid var(--border);
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 22px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.eyebrow:before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(48px, 8vw, 94px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.lead {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2.2vw, 23px);
+  color: var(--text-muted);
+  max-width: 780px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.primary, .secondary {
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.primary {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--gold);
+}
+
+.meta-bar {
+  display: flex;
+  gap: 18px 26px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.meta-bar strong {
+  color: var(--text);
+}
+
+.data-status {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: var(--text-muted);
+  background: rgba(28, 23, 18, 0.5);
+}
+
+.light-mode .data-status {
+  background: rgba(248, 249, 250, 0.5);
+}
+
+.data-status.ok {
+  color: var(--sage);
+  border-color: rgba(148, 176, 140, 0.45);
+}
+
+.data-status.warn {
+  color: var(--gold);
+  border-color: rgba(212, 165, 116, 0.45);
+}
+
+/* Panels */
+.panel {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.08), rgba(127, 163, 191, 0.05));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px;
+}
+
+.light-mode .panel {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), rgba(127, 163, 191, 0.02));
+}
+
+.section {
+  padding: 54px 0;
+}
+
+.section-sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+
+.section-title em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.helper {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 760px;
+}
+
+/* Wizard Grid */
+.wizard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.choice, .trend-card {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: left;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.light-mode .choice, .light-mode .trend-card {
+  background: var(--surface);
+}
+
+.choice:hover, .choice.active, .trend-card:hover {
+  border-color: var(--gold);
+  background: var(--surface);
+}
+
+.light-mode .choice:hover, .light-mode .choice.active, .light-mode .trend-card:hover {
+  background: var(--bg-soft);
+}
+
+.choice strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.choice span, .trend-card p {
+  display: block;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.recommendation {
+  margin-top: 18px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.recommendation strong {
+  color: var(--gold);
+}
+
+/* Trending Strip */
+.trending-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.trend-card .score {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.trend-card h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 22px;
+}
+
+/* Stack Row */
+.stack-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.stack-pill {
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stack-pill:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Filters Section */
+.filters-section {
+  padding: 28px 0;
+  position: sticky;
+  top: 46px;
+  background: rgba(15, 13, 10, 0.93);
+  z-index: 180;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  transition: transform 0.28s ease, opacity 0.22s ease;
+}
+
+.light-mode .filters-section {
+  background: rgba(248, 249, 250, 0.93);
+}
+
+.filters-section.filters-hidden {
+  transform: translateY(calc(-100% - 52px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.compact-filter-bar {
+  position: fixed;
+  left: 50%;
+  top: 58px;
+  transform: translate(-50%, -120%);
+  z-index: 210;
+  width: min(980px, calc(100% - 28px));
+  background: rgba(28, 23, 18, 0.94);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(14px);
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.28s ease, opacity 0.22s ease;
+}
+
+.light-mode .compact-filter-bar {
+  background: rgba(248, 249, 250, 0.94);
+}
+
+.compact-filter-bar.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.compact-filter-bar input {
+  flex: 1;
+  min-width: 160px;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  padding: 8px 10px;
+  outline: none;
+}
+
+.compact-filter-bar span {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.compact-filter-bar button {
+  background: var(--gold);
+  color: var(--bg);
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+/* Filter Rows */
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 13px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  min-width: 90px;
+}
+
+.pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.pill {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 7px 14px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pill:hover {
+  border-color: var(--gold);
+  color: var(--text);
+}
+
+.pill.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg);
+}
+
+.count {
+  opacity: 0.65;
+  margin-left: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+/* Search Row */
+.search-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 240px;
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 12px 16px 12px 44px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.search-box:before {
+  content: '⌕';
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  font-size: 18px;
+}
+
+.sort-select, .reset-btn {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  border-color: var(--coral);
+  color: var(--coral);
+}
+
+.results-count {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 14px;
+}
+
+.results-count strong {
+  color: var(--gold);
+}
+
+/* Tools Section */
+.tools-section {
+  padding: 40px 0 80px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+/* Modern Tool Cards (Inspired by TopAI.Tools) */
+.tool-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.light-mode .tool-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-color: var(--gold);
+}
+
+.light-mode .tool-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.tool-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.tool-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.light-mode .tool-logo {
+  background: var(--bg-soft);
+}
+
+.tool-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.tool-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.tool-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--gold);
+  font-size: 14px;
+}
+
+.tool-description {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.tool-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tool-tag {
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--mono);
+}
+
+.light-mode .tool-tag {
+  background: var(--bg-soft);
+}
+
+.tool-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.tool-link, .similar-btn, .fav-btn, .compare-btn {
+  color: var(--text-muted);
+  background: transparent;
+  border: 0;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tool-link:hover, .similar-btn:hover, .fav-btn:hover, .compare-btn:hover {
+  color: var(--gold);
+}
+
+/* Compare Bar */
+.compare-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 300;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 10px 14px;
+  display: none;
+  gap: 12px;
+  align-items: center;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.compare-bar.show {
+  display: flex;
+}
+
+.compare-bar button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Modals */
+.modal, .command-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 400;
+  padding: 20px;
+}
+
+.modal.show, .command-modal.show {
+  display: flex;
+}
+
+.modal-card, .command-card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.command-card {
+  max-width: 780px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.55);
+}
+
+.command-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 18px;
+}
+
+.command-top span {
+  font-family: var(--mono);
+  color: var(--gold);
+  font-size: 18px;
+}
+
+.command-top input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--text);
+  font-size: 18px;
+  font-family: var(--sans);
+}
+
+.command-results {
+  max-height: 460px;
+  overflow: auto;
+  padding: 8px;
+}
+
+.command-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.command-item:hover, .command-item.active {
+  background: var(--bg-soft);
+  border-color: var(--border-strong);
+}
+
+.command-name {
+  font-family: var(--serif);
+  font-size: 21px;
+}
+
+.command-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.command-tagline {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.command-score {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.command-footer {
+  border-top: 1px solid var(--border);
+  padding: 10px 16px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Compare Table */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-table td, .compare-table th {
+  border: 1px solid var(--border);
+  padding: 10px;
+  text-align: left;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.compare-table th {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+/* Empty State */
+.empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  display: none;
+}
+
+.empty.show {
+  display: block;
+}
+
+.empty .big {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 32px;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+/* Loading State */
+.loading-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+/* Radar Grid */
+.radar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  margin-top: 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.radar-card {
+  background: var(--bg-soft);
+  padding: 18px;
+}
+
+.light-mode .radar-card {
+  background: var(--surface);
+}
+
+.radar-card strong {
+  display: block;
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.radar-card span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 54px 0 70px;
+  color: var(--text-muted);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+}
+
+.footer-block h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.footer-block p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: var(--surface);
+  border: 1px solid var(--gold);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: none;
+  z-index: 500;
+}
+
+.toast.show {
+  display: block;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .topnav .container {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .filters-section {
+    top: 84px;
+  }
+
+  .filters-section.filters-hidden {
+    transform: translateY(calc(-100% - 90px));
+  }
+
+  .compact-filter-bar {
+    top: 90px;
+    border-radius: 16px;
+    flex-wrap: wrap;
+  }
+
+  .compact-filter-bar span {
+    display: none;
+  }
+
+  .tool-card {
+    padding: 20px;
+  }
+
+  .filter-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .filter-label {
+    min-width: 0;
+  }
+
+  .compare-bar {
+    width: calc(100% - 30px);
+    justify-content: space-between;
+  }
+
+  .command-modal {
+    align-items: flex-start;
+    padding: 90px 14px 14px;
+  }
+
+  .command-card {
+    max-height: 80vh;
+  }
+
+  .command-name {
+    font-size: 18px;
+  }
+
+  header {
+    padding-top: 48px;
+  }
+}
+</style>
 </head>
 <body>
-
-<a href="#mainContent" class="skip-link">Sari la conținut</a>
-
-<nav class="topnav" role="navigation" aria-label="Navigare principală">
+<nav class="topnav">
   <div class="container">
     <div class="brand">AI Productivity Radar</div>
     <div class="navlinks">
       <a href="#wizard">Găsește-mi toolul</a>
       <a href="#trending">Trending</a>
       <a href="#tools">Toate toolurile</a>
-      <button class="mini-btn" id="commandBtn" aria-label="Deschide Command Palette (Ctrl+K)">⌘K Search</button>
-      <button class="mini-btn" id="favQuick" aria-label="Arată favorite">Favorite</button>
+      <button class="mini-btn" id="commandBtn">⌘K Search</button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">🌓</button>
+      <button class="mini-btn" id="favQuick">Favorite</button>
     </div>
   </div>
 </nav>
 
-<header role="banner">
+<header>
   <div class="container">
     <div class="eyebrow">Ghid interactiv · Render live</div>
     <h1>Găsește AI-ul potrivit <em>fără să pierzi ore</em>.</h1>
-    <p class="lead">Scrie ce vrei să faci și radarul îți propune toolul potrivit — sau alege direct o categorie.</p>
-
-    <!-- Prominent search bar inspired by topai.tools -->
-    <div class="hero-search-wrap" role="search">
-      <div class="hero-search-box">
-        <span class="hero-search-icon">⌕</span>
-        <input id="heroSearch" class="hero-search-input" autocomplete="off"
-               placeholder="Caută: excel, video, cod, PDF, avatar..."
-               aria-label="Caută tooluri AI" />
-        <button class="hero-search-btn" id="heroSearchBtn" aria-label="Deschide Command Palette">⌘K</button>
-      </div>
+    <p class="lead">Un radar prietenos pentru tool-uri AI: alegi ce vrei să faci, vezi recomandări, compari opțiuni și salvezi favorite. Datele vin din JSON, dar pagina nu mai apare niciodată goală.</p>
+    <div class="hero-actions">
+      <a class="primary" href="#wizard">Ajută-mă să aleg →</a>
+      <a class="secondary" href="#tools">Explorează lista</a>
     </div>
-
-    <!-- Visual category chips -->
-    <div class="hero-cats" id="heroCats" role="group" aria-label="Filtrare rapidă după categorie">
-      <button class="hero-cat-chip" data-hero-cat="programare"><span class="chip-icon">💻</span>Programare</button>
-      <button class="hero-cat-chip" data-hero-cat="scris"><span class="chip-icon">✍️</span>Scris</button>
-      <button class="hero-cat-chip" data-hero-cat="cercetare"><span class="chip-icon">🔍</span>Cercetare</button>
-      <button class="hero-cat-chip" data-hero-cat="design"><span class="chip-icon">🎨</span>Design</button>
-      <button class="hero-cat-chip" data-hero-cat="productivitate"><span class="chip-icon">⚡</span>Productivitate</button>
-      <button class="hero-cat-chip" data-hero-cat="studiu"><span class="chip-icon">📚</span>Studiu</button>
-      <button class="hero-cat-chip" data-hero-cat="date"><span class="chip-icon">📊</span>Date & Analiză</button>
-    </div>
-
     <div class="meta-bar">
       <span><strong id="metaTools">12</strong> tooluri</span>
       <span><strong>7</strong> categorii</span>
       <span><strong>4</strong> regiuni</span>
       <span>Actualizat <strong id="metaUpdated">mai 2026</strong></span>
-      <span class="data-status" id="dataStatus">Se încarcă radarul...</span>
+      <span class="data-status warn" id="dataStatus">Se încarcă radarul...</span>
     </div>
   </div>
 </header>
 
-<main id="mainContent">
+<section class="section" id="wizard">
+  <div class="container">
+    <div class="panel">
+      <div class="section-sub">Start aici</div>
+      <h2 class="section-title">Ce vrei să faci <em>acum</em>?</h2>
+      <p class="helper">Apasă pe un profil și radarul îți filtrează automat lista.</p>
+      <div class="wizard-grid" id="wizardGrid"></div>
+      <div class="recommendation" id="recommendation">Alege un profil pentru o recomandare rapidă.</div>
+    </div>
+  </div>
+</section>
 
-  <section class="section" id="wizard" aria-label="Selector profil">
-    <div class="container">
-      <div class="panel">
-        <div class="section-sub">Start aici</div>
-        <h2 class="section-title">Ce vrei să faci <em>acum</em>?</h2>
-        <p class="helper">Apasă pe un profil și radarul îți filtrează automat lista.</p>
-        <div class="wizard-grid" id="wizardGrid" role="group" aria-label="Profiluri de utilizare"></div>
-        <div class="recommendation" id="recommendation" aria-live="polite">Alege un profil pentru o recomandare rapidă.</div>
+<section class="section" id="trending">
+  <div class="container">
+    <div class="section-sub">Trending now</div>
+    <h2 class="section-title">Semnale rapide din <em>piață</em>.</h2>
+    <div class="trending-strip" id="trendingStrip"></div>
+    <div class="stack-row">
+      <button class="stack-pill" data-stack="programare">Stack cod</button>
+      <button class="stack-pill" data-stack="cercetare">Stack research</button>
+      <button class="stack-pill" data-stack="date">Stack data</button>
+      <button class="stack-pill" data-region-stack="europa">Radar Europa</button>
+      <button class="stack-pill" data-region-stack="asia">Radar Asia</button>
+    </div>
+  </div>
+</section>
+
+<section class="filters-section" id="filters">
+  <div class="container">
+    <div class="filter-row">
+      <span class="filter-label">Categorie</span>
+      <div class="pills" id="categoryPills"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Preț</span>
+      <div class="pills" id="pricePills"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Regiune</span>
+      <div class="pills" id="regionPills"></div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Sortare</span>
+      <div class="pills">
+        <button class="pill" data-sort="default">Implicit</button>
+        <button class="pill" data-sort="trend">Trend</button>
+        <button class="pill" data-sort="rating">Rating</button>
+        <button class="pill" data-sort="name">Nume A-Z</button>
+        <button class="pill" data-sort="price">Preț</button>
+        <button class="pill" data-sort="favorites">Favorite</button>
       </div>
     </div>
-  </section>
-
-  <section class="section" id="trending" aria-label="Trending tools">
-    <div class="container">
-      <div class="section-sub">Trending now</div>
-      <h2 class="section-title">Semnale rapide din <em>piață</em>.</h2>
-      <div class="trending-strip" id="trendingStrip" role="list" aria-label="Top tooluri trending"></div>
+    <div class="search-row">
+      <div class="search-box">
+        <input id="search" aria-label="Caută tooluri AI" placeholder="Caută: excel, video, cod, Europa, open-source..." />
+      </div>
+      <button class="reset-btn" id="resetBtn">Reset</button>
     </div>
-  </section>
+    <div class="results-count" id="resultsCount" aria-live="polite">Se încarcă radarul...</div>
+  </div>
+</section>
 
-  <section class="filters-section" id="filters" aria-label="Filtre tooluri">
-    <div class="container">
-      <div class="filter-row">
-        <span class="filter-label" id="label-cat">Categorie</span>
-        <div class="pills" id="categoryPills" role="group" aria-labelledby="label-cat"></div>
-      </div>
-      <div class="filter-row">
-        <span class="filter-label" id="label-price">Preț</span>
-        <div class="pills" id="pricePills" role="group" aria-labelledby="label-price"></div>
-      </div>
-      <div class="filter-row">
-        <span class="filter-label" id="label-region">Regiune</span>
-        <div class="pills" id="regionPills" role="group" aria-labelledby="label-region"></div>
-      </div>
-      <div class="search-row" role="search">
-        <div class="search-box">
-          <input id="search" aria-label="Caută tooluri AI" placeholder="Caută: excel, video, cod, Europa, open-source..." />
-        </div>
-        <select id="sortSelect" class="sort-select" aria-label="Sortare rezultate">
-          <option value="default">Implicit</option>
-          <option value="trend">Trend score</option>
-          <option value="name">Nume A-Z</option>
-          <option value="price">Preț</option>
-          <option value="favorites">Favorite primele</option>
-        </select>
-        <button class="reset-btn" id="resetBtn" aria-label="Resetează filtrele">Reset</button>
-      </div>
-      <div class="results-count" id="resultsCount" aria-live="polite" aria-atomic="true">Se încarcă radarul...</div>
+<div class="compact-filter-bar" id="compactBar">
+  <input id="compactSearch" aria-label="Căutare rapidă" placeholder="Caută rapid..." />
+  <span id="compactCount">0 rezultate</span>
+  <button id="showFilters">Filtre</button>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="panel">
+      <div class="section-sub">Live radar</div>
+      <h2 class="section-title">Pulsul datasetului.</h2>
+      <div class="radar-grid" id="radarGrid"></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section" aria-label="Statistici radar">
-    <div class="container">
-      <div class="panel">
-        <div class="section-sub">Live radar</div>
-        <h2 class="section-title">Pulsul datasetului.</h2>
-        <div class="radar-grid" id="radarGrid" role="list"></div>
-      </div>
+<section class="tools-section" id="tools">
+  <div class="container">
+    <div class="tools-grid" id="toolsGrid">
+      <div class="loading-state">Se încarcă radarul...</div>
     </div>
-  </section>
-
-  <section class="tools-section" id="tools" aria-label="Lista tooluri AI">
-    <div class="container">
-      <div class="tools-grid" id="toolsGrid" role="list">
-        <div class="loading-state">Se încarcă radarul...</div>
-      </div>
-      <div class="empty" id="emptyState" role="status">
-        <div class="big">Nu am găsit nimic aici.</div>
-        <p>Încearcă alt cuvânt sau apasă Reset.</p>
-      </div>
+    <div class="empty" id="emptyState">
+      <div class="big">Nu am găsit nimic aici.</div>
+      <p>Încearcă alt cuvânt sau apasă Reset.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-</main>
-
-<footer role="contentinfo">
+<footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-block">
         <h4>Cum să folosești ghidul</h4>
-        <p>Click pe orice card pentru analiza decizională. Folosește ⌘K / Ctrl+K pentru căutare pe task, nu doar pe nume.</p>
+        <p>Folosește ⌘K / Ctrl+K pentru Command Palette, apoi rafinează cu filtrele. Marchează favoritele și compară 2-4 tooluri înainte să plătești.</p>
       </div>
       <div class="footer-block">
         <h4>Stack-uri recomandate</h4>
@@ -178,35 +1240,39 @@
   </div>
 </footer>
 
-<!-- Command Palette -->
+<!-- Modal pentru detalii tool -->
+<div class="modal" id="toolDetailsModal">
+  <div class="modal-card">
+    <button class="modal-close" id="closeToolDetails" aria-label="Închide">×</button>
+    <h2 class="section-title" id="toolDetailsName">Nume Tool</h2>
+    <div id="toolDetailsContent"></div>
+  </div>
+</div>
+
+<!-- Command Palette Modal -->
 <div class="command-modal" id="commandModal" role="dialog" aria-modal="true" aria-label="Command Palette">
   <div class="command-card">
     <div class="command-top">
       <span>⌘K</span>
-      <input id="commandInput" autocomplete="off" aria-label="Caută sau descrie ce vrei să faci"
-             placeholder="Scrie ce vrei să faci: analizez excel, fac video, scriu cod..." />
+      <input id="commandInput" autocomplete="off" placeholder="Caută tool, categorie, țară, use-case..." />
     </div>
-    <div class="command-results" id="commandResults" role="listbox" aria-label="Rezultate căutare"></div>
+    <div class="command-results" id="commandResults"></div>
     <div class="command-footer">
-      <span>↑↓ navighează · Enter deschide detalii · ⌘/Ctrl+Enter site oficial · Esc închide</span>
-      <span id="commandCount" aria-live="polite">0 recomandări</span>
+      <span>↑↓ navighează · Enter filtrează · ⌘/Ctrl+Enter deschide · Esc închide</span>
+      <span id="commandCount">0 rezultate</span>
     </div>
   </div>
 </div>
 
-<!-- Decision Modal -->
-<div class="decision-modal" id="decisionModal" role="dialog" aria-modal="true" aria-label="Analiza deciziei">
-  <div class="decision-card" id="decisionCard"></div>
-</div>
-
-<!-- Compare bar & modal -->
-<div class="compare-bar" id="compareBar" role="status" aria-live="polite">
+<!-- Compare Bar -->
+<div class="compare-bar" id="compareBar">
   <span id="compareText">0 selectate</span>
-  <button class="mini-btn" id="openCompare" disabled aria-label="Deschide comparație">Compară</button>
-  <button class="mini-btn" id="clearCompare" aria-label="Șterge selecția pentru comparație">Curăță</button>
+  <button class="mini-btn" id="openCompare" disabled>Compară</button>
+  <button class="mini-btn" id="clearCompare">Curăță</button>
 </div>
 
-<div class="modal" id="compareModal" role="dialog" aria-modal="true" aria-label="Comparare tooluri">
+<!-- Compare Modal -->
+<div class="modal" id="compareModal">
   <div class="modal-card">
     <h2 class="section-title">Comparare tooluri</h2>
     <div id="compareContent"></div>
@@ -214,14 +1280,891 @@
   </div>
 </div>
 
-<div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
-<!-- Phase 1: load scripts with defer in dependency order -->
-<script src="js/phase0-hardening.js" defer></script>
-<script src="js/dom-utils.js"        defer></script>
-<script src="js/command-palette.js"  defer></script>
-<script src="js/decision-modal.js"   defer></script>
-<script src="js/app.js"              defer></script>
+<!-- Service Worker Registration -->
+<script>
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('[Service Worker] Registered with scope:', registration.scope);
+        registration.update();
+      })
+      .catch(error => {
+        console.error('[Service Worker] Registration failed:', error);
+      });
+  });
+}
+</script>
 
+<script>
+// ==================== DATA ====================
+const FALLBACK_TOOLS = [
+  {
+    name: 'ChatGPT',
+    cats: ['programare', 'scris', 'cercetare', 'productivitate', 'studiu', 'date'],
+    price: 'freemium',
+    country: 'SUA',
+    region: 'america',
+    tagline: 'Asistent AI generalist pentru scris, cod, research și analiză de date.',
+    when: 'Când vrei un punct de pornire universal pentru aproape orice workflow.',
+    url: 'https://chatgpt.com',
+    lastUpdated: 'mai 2026',
+    trend: 92,
+    badges: ['popular', 'generalist'],
+    audience: 'Toți utilizatorii'
+  },
+  {
+    name: 'Claude',
+    cats: ['programare', 'scris', 'cercetare', 'date'],
+    price: 'freemium',
+    country: 'SUA',
+    region: 'america',
+    tagline: 'AI cu raționament puternic, excelent la documente lungi și cod.',
+    when: 'Când ai proiecte complexe sau vrei răspunsuri atent structurate.',
+    url: 'https://claude.ai',
+    lastUpdated: 'mai 2026',
+    trend: 88,
+    badges: ['cod-clean', 'documente'],
+    audience: 'Developeri, cercetători, scriitori'
+  },
+  {
+    name: 'Perplexity',
+    cats: ['cercetare'],
+    price: 'freemium',
+    country: 'SUA',
+    region: 'america',
+    tagline: 'Motor de căutare AI cu surse și citări.',
+    when: 'Când vrei research rapid și verificabil.',
+    url: 'https://www.perplexity.ai',
+    lastUpdated: 'mai 2026',
+    trend: 75,
+    badges: ['research', 'citation-verified'],
+    audience: 'Cercetători, jurnaliști, studenți'
+  },
+  {
+    name: 'Cursor',
+    cats: ['programare'],
+    price: 'freemium',
+    country: 'SUA',
+    region: 'america',
+    tagline: 'IDE-ul desenat de AI. Înțelege codul tău și editează mai multe fișiere deodată.',
+    when: 'Alegi Cursor ca editor dacă vrei să scrii cod mai rapid cu ajutorul AI integrat direct.',
+    url: 'https://cursor.com',
+    lastUpdated: 'mai 2026',
+    trend: 85,
+    badges: ['editor', 'coding'],
+    audience: 'Developeri'
+  },
+  {
+    name: 'DeepSeek',
+    cats: ['programare', 'cercetare', 'scris'],
+    price: 'freemium',
+    country: 'China',
+    region: 'asia',
+    tagline: 'Modele puternice și eficiente, bune pentru cod și reasoning.',
+    when: 'Alegi DeepSeek când vrei o alternativă ieftină și capabilă.',
+    url: 'https://chat.deepseek.com',
+    lastUpdated: 'mai 2026',
+    trend: 82,
+    badges: ['open-source', 'ieftin'],
+    audience: 'Startup-uri, studenți, buget mic'
+  },
+  {
+    name: 'Mistral / Le Chat',
+    cats: ['programare', 'scris', 'cercetare'],
+    price: 'freemium',
+    country: 'Franța',
+    region: 'europa',
+    tagline: 'Campion european LLM cu modele open-weight.',
+    when: 'Alegi Mistral dacă preferi o alternativă europeană rapidă și serioasă.',
+    url: 'https://chat.mistral.ai',
+    lastUpdated: 'mai 2026',
+    trend: 80,
+    badges: ['europa', 'open-weight'],
+    audience: 'Europa, enterprise, GDPR-conscious'
+  },
+  {
+    name: 'Hugging Face',
+    cats: ['programare', 'cercetare', 'date'],
+    price: 'freemium',
+    country: 'Franța',
+    region: 'europa',
+    tagline: 'Hub pentru modele, datasets și aplicații open-source.',
+    when: 'Alegi Hugging Face dacă vrei să testezi sau să construiești cu modele AI reale.',
+    url: 'https://huggingface.co',
+    lastUpdated: 'mai 2026',
+    trend: 85,
+    badges: ['open-source', 'community', 'datasets'],
+    audience: 'Cercetători, developeri, MLOps'
+  },
+  {
+    name: 'NotebookLM',
+    cats: ['cercetare', 'studiu'],
+    price: 'gratuit',
+    country: 'SUA',
+    region: 'america',
+    tagline: 'Analizează documente și creează sinteze utile pentru studiu.',
+    when: 'Alegi NotebookLM dacă vrei să studiezi documente și să transformi materiale în audio.',
+    url: 'https://notebooklm.google.com',
+    lastUpdated: 'mai 2026',
+    trend: 86,
+    badges: ['gratuit', 'podcast', 'documente'],
+    audience: 'Studenți, cercetători, content creators'
+  },
+  {
+    name: 'Julius AI',
+    cats: ['date'],
+    price: 'freemium',
+    country: 'Canada',
+    region: 'america',
+    tagline: 'Analiză de CSV/Excel în limbaj natural. AI vede datele și explică.',
+    when: 'Alegi Julius AI dacă vrei să analizezi date fără să scrii cod SQL.',
+    url: 'https://julius.ai',
+    lastUpdated: 'mai 2026',
+    trend: 78,
+    badges: ['data-analysis', 'no-code', 'excel'],
+    audience: 'Analiști, business, non-tehnici'
+  },
+  {
+    name: 'Power BI Copilot',
+    cats: ['date', 'productivitate'],
+    price: 'platit',
+    country: 'SUA',
+    region: 'america',
+    tagline: 'Copilot pentru Microsoft BI. Crează rapoarte cu o descriere în text.',
+    when: 'Alegi Power BI Copilot dacă lucrezi deja în ecosistemul Microsoft.',
+    url: 'https://powerbi.microsoft.com',
+    lastUpdated: 'mai 2026',
+    trend: 81,
+    badges: ['microsoft', 'bi', 'enterprise'],
+    audience: 'Microsoft enterprise, BI analysts'
+  },
+  {
+    name: 'Synthesia',
+    cats: ['design'],
+    price: 'platit',
+    country: 'UK',
+    region: 'europa',
+    tagline: 'Crează videoclipuri cu avatare AI. Perfect pentru training și comunicare.',
+    when: 'Alegi Synthesia dacă vrei să generezi videoclipuri profesionale fără să filmezi.',
+    url: 'https://www.synthesia.io',
+    lastUpdated: 'mai 2026',
+    trend: 74,
+    badges: ['video', 'avatare', 'corporate'],
+    audience: 'Marketing, training corporativ, comunicare'
+  }
+];
+
+const categories = [
+  ['all', 'Toate'],
+  ['programare', 'Programare'],
+  ['scris', 'Scris'],
+  ['cercetare', 'Cercetare'],
+  ['design', 'Design'],
+  ['productivitate', 'Productivitate'],
+  ['studiu', 'Studiu'],
+  ['date', 'Date']
+];
+
+const prices = [
+  ['all', 'Toate'],
+  ['gratuit', 'Gratuit'],
+  ['freemium', 'Freemium'],
+  ['platit', 'Plătit']
+];
+
+const regions = [
+  ['all', 'Toate'],
+  ['america', 'America'],
+  ['europa', 'Europa'],
+  ['asia', 'Asia'],
+  ['israel', 'Israel']
+];
+
+const priceLabels = { gratuit: 'Gratuit', freemium: 'Freemium', platit: 'Plătit' };
+const priceOrder = { gratuit: 1, freemium: 2, platit: 3 };
+const validCats = new Set(categories.map(x => x[0]));
+const validPrices = new Set(prices.map(x => x[0]));
+const validRegions = new Set(regions.map(x => x[0]));
+
+const flag = {
+  SUA: '🇺🇸', Canada: '🇨🇦', China: '🇨🇳', Franța: '🇫🇷', Germania: '🇩🇪',
+  UK: '🇬🇧', Israel: '🇮🇱', 'Coreea de Sud': '🇰🇷', Japonia: '🇯🇵', India: '🇮🇳',
+  Australia: '🇦🇺', România: '🇷🇴'
+};
+
+const OFFICIAL_URLS = {
+  'chatgpt': 'https://chatgpt.com',
+  'claude': 'https://claude.ai',
+  'perplexity': 'https://www.perplexity.ai',
+  'cursor': 'https://cursor.com',
+  'deepseek': 'https://chat.deepseek.com',
+  'qwen': 'https://chat.qwen.ai',
+  'tongyi qianwen': 'https://chat.qwen.ai',
+  'mistral': 'https://chat.mistral.ai',
+  'le chat': 'https://chat.mistral.ai',
+  'hugging face': 'https://huggingface.co',
+  'notebooklm': 'https://notebooklm.google.com',
+  'julius': 'https://julius.ai',
+  'power bi copilot': 'https://powerbi.microsoft.com',
+  'synthesia': 'https://www.synthesia.io'
+};
+
+const profiles = [
+  { title: 'Scriu cod', cat: 'programare', hint: 'IDE, agenți, debugging', rec: 'Cursor + Claude + DeepSeek.' },
+  { title: 'Fac research', cat: 'cercetare', hint: 'surse, PDF-uri, sinteză', rec: 'Perplexity + NotebookLM + Claude.' },
+  { title: 'Analizez date', cat: 'date', hint: 'CSV, Excel, BI, SQL', rec: 'Julius + Hex + Power BI Copilot.' },
+  { title: 'Creez vizual', cat: 'design', hint: 'imagini, video, avatar', rec: 'Midjourney + Runway + Synthesia.' },
+  { title: 'Scriu mai bine', cat: 'scris', hint: 'copy, email, documente', rec: 'Claude + ChatGPT + Grammarly.' },
+  { title: 'Vreau productivitate', cat: 'productivitate', hint: 'meeting, calendar, taskuri', rec: 'Notion AI + Granola + Reclaim.' }
+];
+
+// Logo mappings for tools
+const toolLogos = {
+  'ChatGPT': '🤖',
+  'Claude': '💬',
+  'Perplexity': '🔍',
+  'Cursor': '💻',
+  'DeepSeek': '🔬',
+  'Mistral / Le Chat': '🌍',
+  'Hugging Face': '🤗',
+  'NotebookLM': '📓',
+  'Julius AI': '📊',
+  'Power BI Copilot': '📈',
+  'Synthesia': '🎥'
+};
+
+// ==================== STATE ====================
+let tools = [],
+    activeCat = 'all',
+    activePrice = 'all',
+    activeRegion = 'all',
+    searchQuery = '',
+    sortMode = 'default',
+    lastScroll = 0,
+    hasInteracted = false,
+    isLoading = true,
+    hasDeepLink = false;
+
+let favorites = new Set(JSON.parse(safeStorageGet('aiRadarFavorites', '[]')));
+let compare = new Set();
+
+const $ = id => document.getElementById(id);
+
+// ==================== UTILITY FUNCTIONS ====================
+function safeStorageGet(k, f) {
+  try { return localStorage.getItem(k) || f; } catch (e) { return f; }
+}
+
+function safeStorageSet(k, v) {
+  try { localStorage.setItem(k, v); } catch (e) {}
+}
+
+function toast(t) {
+  const el = $('toast');
+  el.textContent = t;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+function normKey(s) {
+  return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+function officialUrl(t) {
+  if (t && /^https?:\/\//i.test(t.url || '')) return t.url;
+  const n = normKey(t && t.name);
+  if (OFFICIAL_URLS[n]) return OFFICIAL_URLS[n];
+  for (const k in OFFICIAL_URLS) {
+    if (n.includes(k) || k.includes(n)) return OFFICIAL_URLS[k];
+  }
+  return `https://www.google.com/search?q=${encodeURIComponent((t && t.name ? t.name : 'AI tool') + ' official website')}`;
+}
+
+function regionOf(c) {
+  if (['SUA', 'Canada'].includes(c)) return 'america';
+  if (['China', 'Japonia', 'Coreea de Sud', 'India', 'Australia'].includes(c)) return 'asia';
+  if (c === 'Israel') return 'israel';
+  return 'europa';
+}
+
+function normalize(t, i) {
+  t = t || {};
+  let cats = Array.isArray(t.cats) ? t.cats.filter(Boolean) : ['productivitate'];
+  if (!cats.length) cats = ['productivitate'];
+  let country = String(t.country || 'SUA');
+  return {
+    name: String(t.name || 'Tool AI'),
+    cats,
+    price: priceLabels[t.price] ? t.price : 'freemium',
+    country,
+    region: t.region || regionOf(country),
+    tagline: String(t.tagline || t.description || 'Descriere în curs de verificare.'),
+    when: String(t.when || t.whenToUse || 'Folosește după testare.'),
+    url: officialUrl(t),
+    lastUpdated: String(t.lastUpdated || 'mai 2026'),
+    trend: Number.isFinite(Number(t.trend)) ? Number(t.trend) : 80,
+    badges: Array.isArray(t.badges) ? t.badges : [],
+    audience: t.audience || '',
+    _i: i
+  };
+}
+
+// ==================== THEME FUNCTIONS ====================
+function toggleTheme() {
+  const html = document.documentElement;
+  const currentTheme = html.classList.contains('light-mode') ? 'light' : 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  html.classList.toggle('light-mode', newTheme === 'light');
+  localStorage.setItem('theme', newTheme);
+  updateThemeButton();
+}
+
+function updateThemeButton() {
+  const theme = localStorage.getItem('theme') || 'dark';
+  const btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+}
+
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  document.documentElement.classList.toggle('light-mode', savedTheme === 'light');
+  updateThemeButton();
+}
+
+// ==================== URL STATE ====================
+function readUrlState() {
+  const p = new URLSearchParams(location.search);
+  const cat = p.get('cat'), price = p.get('price'), region = p.get('region'), q = p.get('q'), sort = p.get('sort');
+  if (cat && validCats.has(cat)) { activeCat = cat; hasDeepLink = true; }
+  if (price && validPrices.has(price)) { activePrice = price; hasDeepLink = true; }
+  if (region && validRegions.has(region)) { activeRegion = region; hasDeepLink = true; }
+  if (q) { searchQuery = q; hasDeepLink = true; }
+  if (sort && ['default', 'trend', 'rating', 'name', 'price', 'favorites'].includes(sort)) { sortMode = sort; hasDeepLink = true; }
+  if (hasDeepLink) hasInteracted = true;
+}
+
+function save() {
+  safeStorageSet('aiRadarState', JSON.stringify({ activeCat, activePrice, activeRegion, searchQuery, sortMode }));
+  syncUrl();
+}
+
+function loadState() {
+  try {
+    const s = JSON.parse(safeStorageGet('aiRadarState', '{}'));
+    activeCat = s.activeCat || activeCat;
+    activePrice = s.activePrice || activePrice;
+    activeRegion = s.activeRegion || activeRegion;
+    searchQuery = s.searchQuery || searchQuery;
+    sortMode = s.sortMode || sortMode;
+  } catch (e) {}
+  readUrlState();
+}
+
+function syncUrl() {
+  const p = new URLSearchParams();
+  if (activeCat !== 'all') p.set('cat', activeCat);
+  if (activePrice !== 'all') p.set('price', activePrice);
+  if (activeRegion !== 'all') p.set('region', activeRegion);
+  if (searchQuery.trim()) p.set('q', searchQuery.trim());
+  if (sortMode !== 'default') p.set('sort', sortMode);
+  const qs = p.toString();
+  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+}
+
+function setDataStatus(mode, msg) {
+  const el = $('dataStatus');
+  el.textContent = msg;
+  el.className = 'data-status ' + (mode === 'ok' ? 'ok' : 'warn');
+}
+
+// ==================== TOOL DETAILS MODAL ====================
+function openToolDetails(toolName) {
+  const tool = tools.find(t => t.name === toolName);
+  if (!tool) return;
+  
+  const modal = $('toolDetailsModal');
+  const nameEl = $('toolDetailsName');
+  const contentEl = $('toolDetailsContent');
+  
+  nameEl.textContent = tool.name;
+  
+  // Generate star rating
+  const stars = '⭐'.repeat(Math.floor((tool.trend || 80) / 20));
+  const emptyStars = '☆'.repeat(5 - Math.floor((tool.trend || 80) / 20));
+  
+  contentEl.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+      <div class="tool-logo" style="width: 48px; height: 48px; font-size: 24px;">${toolLogos[tool.name] || '🛠️'}</div>
+      <div>
+        <p><strong>Categorie:</strong> ${tool.cats.join(', ')}</p>
+        <p><strong>Preț:</strong> ${priceLabels[tool.price] || tool.price}</p>
+      </div>
+    </div>
+    <p><strong>Țară:</strong> ${flag[tool.country] || '🌍'} ${tool.country} · <strong>Regiune:</strong> ${tool.region}</p>
+    <p><strong>Rating:</strong> <span class="tool-rating">${stars}${emptyStars} ${tool.trend || 80}</span></p>
+    <p><strong>Când să-l folosești:</strong> ${tool.when}</p>
+    <p><strong>Descriere:</strong> ${tool.tagline}</p>
+    ${tool.audience ? `<p><strong>Audience:</strong> ${tool.audience}</p>` : ''}
+    ${tool.badges.length > 0 ? `<p><strong>Badges:</strong> ${tool.badges.map(b => `<span class="tool-tag">${b}</span>`).join('')}</p>` : ''}
+    <div class="tool-actions" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+      <a href="${tool.url}" class="primary" target="_blank" rel="noopener noreferrer">Deschide Link</a>
+      <button class="secondary" onclick="closeToolDetails()">Închide</button>
+    </div>
+  `;
+  
+  modal.classList.add('show');
+}
+
+function closeToolDetails() {
+  $('toolDetailsModal').classList.remove('show');
+}
+
+// ==================== RENDER FUNCTIONS ====================
+function renderLoading() {
+  $('toolsGrid').style.display = 'block';
+  $('toolsGrid').innerHTML = '<div class="loading-state">Se încarcă radarul...</div>';
+  $('emptyState').classList.remove('show');
+  $('resultsCount').textContent = 'Se încarcă radarul...';
+}
+
+function count(kind, id) {
+  if (id === 'all') return tools.length;
+  if (kind === 'cat') return tools.filter(t => t.cats.includes(id)).length;
+  if (kind === 'price') return tools.filter(t => t.price === id).length;
+  return tools.filter(t => t.region === id).length;
+}
+
+function pills(items, active, kind) {
+  return items.map(([id, label]) => 
+    `<button class="pill ${active === id ? 'active' : ''}" role="button" aria-pressed="${active === id}" data-${kind}="${id}">${label}<span class="count">${count(kind, id)}</span></button>`
+  ).join('');
+}
+
+function renderPills() {
+  $('categoryPills').innerHTML = pills(categories, activeCat, 'cat');
+  $('pricePills').innerHTML = pills(prices, activePrice, 'price');
+  $('regionPills').innerHTML = pills(regions, activeRegion, 'region');
+  
+  // Sort pills
+  document.querySelectorAll('[data-sort]').forEach(b => {
+    b.onclick = () => {
+      hasInteracted = true;
+      sortMode = b.dataset.sort;
+      save();
+      renderTools();
+    };
+  });
+  
+  document.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => {
+    hasInteracted = true; activeCat = b.dataset.cat; save(); renderPills(); renderTools();
+  });
+  document.querySelectorAll('[data-price]').forEach(b => b.onclick = () => {
+    hasInteracted = true; activePrice = b.dataset.price; save(); renderPills(); renderTools();
+  });
+  document.querySelectorAll('[data-region]').forEach(b => b.onclick = () => {
+    hasInteracted = true; activeRegion = b.dataset.region; save(); renderPills(); renderTools();
+  });
+}
+
+function renderWizard() {
+  $('wizardGrid').innerHTML = profiles.map((p, i) => 
+    `<button class="choice" data-profile="${i}"><strong>${p.title}</strong><span>${p.hint}</span></button>`
+  ).join('');
+  
+  document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => {
+    const p = profiles[+b.dataset.profile];
+    hasInteracted = true;
+    activeCat = p.cat;
+    activePrice = 'all';
+    activeRegion = 'all';
+    searchQuery = '';
+    $('search').value = '';
+    $('compactSearch').value = '';
+    $('recommendation').innerHTML = `Recomandare: <strong>${p.rec}</strong>`;
+    save();
+    renderPills();
+    renderTools(`Am filtrat pentru: <strong>${p.title}</strong>`);
+    document.querySelector('#tools').scrollIntoView({ behavior: 'smooth' });
+  });
+}
+
+function getFiltered() {
+  const q = searchQuery.toLowerCase().trim();
+  let out = tools.filter(t => {
+    const hay = [t.name, t.tagline, t.when, t.country, t.region, t.price, ...t.cats, ...t.badges].join(' ').toLowerCase();
+    return (activeCat === 'all' || t.cats.includes(activeCat)) &&
+           (activePrice === 'all' || t.price === activePrice) &&
+           (activeRegion === 'all' || t.region === activeRegion) &&
+           (!q || hay.includes(q));
+  });
+  
+  // Sorting
+  if (sortMode === 'trend') out.sort((a, b) => b.trend - a.trend);
+  else if (sortMode === 'rating') out.sort((a, b) => (b.trend || 0) - (a.trend || 0));
+  else if (sortMode === 'name') out.sort((a, b) => a.name.localeCompare(b.name, 'ro'));
+  else if (sortMode === 'price') out.sort((a, b) => priceOrder[a.price] - priceOrder[b.price]);
+  else if (sortMode === 'favorites') out.sort((a, b) => favorites.has(b.name) - favorites.has(a.name));
+  else out.sort((a, b) => a._i - b._i);
+  
+  return out;
+}
+
+// Updated renderToolCard with modern design and logo
+function renderToolCard(t) {
+  const isFav = favorites.has(t.name);
+  const logo = toolLogos[t.name] || '🛠️';
+  const stars = '⭐'.repeat(Math.floor((t.trend || 80) / 20));
+  const emptyStars = '☆'.repeat(5 - Math.floor((t.trend || 80) / 20));
+  
+  return `
+    <div class="tool-card" data-tool="${t.name}" onclick="openToolDetails('${t.name.replace(/'/g, "\\'")}')">
+      <div class="tool-header">
+        <div class="tool-logo">${logo}</div>
+        <div>
+          <h3 class="tool-name">${t.name}</h3>
+          <div class="tool-meta">
+            <span>${flag[t.country] || '🌍'} ${t.country}</span>
+            <span class="tool-rating">${stars}${emptyStars} ${t.trend || 80}</span>
+          </div>
+        </div>
+      </div>
+      <p class="tool-description">${t.tagline}</p>
+      <div class="tool-tags">
+        ${t.cats.map(cat => `<span class="tool-tag">${cat}</span>`).join('')}
+      </div>
+      <div class="tool-actions">
+        <a class="tool-link" href="${t.url}" target="_blank" rel="noopener noreferrer">🔗 Link</a>
+        <button class="fav-btn" data-action="fav" data-tool="${t.name}" aria-label="${isFav ? 'Șterge din favorite' : 'Adaugă la favorite'}">${isFav ? '❤️' : '🤍'}</button>
+        <button class="compare-btn" data-action="compare" data-tool="${t.name}" aria-label="Adaugă la comparare">⚖️</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderTrending() {
+  const top = [...tools].sort((a, b) => b.trend - a.trend).slice(0, 4);
+  $('trendingStrip').innerHTML = top.map(t => 
+    `<div class="trend-card" data-trendtool="${t.name}" onclick="openToolDetails('${t.name.replace(/'/g, "\\'")}')">
+      <div class="score">↗ trend ${t.trend}</div>
+      <h3>${t.name}</h3>
+      <p>${t.tagline}</p>
+    </div>`
+  ).join('');
+  
+  document.querySelectorAll('[data-trendtool]').forEach(c => c.onclick = () => {
+    hasInteracted = true;
+    searchQuery = c.dataset.trendtool;
+    $('search').value = searchQuery;
+    $('compactSearch').value = searchQuery;
+    activeCat = activePrice = activeRegion = 'all';
+    save();
+    renderPills();
+    renderTools();
+    document.querySelector('#tools').scrollIntoView({ behavior: 'smooth' });
+  });
+}
+
+function renderRadar() {
+  const hot = tools.filter(t => t.trend >= 85).length;
+  const free = tools.filter(t => t.price === 'gratuit' || t.price === 'freemium').length;
+  const data = tools.filter(t => t.cats.includes('date')).length;
+  const eu = tools.filter(t => t.region === 'europa').length;
+  
+  $('radarGrid').innerHTML = `
+    <div class="radar-card"><strong>${tools.length}</strong><span>tooluri monitorizate</span></div>
+    <div class="radar-card"><strong>${hot}</strong><span>trend 85+</span></div>
+    <div class="radar-card"><strong>${free}</strong><span>gratuite/freemium</span></div>
+    <div class="radar-card"><strong>${data}</strong><span>pentru date</span></div>
+    <div class="radar-card"><strong>${eu}</strong><span>Europa</span></div>
+  `;
+}
+
+function renderTools(msg = '') {
+  if (isLoading) { renderLoading(); return; }
+  const out = getFiltered();
+  $('toolsGrid').style.display = 'block';
+  
+  if (!out.length) {
+    $('toolsGrid').innerHTML = '';
+    $('emptyState').classList.add('show');
+    $('resultsCount').textContent = '0 rezultate';
+  } else {
+    $('emptyState').classList.remove('show');
+    $('toolsGrid').innerHTML = out.map(renderToolCard).join('');
+    $('resultsCount').textContent = `${out.length} rezultate`;
+  }
+  
+  if (msg) $('resultsCount').innerHTML += ` – ${msg}`;
+}
+
+// ==================== SETUP FUNCTIONS ====================
+function setupScrollHide() {
+  let last = 0;
+  window.addEventListener('scroll', () => {
+    const now = window.scrollY;
+    if (now > last && now > 120) {
+      $('filters').classList.add('filters-hidden');
+      $('compactBar').classList.add('show');
+    } else {
+      $('filters').classList.remove('filters-hidden');
+      $('compactBar').classList.remove('show');
+    }
+    last = now;
+  });
+  
+  $('showFilters').onclick = () => {
+    $('filters').classList.remove('filters-hidden');
+    $('compactBar').classList.remove('show');
+    document.querySelector('#filters').scrollIntoView({ behavior: 'smooth' });
+  };
+}
+
+function setupCompare() {
+  $('openCompare').onclick = () => { $('compareModal').classList.add('show'); renderCompare(); };
+  $('closeCompare').onclick = () => { $('compareModal').classList.remove('show'); };
+  $('clearCompare').onclick = () => {
+    compare.clear();
+    $('compareBar').classList.remove('show');
+    renderCompare();
+    toast('Comparare curățată');
+  };
+  
+  document.querySelectorAll('[data-action="compare"]').forEach(b => b.onclick = e => {
+    const name = e.target.dataset.tool;
+    if (compare.has(name)) {
+      compare.delete(name);
+    } else {
+      if (compare.size >= 4) { toast('Maxim 4 tooluri în comparare'); return; }
+      compare.add(name);
+    }
+    updateCompareBar();
+    e.stopPropagation();
+  });
+  
+  function updateCompareBar() {
+    if (compare.size > 0) {
+      $('compareBar').classList.add('show');
+      $('compareText').textContent = `${compare.size} selectate`;
+      $('openCompare').disabled = false;
+    } else {
+      $('compareBar').classList.remove('show');
+      $('openCompare').disabled = true;
+    }
+  }
+  
+  function renderCompare() {
+    if (!compare.size) {
+      $('compareContent').innerHTML = '<p style="color:var(--text-muted)">Niciun tool selectat pentru comparare.</p>';
+      return;
+    }
+    $('compareContent').innerHTML = `
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Categorie</th>
+            <th>Preț</th>
+            <th>Țară</th>
+            <th>Trend</th>
+            <th>Când să-l folosești</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${Array.from(compare).map(name => {
+            const t = tools.find(x => x.name === name);
+            return t ? `
+              <tr>
+                <td><strong>${t.name}</strong></td>
+                <td>${t.cats.join(', ')}</td>
+                <td>${priceLabels[t.price] || t.price}</td>
+                <td>${flag[t.country] || '🌍'} ${t.country}</td>
+                <td>${t.trend}</td>
+                <td>${t.when}</td>
+              </tr>
+            ` : '';
+          }).join('')}
+        </tbody>
+      </table>
+    `;
+  }
+}
+
+function setupFavorites() {
+  document.querySelectorAll('[data-action="fav"]').forEach(b => b.onclick = e => {
+    const name = e.target.dataset.tool;
+    if (favorites.has(name)) {
+      favorites.delete(name);
+      toast(`"${name}" ștears din favorite`);
+    } else {
+      favorites.add(name);
+      toast(`"${name}" adăugat la favorite`);
+    }
+    safeStorageSet('aiRadarFavorites', JSON.stringify(Array.from(favorites)));
+    renderTools();
+    e.stopPropagation();
+  });
+  
+  $('favQuick').onclick = () => {
+    if (favorites.size) {
+      const filtered = tools.filter(t => favorites.has(t.name));
+      if (filtered.length) {
+        activeCat = activePrice = activeRegion = 'all';
+        searchQuery = '';
+        $('search').value = '';
+        save();
+        renderPills();
+        renderTools('Favoritele tale');
+      } else {
+        toast('Niciun favorit salvat');
+      }
+    } else {
+      toast('Niciun favorit salvat');
+    }
+  };
+}
+
+function setupStacks() {
+  document.querySelectorAll('[data-stack]').forEach(b => b.onclick = () => {
+    const cat = b.dataset.stack;
+    hasInteracted = true;
+    activeCat = cat;
+    activePrice = activeRegion = 'all';
+    searchQuery = '';
+    $('search').value = '';
+    save();
+    renderPills();
+    renderTools(`Stack: <strong>${cat}</strong>`);
+    document.querySelector('#tools').scrollIntoView({ behavior: 'smooth' });
+  });
+  
+  document.querySelectorAll('[data-region-stack]').forEach(b => b.onclick = () => {
+    const region = b.dataset.regionStack;
+    hasInteracted = true;
+    activeRegion = region;
+    activeCat = activePrice = 'all';
+    searchQuery = '';
+    $('search').value = '';
+    save();
+    renderPills();
+    renderTools(`Radar: <strong>${region}</strong>`);
+    document.querySelector('#tools').scrollIntoView({ behavior: 'smooth' });
+  });
+}
+
+function setupSearch() {
+  const searchInput = $('search'), compactInput = $('compactSearch');
+  [searchInput, compactInput].forEach(el => {
+    el.addEventListener('input', e => {
+      searchQuery = e.target.value;
+      save();
+      renderTools();
+    });
+  });
+  
+  compactInput.addEventListener('focus', () => { $('compactBar').classList.add('show'); });
+  compactInput.addEventListener('blur', () => { if (!compactInput.value) $('compactBar').classList.remove('show'); });
+}
+
+function setupReset() {
+  $('resetBtn').onclick = () => {
+    activeCat = activePrice = activeRegion = 'all';
+    searchQuery = '';
+    $('search').value = '';
+    $('compactSearch').value = '';
+    sortMode = 'default';
+    save();
+    renderPills();
+    renderTools();
+  };
+}
+
+// Close modals on overlay click
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('modal')) {
+    closeToolDetails();
+    $('compareModal').classList.remove('show');
+  }
+});
+
+// Close modals on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeToolDetails();
+    $('compareModal').classList.remove('show');
+  }
+});
+
+// ==================== INITIALIZATION ====================
+async function init() {
+  loadState();
+  loadTheme(); // Load theme on init
+  
+  $('search').value = searchQuery;
+  $('compactSearch').value = searchQuery;
+  
+  tools = FALLBACK_TOOLS.map(normalize);
+  $('metaTools').textContent = tools.length;
+  $('metaUpdated').textContent = 'mai 2026';
+  
+  renderWizard();
+  renderPills();
+  renderLoading();
+  renderRadar();
+  setupScrollHide();
+  
+  try {
+    const r = await fetch('tools-market.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    const arr = Array.isArray(data) ? data : data.tools;
+    if (!Array.isArray(arr) || !arr.length) throw new Error('Listă goală');
+    tools = arr.map(normalize);
+    setDataStatus('ok', 'Date live sincronizate');
+    $('metaUpdated').textContent = data.updatedAt || 'mai 2026';
+  } catch (e) {
+    setDataStatus('warn', 'Fallback local');
+    toast('Eroare la încărcare, folosesc fallback local');
+  } finally {
+    isLoading = false;
+    $('metaTools').textContent = tools.length;
+    $('search').value = searchQuery;
+    $('compactSearch').value = searchQuery;
+    renderPills();
+    renderTrending();
+    renderRadar();
+    renderTools();
+    
+    if (hasDeepLink) {
+      setTimeout(() => {
+        document.querySelector('#tools').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        toast('Filtru din URL aplicat');
+      }, 350);
+    }
+  }
+  
+  // Initialize theme toggle
+  const themeBtn = document.getElementById('themeToggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', toggleTheme);
+  }
+}
+
+// Initialize the app
+init().then(() => {
+  setupCompare();
+  setupFavorites();
+  setupStacks();
+  setupSearch();
+  setupReset();
+});
+</script>
 </body>
 </html>
