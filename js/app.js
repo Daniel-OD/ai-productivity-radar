@@ -285,10 +285,12 @@ function registerServiceWorker() {
 
 /* ── Loading placeholder ─────────────────────────────────────────────────── */
 function renderLoading() {
-  $('toolsGrid').style.display = 'block';
-  $('toolsGrid').innerHTML = '<div class="loading-state">Se încarcă radarul...</div>';
-  $('emptyState').classList.remove('show');
-  $('resultsCount').textContent = 'Se încarcă radarul...';
+  if ($('toolsGrid')) {
+    $('toolsGrid').style.display = 'block';
+    $('toolsGrid').innerHTML = '<div class="loading-state">Se încarcă radarul...</div>';
+  }
+  if ($('emptyState')) $('emptyState').classList.remove('show');
+  if ($('resultsCount')) $('resultsCount').textContent = 'Se încarcă radarul...';
 }
 
 /* ── Filter pill helpers ─────────────────────────────────────────────────── */
@@ -731,7 +733,15 @@ function setupToolbar() {
 
   // Toolbar elevation on scroll
   var toolbar = document.getElementById('signalToolbar');
+  var topnav  = document.querySelector('.topnav');
+  function syncToolbarTop() {
+    if (!toolbar) return;
+    var navHeight = topnav ? Math.ceil(topnav.getBoundingClientRect().height) : 48;
+    toolbar.style.top = navHeight + 'px';
+  }
   if (toolbar) {
+    syncToolbarTop();
+    window.addEventListener('resize', syncToolbarTop, { passive: true });
     window.addEventListener('scroll', function() {
       toolbar.classList.toggle('elevated', window.scrollY > 100);
     }, { passive: true });
