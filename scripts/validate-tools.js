@@ -44,7 +44,7 @@ const toolSchema = {
     country: { type: 'string', minLength: 1 },
     region: { 
       type: 'string', 
-      enum: ['america', 'europa', 'asia', 'israel', 'romania'] 
+      enum: ['america', 'europa', 'asia', 'israel'] 
     },
     tagline: { type: 'string', minLength: 5 },
     when: { type: 'string', minLength: 5 },
