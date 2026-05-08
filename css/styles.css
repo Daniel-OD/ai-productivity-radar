@@ -476,7 +476,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 
 /* ── Mobile breakpoint: show mobile UI, hide desktop selects ── */
 @media (max-width: 720px) {
-  .signal-toolbar { position: static; top: auto !important; }
+  .signal-toolbar { position: static; top: auto; }
   .stb-inner { padding: 8px 20px; min-height: 0; }
   .stb-filters { display: none; }
   .stb-search-wrap { max-width: none; flex: 1; }

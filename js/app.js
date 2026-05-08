@@ -732,18 +732,21 @@ function setupToolbar() {
   }
 
   // Toolbar elevation on scroll
+  var DEFAULT_TOOLBAR_TOP = 48;
+  var TOOLBAR_ELEVATION_SCROLL_Y = 100;
   var toolbar = document.getElementById('signalToolbar');
   var topnav  = document.querySelector('.topnav');
   function syncToolbarTop() {
     if (!toolbar) return;
-    var navHeight = topnav ? Math.ceil(topnav.getBoundingClientRect().height) : 48;
+    var cssTop = parseFloat(window.getComputedStyle(toolbar).top) || DEFAULT_TOOLBAR_TOP;
+    var navHeight = topnav ? Math.ceil(topnav.getBoundingClientRect().height) : cssTop;
     toolbar.style.top = navHeight + 'px';
   }
   if (toolbar) {
     syncToolbarTop();
     window.addEventListener('resize', syncToolbarTop, { passive: true });
     window.addEventListener('scroll', function() {
-      toolbar.classList.toggle('elevated', window.scrollY > 100);
+      toolbar.classList.toggle('elevated', window.scrollY > TOOLBAR_ELEVATION_SCROLL_Y);
     }, { passive: true });
   }
 
