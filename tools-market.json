@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-05-07",
-  "sourceNote": "Dataset extins cu clasificare standalone/API, filtre noi și AI-uri din România.",
+  "updatedAt": "2026-05-08",
+  "sourceNote": "Dataset extins la 64 tooluri cu clasificare detaliata, functionalitati, platforme si planuri de pret.",
   "tools": [
     {
       "name": "ChatGPT",
@@ -36,10 +36,30 @@
         "Microsoft 365"
       ],
       "standaloneNote": "Poți folosi direct din web/chatgpt app fără setup tehnic.",
-      "bestFor": ["Scrierea de conținut", "Cod general", "Research rapid", "Brainstorming", "Sumarizare documente"],
-      "notIdeal": ["Proiecte cu context foartelarg", "Analiză financiară complexă", "Cod de producție fără review"],
-      "strengths": ["Model versatil", "Integrare cu Microsoft", "Imagini (DALL-E)", "Browsing web", "GPTs custom"],
-      "similar": ["Claude", "Gemini", "Mistral / Le Chat"],
+      "bestFor": [
+        "Scrierea de conținut",
+        "Cod general",
+        "Research rapid",
+        "Brainstorming",
+        "Sumarizare documente"
+      ],
+      "notIdeal": [
+        "Proiecte cu context foartelarg",
+        "Analiză financiară complexă",
+        "Cod de producție fără review"
+      ],
+      "strengths": [
+        "Model versatil",
+        "Integrare cu Microsoft",
+        "Imagini (DALL-E)",
+        "Browsing web",
+        "GPTs custom"
+      ],
+      "similar": [
+        "Claude",
+        "Gemini",
+        "Mistral / Le Chat"
+      ],
       "pricing": "Gratuit (GPT-4o limitat) · Plus $20/lună · Team $30/user/lună · API pay-as-you-go",
       "trendExplanation": "Rămâne liderul pieței cu cea mai mare bază de utilizatori și ecosistemul de plugin-uri/GPTs."
     },
@@ -77,10 +97,29 @@
         "AWS Bedrock"
       ],
       "standaloneNote": "Funcționează imediat din Claude.ai pentru task-uri zilnice.",
-      "bestFor": ["Documente lungi (200k tokens)", "Cod complex și refactoring", "Analiză profundă", "Scrierea tehnică", "Rezumat sursă precisă"],
-      "notIdeal": ["Imagini/video (nu generează)", "Sarcini care necesită browsing live", "Integrare directă Microsoft"],
-      "strengths": ["Context window uriaș", "Cod curat și comentat", "Raționament pas cu pas", "Politici de siguranță solide"],
-      "similar": ["ChatGPT", "Gemini", "DeepSeek"],
+      "bestFor": [
+        "Documente lungi (200k tokens)",
+        "Cod complex și refactoring",
+        "Analiză profundă",
+        "Scrierea tehnică",
+        "Rezumat sursă precisă"
+      ],
+      "notIdeal": [
+        "Imagini/video (nu generează)",
+        "Sarcini care necesită browsing live",
+        "Integrare directă Microsoft"
+      ],
+      "strengths": [
+        "Context window uriaș",
+        "Cod curat și comentat",
+        "Raționament pas cu pas",
+        "Politici de siguranță solide"
+      ],
+      "similar": [
+        "ChatGPT",
+        "Gemini",
+        "DeepSeek"
+      ],
       "pricing": "Gratuit (Claude Sonnet limitat) · Pro $20/lună · Team $25/user/lună · API pay-as-you-go",
       "trendExplanation": "Creștere rapidă în mediu enterprise pentru task-uri de codare și analiză unde precizia contează mai mult decât viteza."
     },
@@ -1037,6 +1076,2156 @@
       ],
       "standaloneNote": "Poți genera imagini direct și din ChatGPT fără setup tehnic.",
       "type": "hybrid"
+    },
+    {
+      "name": "GitHub Copilot",
+      "cats": [
+        "programare"
+      ],
+      "price": "platit",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Asistentul AI de cod integrat în VS Code, JetBrains și GitHub. Completează cod în timp real.",
+      "when": "Alege Copilot dacă lucrezi zilnic în VS Code sau JetBrains și vrei autocompletare de cod inteligentă.",
+      "audience": "Developeri, echipe software",
+      "source": "GitHub / Microsoft",
+      "trend": 91,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "popular",
+        "enterprise"
+      ],
+      "type": "hybrid",
+      "apiAvailable": true,
+      "apiInfo": "GitHub Copilot API disponibil pentru enterprise.",
+      "integrations": [
+        "VS Code",
+        "JetBrains",
+        "Visual Studio",
+        "Neovim",
+        "GitHub"
+      ],
+      "similar": [
+        "Cursor",
+        "Windsurf",
+        "Amazon Q Developer"
+      ],
+      "longDescription": "GitHub Copilot este cel mai folosit asistent AI pentru cod din lume, integrat nativ în VS Code, JetBrains și GitHub. Sugerează linii și blocuri întregi de cod în timp real, bazat pe contextul fișierului și al repo-ului.",
+      "features": [
+        "Autocompletare cod în timp real",
+        "Generare funcții din comentarii",
+        "Chat AI in-editor (Copilot Chat)",
+        "Code review AI",
+        "Refactoring și fix sugestii",
+        "Context din întreg repo-ul"
+      ],
+      "useCases": [
+        "Accelerarea scrierii de cod repetitiv",
+        "Generare de teste unitare automat",
+        "Documentare cod inline",
+        "Debugging asistat",
+        "Onboarding în codebase-uri noi"
+      ],
+      "platforms": [
+        "VS Code",
+        "JetBrains",
+        "Visual Studio",
+        "Web"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Individual",
+          "price": "$10/lună",
+          "desc": "Un singur utilizator"
+        },
+        {
+          "name": "Business",
+          "price": "$19/user/lună",
+          "desc": "Echipe, politici centralizate",
+          "highlight": true
+        },
+        {
+          "name": "Enterprise",
+          "price": "$39/user/lună",
+          "desc": "Context repo complet"
+        }
+      ],
+      "pricing": "$10/lună individual · $19/user/lună business · $39/user/lună enterprise",
+      "trendExplanation": "Standardul de facto pentru asistență cod în enterprise. GitHub raportează peste 1,8 milioane utilizatori plătitori."
+    },
+    {
+      "name": "Windsurf",
+      "cats": [
+        "programare"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "IDE AI-first de la Codeium cu agenți autonomi care navighează și editează cod multi-fișier.",
+      "when": "Alege Windsurf când vrei un IDE AI care poate modifica mai multe fișiere simultan, ca un agent.",
+      "audience": "Developeri, startup teams",
+      "source": "Codeium",
+      "trend": 84,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "agent",
+        "editor"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [
+        "Git",
+        "GitHub",
+        "GitLab"
+      ],
+      "similar": [
+        "Cursor",
+        "GitHub Copilot",
+        "Bolt.new"
+      ],
+      "longDescription": "Windsurf este IDE-ul AI creat de Codeium, construit în jurul agentului Cascade care poate înțelege și modifica mai multe fișiere simultan. Spre deosebire de simpla autocompletare, Cascade acționează ca un agent care planifică și execută sarcini de coding complexe.",
+      "features": [
+        "Agent Cascade multi-fișier",
+        "Context complet al proiectului",
+        "Navigare inteligentă în cod",
+        "Autocompletare rapidă (Supercomplete)",
+        "Chat cu context de repo",
+        "Suport pentru 70+ limbaje"
+      ],
+      "useCases": [
+        "Refactoring major de cod",
+        "Adăugare feature-uri cross-module",
+        "Înțelegere codebase nou",
+        "Generare componente full-stack",
+        "Debugging complex"
+      ],
+      "platforms": [
+        "Desktop",
+        "Mac",
+        "Windows",
+        "Linux"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "Gratuit",
+          "desc": "200 credite/lună"
+        },
+        {
+          "name": "Pro",
+          "price": "$15/lună",
+          "desc": "Credite nelimitate",
+          "highlight": true
+        },
+        {
+          "name": "Team",
+          "price": "$35/user/lună",
+          "desc": "Management echipă"
+        }
+      ],
+      "pricing": "Gratuit (limitat) · $15/lună Pro · $35/user/lună Team",
+      "trendExplanation": "Windsurf crește rapid ca alternativă la Cursor, cu focus pe experiența de agent autonom."
+    },
+    {
+      "name": "Grammarly",
+      "cats": [
+        "scris",
+        "productivitate"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Asistent AI pentru scriere corectă și persuasivă. Corecție gramaticală, ton, claritate.",
+      "when": "Alege Grammarly când vrei să îmbunătățești calitatea scrisului în email, documente sau social media.",
+      "audience": "Profesioniști, studenți, content creatori",
+      "source": "Grammarly Inc.",
+      "trend": 82,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "writing",
+        "popular"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [
+        "Chrome Extension",
+        "Microsoft Office",
+        "Google Docs",
+        "Slack"
+      ],
+      "similar": [
+        "Claude",
+        "ChatGPT",
+        "Jasper AI"
+      ],
+      "longDescription": "Grammarly este cel mai popular asistent de scriere din lume, ajutând la corectura gramaticală, claritate, ton și engagement. Funcționează ca extensie în browser și se integrează în suite de productivitate.",
+      "features": [
+        "Corecție gramaticală în timp real",
+        "Sugestii de ton și claritate",
+        "Detectare plagiat",
+        "Rewrite AI (Grammarly GO)",
+        "Tone detector",
+        "Integrare nativă în browser"
+      ],
+      "useCases": [
+        "Email-uri profesionale mai clare",
+        "Documente fără greșeli gramaticale",
+        "Post-uri social media persuasive",
+        "Eseuri și lucrări studențești",
+        "Comunicare echipă consistentă"
+      ],
+      "platforms": [
+        "Web",
+        "Chrome Extension",
+        "Desktop",
+        "iOS",
+        "Android"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "Gratuit",
+          "desc": "Corecție de bază"
+        },
+        {
+          "name": "Premium",
+          "price": "$12/lună",
+          "desc": "Claritate, ton, rewrite",
+          "highlight": true
+        },
+        {
+          "name": "Business",
+          "price": "$15/user/lună",
+          "desc": "Echipe, style guides"
+        }
+      ],
+      "pricing": "Gratuit · Premium $12/lună · Business $15/user/lună",
+      "trendExplanation": "Standard în scriere profesională, cu 30M+ utilizatori zilnici."
+    },
+    {
+      "name": "Jasper AI",
+      "cats": [
+        "scris"
+      ],
+      "price": "platit",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Platformă AI pentru conținut de marketing: bloguri, reclame, email-uri și social media.",
+      "when": "Alege Jasper când ai nevoie de volum mare de conținut de marketing cu voce de brand consistentă.",
+      "audience": "Marketing teams, content managers, agenții",
+      "source": "Jasper AI Inc.",
+      "trend": 74,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "marketing",
+        "enterprise"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "Zapier",
+        "Surfer SEO",
+        "Webflow",
+        "HubSpot"
+      ],
+      "similar": [
+        "Copy.ai",
+        "ChatGPT",
+        "Claude"
+      ],
+      "longDescription": "Jasper AI este o platformă specializată pentru conținut de marketing, cu template-uri pentru orice format și funcții pentru menținerea vocii de brand. Orientat spre echipe de marketing și agenții.",
+      "features": [
+        "Template-uri pentru 50+ formate",
+        "Brand Voice personalizat",
+        "SEO mode integrat",
+        "Campanii multi-canal",
+        "AI Images integrat",
+        "Colaborare echipă"
+      ],
+      "useCases": [
+        "Campanii de email marketing",
+        "Articole de blog optimizate SEO",
+        "Reclame Facebook/Google",
+        "Product descriptions e-commerce",
+        "Social media captions in bulk"
+      ],
+      "platforms": [
+        "Web",
+        "Chrome Extension"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Creator",
+          "price": "$49/lună",
+          "desc": "1 user, brand voice"
+        },
+        {
+          "name": "Pro",
+          "price": "$69/lună",
+          "desc": "5 users, campanii",
+          "highlight": true
+        },
+        {
+          "name": "Business",
+          "price": "Custom",
+          "desc": "Enterprise, API"
+        }
+      ],
+      "pricing": "$49/lună Creator · $69/lună Pro · Enterprise custom",
+      "trendExplanation": "Rămâne lider în marketing teams enterprise cu nevoi de brand voice."
+    },
+    {
+      "name": "Copy.ai",
+      "cats": [
+        "scris"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Generator AI de copy de marketing: reclame, email-uri, descrieri de produs, social media.",
+      "when": "Alege Copy.ai când ai nevoie de copy scurt și persuasiv rapid, fără template-uri complicate.",
+      "audience": "Marketeri, antreprenori, freelanceri",
+      "source": "Copy.ai Inc.",
+      "trend": 70,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "marketing",
+        "freemium"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "Zapier",
+        "HubSpot",
+        "Salesforce"
+      ],
+      "similar": [
+        "Jasper AI",
+        "ChatGPT",
+        "Grammarly"
+      ],
+      "longDescription": "Copy.ai generează rapid copy de marketing pentru reclame, email, social media și descrieri de produs. Mai simplu și mai accesibil decât Jasper, cu un plan gratuit generos și workflows automate.",
+      "features": [
+        "80+ template-uri de copy",
+        "Workflows AI automate",
+        "Brand Voice",
+        "Bulk content generation",
+        "Integrare CRM",
+        "Chat AI inclus"
+      ],
+      "useCases": [
+        "Reclame social media",
+        "Email sequences automate",
+        "Descrieri de produs",
+        "Landing page copy",
+        "Blog post outlines"
+      ],
+      "platforms": [
+        "Web",
+        "Chrome Extension"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "Gratuit",
+          "desc": "2.000 cuvinte/lună"
+        },
+        {
+          "name": "Starter",
+          "price": "$36/lună",
+          "desc": "Nelimitat, 1 user",
+          "highlight": true
+        },
+        {
+          "name": "Advanced",
+          "price": "$186/lună",
+          "desc": "5 users, workflows"
+        }
+      ],
+      "pricing": "Gratuit · $36/lună Starter · $186/lună Advanced",
+      "trendExplanation": "Rămâne relevant datorită planului gratuit și workflow-urilor automate."
+    },
+    {
+      "name": "Notion AI",
+      "cats": [
+        "productivitate",
+        "scris"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "AI integrat în Notion pentru sumarizare, scriere, acțiuni și Q&A pe datele workspace-ului.",
+      "when": "Alege Notion AI dacă deja folosești Notion și vrei să extragi insight-uri din notițe, docs sau meeting notes.",
+      "audience": "Product managers, echipe, knowledge workers",
+      "source": "Notion Labs",
+      "trend": 83,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "productivitate",
+        "workspace"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [
+        "Slack",
+        "GitHub",
+        "Jira",
+        "Google Drive"
+      ],
+      "similar": [
+        "Granola",
+        "Microsoft Copilot",
+        "ChatGPT"
+      ],
+      "longDescription": "Notion AI este asistentul integrat în Notion care poate sumariza documente, genera conținut, răspunde la întrebări despre workspace și automatiza acțiuni. Cel mai util dacă echipa ta stochează deja cunoștințe în Notion.",
+      "features": [
+        "Q&A pe datele workspace-ului",
+        "Sumarizare documente și meeting notes",
+        "Scriere și editare asistată",
+        "Autofill în tabeluri",
+        "Traducere și modificare ton",
+        "Acțiuni contextuale în pagini"
+      ],
+      "useCases": [
+        "Sumarizare meeting notes instant",
+        "Generare PRD-uri și spec-uri",
+        "Q&A pe documentația produsului",
+        "Traducere conținut intern",
+        "Autofill câmpuri în baze de date"
+      ],
+      "platforms": [
+        "Web",
+        "Desktop",
+        "iOS",
+        "Android"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "Gratuit",
+          "desc": "20 răspunsuri AI trial"
+        },
+        {
+          "name": "Plus",
+          "price": "$10/lună",
+          "desc": "+$8 AI add-on"
+        },
+        {
+          "name": "Business",
+          "price": "$15/user/lună",
+          "desc": "+$8 AI, nelimitat",
+          "highlight": true
+        }
+      ],
+      "pricing": "$8/user/lună AI add-on (pe lângă planul Notion)",
+      "trendExplanation": "Adopție crescută în echipe tech și product. AI Q&A pe workspace propriu este killer feature."
+    },
+    {
+      "name": "Granola",
+      "cats": [
+        "productivitate"
+      ],
+      "price": "freemium",
+      "country": "UK",
+      "region": "europa",
+      "tagline": "Notepad AI pentru meeting-uri: transcrie și structurează automat notițele din orice apel video.",
+      "when": "Alege Granola dacă ai multe meeting-uri zilnice și vrei note structurate automat fără efort.",
+      "audience": "Manageri, consultanți, sales, founders",
+      "source": "Granola Labs",
+      "trend": 78,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "meeting",
+        "productivitate"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [
+        "Zoom",
+        "Google Meet",
+        "Microsoft Teams",
+        "Notion",
+        "Slack"
+      ],
+      "similar": [
+        "Notion AI",
+        "Reclaim AI",
+        "Microsoft Copilot"
+      ],
+      "longDescription": "Granola este un notepad AI care rulează local pe Mac și transcrie automat orice meeting. La final generează un sumar structurat bazat pe notițele tale și transcrierea audio.",
+      "features": [
+        "Transcriere automată meeting-uri locale",
+        "Sumarizare AI structurată",
+        "Note proprii combinate cu AI",
+        "Template-uri de meeting",
+        "Search în istoricul meeting-urilor",
+        "Privacy-first (procesare locală)"
+      ],
+      "useCases": [
+        "Note automate din sales calls",
+        "Follow-up action items din ședințe",
+        "Minute de ședință instant",
+        "Recapitulare meeting-uri vechi",
+        "Documentare decizii în timp real"
+      ],
+      "platforms": [
+        "Mac",
+        "iOS"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "Gratuit",
+          "desc": "25 meeting-uri"
+        },
+        {
+          "name": "Pro",
+          "price": "$10/lună",
+          "desc": "Nelimitat, toate funcțiile",
+          "highlight": true
+        },
+        {
+          "name": "Business",
+          "price": "$20/user/lună",
+          "desc": "Echipe, admin"
+        }
+      ],
+      "pricing": "Gratuit (25 meeting-uri) · $10/lună Pro · $20/user/lună Business",
+      "trendExplanation": "Crește rapid în nișa meeting AI, apreciat pentru abordarea privacy-first față de Otter.ai."
+    },
+    {
+      "name": "Reclaim AI",
+      "cats": [
+        "productivitate"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Planificator AI de calendar care blochează automat timp pentru sarcini, habits și focus.",
+      "when": "Alege Reclaim dacă vrei ca AI să gestioneze calendarul Google și să îți protejeze timp de lucru profund.",
+      "audience": "Profesioniști, manageri, echipe",
+      "source": "Reclaim AI Inc.",
+      "trend": 73,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "calendar",
+        "automatizare"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "Google Calendar",
+        "Slack",
+        "Asana",
+        "Jira",
+        "Linear",
+        "Todoist"
+      ],
+      "similar": [
+        "Notion AI",
+        "Granola",
+        "Microsoft Copilot"
+      ],
+      "longDescription": "Reclaim AI se conectează la Google Calendar și gestionează automat blocarea de timp pentru sarcini, meeting-uri, habits și timp de focus. Reprogramează automat când planurile se schimbă.",
+      "features": [
+        "Blocare timp automat pentru task-uri",
+        "Smart Meetings cu disponibilitate optimă",
+        "Habits automate (sport, pauze)",
+        "Sync sarcini din Asana/Jira/Linear",
+        "Focus time protection",
+        "Reprogramare automată la schimbări"
+      ],
+      "useCases": [
+        "Protejarea timpului de focus deep work",
+        "Scheduling meeting-uri fără back-and-forth",
+        "Integrare task manager cu calendarul",
+        "Habit tracking cu blocare timp",
+        "Optimizare batch tasks"
+      ],
+      "platforms": [
+        "Web",
+        "Chrome Extension"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Lite",
+          "price": "Gratuit",
+          "desc": "3 task calendars"
+        },
+        {
+          "name": "Starter",
+          "price": "$8/user/lună",
+          "desc": "Task + habits",
+          "highlight": true
+        },
+        {
+          "name": "Business",
+          "price": "$12/user/lună",
+          "desc": "Echipe, analytics"
+        }
+      ],
+      "pricing": "Gratuit · $8/user/lună Starter · $12/user/lună Business",
+      "trendExplanation": "Nișă clară și produs matur. Creștere solidă în echipe tech care adoptă time-blocking."
+    },
+    {
+      "name": "Stable Diffusion",
+      "cats": [
+        "design"
+      ],
+      "price": "gratuit",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Model open-source pentru generare de imagini. Rulează local sau prin API fără restricții.",
+      "when": "Alege Stable Diffusion când vrei control total asupra generării de imagini sau să îl integrezi în produse.",
+      "audience": "Developeri, artiști digitali, cercetători",
+      "source": "Stability AI",
+      "trend": 79,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "open-source",
+        "local"
+      ],
+      "type": "platform",
+      "apiAvailable": true,
+      "apiInfo": "Stability AI API pentru generare imagini prin cloud. Modelul poate fi rulat și local.",
+      "integrations": [
+        "ComfyUI",
+        "Automatic1111",
+        "Stability AI API",
+        "Replicate"
+      ],
+      "similar": [
+        "Midjourney",
+        "Adobe Firefly",
+        "Leonardo AI"
+      ],
+      "longDescription": "Stable Diffusion este modelul open-source de referință pentru generare de imagini, creat de Stability AI. Poate fi rulat complet local pe GPU personal sau accesat prin API. Ecosistem vast de modele fine-tuned.",
+      "features": [
+        "Rulare locală pe GPU",
+        "Ecosistem vast de modele fine-tuned",
+        "img2img și inpainting",
+        "ControlNet pentru precizie",
+        "Extensii ComfyUI/A1111",
+        "Fără cenzură de conținut (local)"
+      ],
+      "useCases": [
+        "Generare imagini nerestricționate",
+        "Fine-tuning pe stiluri personale",
+        "Integrare în produse proprii",
+        "Batch generation pentru dataset-uri",
+        "Editare și inpainting avansat"
+      ],
+      "platforms": [
+        "Desktop",
+        "API",
+        "Web"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Open Source",
+          "price": "Gratuit",
+          "desc": "Rulează local",
+          "highlight": true
+        },
+        {
+          "name": "API Cloud",
+          "price": "$0.03/imagine",
+          "desc": "Stability AI API"
+        },
+        {
+          "name": "DreamStudio",
+          "price": "Pay-as-you-go",
+          "desc": "UI cloud"
+        }
+      ],
+      "pricing": "Gratuit (open-source, local) · API pay-as-you-go",
+      "trendExplanation": "Pilonul ecosistemului open-source pentru image AI. SDXL și SD3 mențin relevanța tehnică."
+    },
+    {
+      "name": "Adobe Firefly",
+      "cats": [
+        "design"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "AI generativ Adobe, antrenat pe conținut licențiat. Safe comercial pentru profesioniști.",
+      "when": "Alege Adobe Firefly dacă lucrezi în Adobe Creative Cloud și vrei generare AI safe comercial.",
+      "audience": "Designeri, fotografi, profesioniști creative",
+      "source": "Adobe Inc.",
+      "trend": 80,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "enterprise",
+        "safe-commercial"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "Photoshop",
+        "Illustrator",
+        "Adobe Express",
+        "Premiere Pro"
+      ],
+      "similar": [
+        "Midjourney",
+        "Stable Diffusion",
+        "Leonardo AI"
+      ],
+      "longDescription": "Adobe Firefly este suita AI generativă Adobe, antrenată exclusiv pe imagini licențiate. Singurul model major safe din punct de vedere comercial, integrat nativ în Photoshop, Illustrator și Express.",
+      "features": [
+        "Generative Fill în Photoshop",
+        "Generare imagini safe comercial",
+        "Generare efecte de text",
+        "Recolor vector în Illustrator",
+        "Generative Expand",
+        "Text to vector"
+      ],
+      "useCases": [
+        "Extindere imagini cu Generative Fill",
+        "Materiale marketing safe comercial",
+        "Editare non-distructivă cu AI",
+        "Creare template-uri cu AI",
+        "Generare video (Firefly Video)"
+      ],
+      "platforms": [
+        "Web",
+        "Desktop"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "25 credite/lună",
+          "desc": "Acces de bază"
+        },
+        {
+          "name": "Premium",
+          "price": "$4.99/lună",
+          "desc": "100 credite",
+          "highlight": true
+        },
+        {
+          "name": "Creative Cloud",
+          "price": "$54.99/lună",
+          "desc": "All Adobe apps + AI"
+        }
+      ],
+      "pricing": "25 credite gratuite/lună · $4.99/lună Premium · inclusiv în Creative Cloud",
+      "trendExplanation": "Singurul model major safe comercial. Adoptare rapidă în Photoshop."
+    },
+    {
+      "name": "Leonardo AI",
+      "cats": [
+        "design"
+      ],
+      "price": "freemium",
+      "country": "Australia",
+      "region": "asia",
+      "tagline": "Platformă de generare imagini AI cu modele fine-tuned pentru gamedev, concept art și marketing.",
+      "when": "Alege Leonardo AI dacă vrei modele specializate pentru game assets, concept art sau imagini de calitate înaltă.",
+      "audience": "Game developers, artiști digitali, marketeri",
+      "source": "Leonardo AI",
+      "trend": 77,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "game-dev",
+        "creative"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "API REST",
+        "Zapier"
+      ],
+      "similar": [
+        "Midjourney",
+        "Stable Diffusion",
+        "Adobe Firefly"
+      ],
+      "longDescription": "Leonardo AI oferă generare de imagini cu modele fine-tuned pentru game assets, concept art și design de produs. Include control granular asupra stilului și un sistem de training pe modele personale.",
+      "features": [
+        "Modele specializate pentru game assets",
+        "Fine-tuning model personal",
+        "Motion (video scurt)",
+        "Alchemy upscaler",
+        "Canvas editor",
+        "API pentru integrări"
+      ],
+      "useCases": [
+        "Game asset generation",
+        "Concept art personaje",
+        "Imagini pentru marketing campaigns",
+        "Product mockups",
+        "Illustrații consistente cu brand"
+      ],
+      "platforms": [
+        "Web",
+        "API"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "150 credite/zi",
+          "desc": "Acces de bază"
+        },
+        {
+          "name": "Apprentice",
+          "price": "$10/lună",
+          "desc": "8.500 credite/lună"
+        },
+        {
+          "name": "Artisan",
+          "price": "$24/lună",
+          "desc": "25.000 credite/lună",
+          "highlight": true
+        }
+      ],
+      "pricing": "Gratuit (150 credite/zi) · $10/lună Apprentice · $24/lună Artisan",
+      "trendExplanation": "Crește puternic în comunitatea game dev datorită modelelor specializate și planului gratuit generos."
+    },
+    {
+      "name": "Runway ML",
+      "cats": [
+        "design"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Studio AI pentru video: generare, editare și efecte vizuale cu modele Gen-3 Alpha.",
+      "when": "Alege Runway când ai nevoie de generare sau editare video AI de calitate profesională.",
+      "audience": "Video creatori, filmmakers, marketing teams",
+      "source": "Runway AI Inc.",
+      "trend": 84,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "video",
+        "creative"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "Adobe Premiere Pro",
+        "Final Cut Pro",
+        "API"
+      ],
+      "similar": [
+        "Kling AI",
+        "HeyGen",
+        "Suno AI"
+      ],
+      "longDescription": "Runway este liderul în generare video AI pentru profesioniști, cu modelele Gen-3 Alpha capabile să genereze video de înaltă calitate din text sau imagini. Include tools de editare video cu AI.",
+      "features": [
+        "Text-to-video Gen-3 Alpha",
+        "Image-to-video",
+        "Video inpainting și editare",
+        "Background removal instant",
+        "Motion tracking avansat",
+        "Camera controls cinematice"
+      ],
+      "useCases": [
+        "Generare scene video din text",
+        "Efecte vizuale fără echipă VFX",
+        "Social media content video",
+        "Prototipuri film/publicitate",
+        "Animarea imaginilor statice"
+      ],
+      "platforms": [
+        "Web",
+        "API"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "125 credite",
+          "desc": "Trial"
+        },
+        {
+          "name": "Standard",
+          "price": "$15/lună",
+          "desc": "625 credite/lună"
+        },
+        {
+          "name": "Pro",
+          "price": "$35/lună",
+          "desc": "2.250 credite/lună",
+          "highlight": true
+        }
+      ],
+      "pricing": "125 credite gratuite · $15/lună Standard · $35/lună Pro",
+      "trendExplanation": "Standard de facto în video AI creativ. Gen-3 Alpha a redefinit calitatea video generativ în 2024."
+    },
+    {
+      "name": "HeyGen",
+      "cats": [
+        "design"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Platforma AI pentru video cu avatare umane realiste. Ideal pentru training, marketing și prezentări.",
+      "when": "Alege HeyGen când vrei video cu avatar uman care vorbește, fără filmare, în orice limbă.",
+      "audience": "HR, marketing, e-learning, sales",
+      "source": "HeyGen Inc.",
+      "trend": 82,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "avatar-video",
+        "enterprise"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "Zapier",
+        "HubSpot",
+        "API"
+      ],
+      "similar": [
+        "Synthesia",
+        "Runway ML",
+        "Descript"
+      ],
+      "longDescription": "HeyGen creează video-uri cu avatare AI realiste care pot vorbi orice script, în 175+ limbi, cu voice cloning.",
+      "features": [
+        "Avatare umane realiste AI",
+        "Voice cloning din 30 secunde audio",
+        "175+ limbi și accente",
+        "Video personalizat la scară",
+        "Avatar interactiv (chatbot video)",
+        "Traducere video cu lip-sync"
+      ],
+      "useCases": [
+        "Video-uri de onboarding angajați",
+        "Product demos personalizate",
+        "Training corporativ scalabil",
+        "Traducere video în orice limbă",
+        "Prezentări de vânzări video"
+      ],
+      "platforms": [
+        "Web",
+        "API"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "1 credit/lună",
+          "desc": "1 video/lună"
+        },
+        {
+          "name": "Creator",
+          "price": "$29/lună",
+          "desc": "15 credite/lună",
+          "highlight": true
+        },
+        {
+          "name": "Business",
+          "price": "$89/lună",
+          "desc": "30 credite + API"
+        }
+      ],
+      "pricing": "Gratuit (1 video) · $29/lună Creator · $89/lună Business",
+      "trendExplanation": "Cel mai rapid crescând în segmentul avatar video, câștigând cotă de la Synthesia."
+    },
+    {
+      "name": "ElevenLabs",
+      "cats": [
+        "design"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Sinteza vocală AI cea mai realistă. Clonare voce, audiobooks, voice AI și dubbing multilingv.",
+      "when": "Alege ElevenLabs când ai nevoie de voce AI realistă pentru podcast, video, audiobook sau produs.",
+      "audience": "Creatori de conținut, developeri, producători media",
+      "source": "ElevenLabs Inc.",
+      "trend": 89,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "audio",
+        "popular"
+      ],
+      "type": "hybrid",
+      "apiAvailable": true,
+      "apiInfo": "ElevenLabs API robust pentru text-to-speech în aplicații și produse.",
+      "integrations": [
+        "API REST",
+        "Python SDK",
+        "Zapier",
+        "Make.com"
+      ],
+      "similar": [
+        "Murf AI",
+        "Runway ML",
+        "HeyGen"
+      ],
+      "longDescription": "ElevenLabs produce cele mai realiste voci AI disponibile, cu modele capabile să cloneze orice voce din câteva secunde de audio. Include text-to-speech, speech-to-speech și dubbing multilingv.",
+      "features": [
+        "Voice cloning ultra-realist",
+        "Text-to-speech în 32 limbi",
+        "Speech-to-speech (conversie voce)",
+        "Voice Design (voce de la zero)",
+        "Dubbing multilingv cu lip-sync",
+        "ElevenReader pentru audiobooks"
+      ],
+      "useCases": [
+        "Narare podcast și YouTube videos",
+        "Voiceover reclame și explainer videos",
+        "Audiobooks personalizate",
+        "Voice AI pentru aplicații",
+        "Dubbing conținut în alte limbi"
+      ],
+      "platforms": [
+        "Web",
+        "API",
+        "iOS"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "10.000 caractere/lună",
+          "desc": "3 voci custom"
+        },
+        {
+          "name": "Starter",
+          "price": "$5/lună",
+          "desc": "30.000 caractere"
+        },
+        {
+          "name": "Creator",
+          "price": "$22/lună",
+          "desc": "100.000 caractere",
+          "highlight": true
+        }
+      ],
+      "pricing": "Gratuit (10k caractere/lună) · $5/lună Starter · $22/lună Creator",
+      "trendExplanation": "Standard de facto în voice AI. Cel mai bun raport calitate/preț pe piața text-to-speech."
+    },
+    {
+      "name": "Gamma",
+      "cats": [
+        "productivitate",
+        "design"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Generare de prezentări, documente și site-uri din text în secunde, cu design automat.",
+      "when": "Alege Gamma când vrei o prezentare profesională rapid, fără să pierzi timp în PowerPoint.",
+      "audience": "Consultanți, studenți, antreprenori, sales",
+      "source": "Gamma App Inc.",
+      "trend": 81,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "prezentări",
+        "popular"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [
+        "Google Drive",
+        "Notion",
+        "Figma"
+      ],
+      "similar": [
+        "Notion AI",
+        "ChatGPT",
+        "Canva"
+      ],
+      "longDescription": "Gamma generează prezentări, documente și pagini web din text, cu design automat aplicat. Poți importa outline din text sau lăsa AI să genereze tot, inclusiv imagini și layout.",
+      "features": [
+        "Generare prezentare din text (1 prompt)",
+        "Design automat cu teme",
+        "Smart layouts responsive",
+        "Imagini AI generate inline",
+        "Export PowerPoint/PDF",
+        "Prezentare interactivă web"
+      ],
+      "useCases": [
+        "Pitch deck rapid pentru startup",
+        "Prezentare academică",
+        "Raport de business",
+        "Deck de vânzări",
+        "One-pager site simplu"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "400 credite AI",
+          "desc": "Trial"
+        },
+        {
+          "name": "Plus",
+          "price": "$10/lună",
+          "desc": "Nelimitat + export",
+          "highlight": true
+        },
+        {
+          "name": "Pro",
+          "price": "$20/lună",
+          "desc": "Branding, analytics"
+        }
+      ],
+      "pricing": "Gratuit (400 credite) · $10/lună Plus · $20/lună Pro",
+      "trendExplanation": "Gamma este liderul clar în categoria prezentări AI."
+    },
+    {
+      "name": "Consensus",
+      "cats": [
+        "cercetare"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Motor de căutare AI în literatura științifică. Răspunsuri bazate pe studii peer-reviewed.",
+      "when": "Alege Consensus când vrei răspunsuri la întrebări bazate pe dovezi din cercetare academică.",
+      "audience": "Cercetători, medici, studenți, jurnaliști",
+      "source": "Consensus NLP Inc.",
+      "trend": 74,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "research",
+        "academic"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [],
+      "similar": [
+        "Elicit",
+        "Perplexity",
+        "NotebookLM"
+      ],
+      "longDescription": "Consensus este un motor de căutare specializat în literatura academică, care extrage și sintetizează concluzii din studii peer-reviewed. Arată consensul din cercetare și citează sursele.",
+      "features": [
+        "Căutare în 200M+ lucrări academice",
+        "Consensus Meter (% studii pro/contra)",
+        "Citate cu DOI verificabile",
+        "Copilot AI pentru Q&A academic",
+        "Filtrare după domeniu și an",
+        "Export citări în APA/MLA"
+      ],
+      "useCases": [
+        "Verificarea afirmațiilor cu dovezi",
+        "Literature review rapid",
+        "Cercetare medicală sau nutrițională",
+        "Fact-checking bazat pe studii",
+        "Pregătire lucrări de licență/doctorat"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "Gratuit",
+          "desc": "20 căutări/lună"
+        },
+        {
+          "name": "Premium",
+          "price": "$8.99/lună",
+          "desc": "Nelimitat, Copilot",
+          "highlight": true
+        },
+        {
+          "name": "Teams",
+          "price": "$9.99/user/lună",
+          "desc": "Acces echipă"
+        }
+      ],
+      "pricing": "Gratuit (20 căutări) · $8.99/lună Premium",
+      "trendExplanation": "Creștere solidă în academia și healthcare. Singura soluție AI dedicată exclusiv cercetării peer-reviewed."
+    },
+    {
+      "name": "Elicit",
+      "cats": [
+        "cercetare"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Asistent AI pentru research: extrage date, sintetizează studii și organizează literature review.",
+      "when": "Alege Elicit când faci literature review sistematic și vrei să extragi date dintr-un volum mare de papers.",
+      "audience": "Cercetători academici, doctoranzi, analiști policy",
+      "source": "Ought Inc.",
+      "trend": 71,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "research",
+        "academic"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [],
+      "similar": [
+        "Consensus",
+        "Perplexity",
+        "NotebookLM"
+      ],
+      "longDescription": "Elicit automatizează sarcini de research: găsește papers relevante, extrage date structurate, sumarizează și organizează rezultatele în tabele.",
+      "features": [
+        "Căutare semantică în papers",
+        "Extracție date structurate din studies",
+        "Organizare results în tabele",
+        "Sumarizare abstracte",
+        "Upload PDF proprii",
+        "Export CSV/Excel"
+      ],
+      "useCases": [
+        "Sistematic literature review",
+        "Extracție date din trials clinice",
+        "Comparare metodologii din studii",
+        "Screening rapid de papers",
+        "Sinteză dovezi pentru policy"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "5.000 credite",
+          "desc": "Trial"
+        },
+        {
+          "name": "Plus",
+          "price": "$10/lună",
+          "desc": "12.000 credite/lună",
+          "highlight": true
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom",
+          "desc": "Echipe de cercetare"
+        }
+      ],
+      "pricing": "Gratuit (5.000 credite) · $10/lună Plus",
+      "trendExplanation": "Mai puternic decât Consensus pentru extracție date din papers."
+    },
+    {
+      "name": "Grok",
+      "cats": [
+        "scris",
+        "cercetare",
+        "programare"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "AI de la xAI cu acces la date X/Twitter în timp real. Răspunsuri directe și mai puțin filtrate.",
+      "when": "Alege Grok când vrei o perspectivă AI mai directă și acces la informații din X/Twitter în timp real.",
+      "audience": "Utilizatori X Premium, developeri, pasionați tech",
+      "source": "xAI (Elon Musk)",
+      "trend": 79,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "real-time",
+        "uncensored"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "X/Twitter",
+        "xAI API"
+      ],
+      "similar": [
+        "ChatGPT",
+        "Claude",
+        "Meta AI"
+      ],
+      "longDescription": "Grok este LLM-ul creat de xAI, cu acces unic la datele X/Twitter în timp real. Modelul Grok-3 este competitiv cu GPT-4o și Claude 3.5.",
+      "features": [
+        "Acces date X/Twitter în timp real",
+        "Grok 3 (model competitiv GPT-4o)",
+        "Analiză imagini și documente",
+        "Generare imagini (Aurora)",
+        "Mod Fun și mod Think",
+        "API disponibil"
+      ],
+      "useCases": [
+        "Monitorizare trenduri social media",
+        "Căutare informații recente",
+        "Analiză sentiment X în timp real",
+        "Coding și debugging",
+        "Research cu date actuale"
+      ],
+      "platforms": [
+        "Web",
+        "iOS",
+        "Android"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Gratuit",
+          "price": "Gratuit",
+          "desc": "Acces limitat"
+        },
+        {
+          "name": "X Premium",
+          "price": "$8/lună",
+          "desc": "Acces mai mare",
+          "highlight": true
+        },
+        {
+          "name": "X Premium+",
+          "price": "$16/lună",
+          "desc": "Acces complet + prioritar"
+        }
+      ],
+      "pricing": "Gratuit (limitat) · $8/lună X Premium · $16/lună X Premium+",
+      "trendExplanation": "Grok 3 a surprins piața cu benchmark-uri competitive. Unicul avantaj: acces real-time la X/Twitter."
+    },
+    {
+      "name": "Meta AI",
+      "cats": [
+        "scris",
+        "cercetare",
+        "design"
+      ],
+      "price": "gratuit",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "AI gratuit integrat în WhatsApp, Instagram și Facebook. Bazat pe modelele Llama 4.",
+      "when": "Alege Meta AI pentru task-uri rapide de zi cu zi direct din WhatsApp sau Instagram, fără cont nou.",
+      "audience": "Utilizatori Meta platforms, public general",
+      "source": "Meta (Facebook)",
+      "trend": 77,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "gratuit",
+        "integrat"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [
+        "WhatsApp",
+        "Instagram",
+        "Facebook",
+        "Messenger"
+      ],
+      "similar": [
+        "ChatGPT",
+        "Grok",
+        "Microsoft Copilot"
+      ],
+      "longDescription": "Meta AI este integrat direct în WhatsApp, Instagram, Facebook și Messenger, bazat pe modelele Llama 4. Complet gratuit, fără cont separat necesar.",
+      "features": [
+        "Integrat în WhatsApp, Instagram, Facebook",
+        "Generare imagini gratuit",
+        "Complet gratuit fără limită declarată",
+        "Llama 4 (model avansat Meta)",
+        "Căutare web integrată",
+        "Răspunsuri rapide în chat"
+      ],
+      "useCases": [
+        "Întrebări rapide fără altă aplicație",
+        "Generare imagini în WhatsApp",
+        "Rezumate și traduceri rapid",
+        "Idei și brainstorming casual",
+        "Asistență în grup chats"
+      ],
+      "platforms": [
+        "iOS",
+        "Android",
+        "Web"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Gratuit",
+          "price": "Complet gratuit",
+          "desc": "Fără limită publică",
+          "highlight": true
+        }
+      ],
+      "pricing": "Complet gratuit",
+      "trendExplanation": "Distribuție masivă prin platformele Meta cu miliarde de utilizatori."
+    },
+    {
+      "name": "Microsoft Copilot",
+      "cats": [
+        "productivitate",
+        "scris",
+        "programare"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "AI Microsoft integrat în Windows, Office 365 și Edge. Asistent universal pentru suita Microsoft.",
+      "when": "Alege Microsoft Copilot dacă lucrezi în ecosistemul Microsoft 365 și vrei AI direct în Word, Excel, Teams.",
+      "audience": "Utilizatori Microsoft 365, enterprise, profesioniști",
+      "source": "Microsoft",
+      "trend": 84,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "enterprise",
+        "Microsoft"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "Microsoft 365",
+        "Teams",
+        "Outlook",
+        "Word",
+        "Excel",
+        "PowerPoint",
+        "Edge"
+      ],
+      "similar": [
+        "ChatGPT",
+        "Notion AI",
+        "GitHub Copilot"
+      ],
+      "longDescription": "Microsoft Copilot este AI-ul Microsoft bazat pe modele GPT, integrat în Windows, Edge, Bing și suita Microsoft 365. Se integrează profund în Word, Excel, PowerPoint, Teams și Outlook.",
+      "features": [
+        "AI în Word, Excel, PowerPoint",
+        "Meeting summaries în Teams",
+        "Email drafting în Outlook",
+        "Căutare web integrată (Bing)",
+        "Generare imagini (Designer)",
+        "Copilot+ PC features Windows"
+      ],
+      "useCases": [
+        "Sumarizare meeting Teams automat",
+        "Generare draft email din bullet points",
+        "Analiză date Excel cu Q&A natural",
+        "Prezentări PowerPoint din outline",
+        "Research cu Bing AI"
+      ],
+      "platforms": [
+        "Web",
+        "Windows",
+        "iOS",
+        "Android",
+        "Mac"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "Gratuit",
+          "desc": "Copilot web și Edge"
+        },
+        {
+          "name": "Copilot Pro",
+          "price": "$20/lună",
+          "desc": "GPT-4 prioritar",
+          "highlight": true
+        },
+        {
+          "name": "M365 Copilot",
+          "price": "$30/user/lună",
+          "desc": "AI în toate app-urile Office"
+        }
+      ],
+      "pricing": "Gratuit · $20/lună Copilot Pro · $30/user/lună Microsoft 365 Copilot",
+      "trendExplanation": "Cel mai larg deployment enterprise AI datorită integrării în M365."
+    },
+    {
+      "name": "Bolt.new",
+      "cats": [
+        "programare"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Generează aplicații web full-stack direct din browser. Cod, deploy și preview instant.",
+      "when": "Alege Bolt când vrei să construiești o aplicație web rapid din text, fără setup local.",
+      "audience": "Antreprenori, developeri, non-tehnici cu idei de produse",
+      "source": "StackBlitz",
+      "trend": 86,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "vibe-coding",
+        "full-stack"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [
+        "Netlify",
+        "Supabase",
+        "GitHub"
+      ],
+      "similar": [
+        "Lovable",
+        "V0.dev",
+        "Cursor"
+      ],
+      "longDescription": "Bolt.new generează aplicații web full-stack (React, Next.js, Node.js) direct în browser dintr-un prompt de text. Rulează un mediu Node.js complet în browser, cu preview live și deploy direct pe Netlify.",
+      "features": [
+        "Generare app full-stack din prompt",
+        "Mediu Node.js complet în browser",
+        "Preview live instant",
+        "Deploy Netlify cu 1 click",
+        "Editare cod in-browser",
+        "Integrare Supabase pentru DB"
+      ],
+      "useCases": [
+        "Prototipare rapidă aplicații web",
+        "MVP în câteva ore",
+        "Landing pages cu logică",
+        "Dashboard-uri cu date",
+        "App demo pentru pitch"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "Gratuit",
+          "desc": "1M tokeni/lună"
+        },
+        {
+          "name": "Basic",
+          "price": "$20/lună",
+          "desc": "10M tokeni"
+        },
+        {
+          "name": "Pro",
+          "price": "$50/lună",
+          "desc": "Tokeni extinși",
+          "highlight": true
+        }
+      ],
+      "pricing": "Gratuit (limitat) · $20/lună Basic · $50/lună Pro",
+      "trendExplanation": "Explozie de popularitate în val vibe-coding 2024-2025."
+    },
+    {
+      "name": "V0.dev",
+      "cats": [
+        "programare",
+        "design"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Generare UI React + Tailwind din text sau screenshot. De la Vercel, pentru frontend development.",
+      "when": "Alege V0 când vrei să generezi componente React/Tailwind rapid sau să transformi un screenshot în cod.",
+      "audience": "Frontend developeri, designeri, product teams",
+      "source": "Vercel",
+      "trend": 83,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "UI-generation",
+        "frontend"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "Vercel",
+        "Next.js",
+        "shadcn/ui"
+      ],
+      "similar": [
+        "Bolt.new",
+        "Lovable",
+        "Cursor"
+      ],
+      "longDescription": "V0.dev de la Vercel generează componente UI în React și Tailwind CSS din descripții text sau screenshot-uri, integrat direct în proiecte Next.js.",
+      "features": [
+        "Text-to-UI în React + Tailwind",
+        "Screenshot-to-code",
+        "shadcn/ui components",
+        "Deploy direct pe Vercel",
+        "Iterare prin chat",
+        "API pentru integrare CI/CD"
+      ],
+      "useCases": [
+        "Prototipare componente UI rapid",
+        "Transformare mockup Figma în cod",
+        "Generare forme și dashboard-uri",
+        "Landing pages responsive",
+        "Design system components"
+      ],
+      "platforms": [
+        "Web",
+        "API"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "200 credite/lună",
+          "desc": "Acces de bază"
+        },
+        {
+          "name": "Premium",
+          "price": "$20/lună",
+          "desc": "5.000 credite/lună",
+          "highlight": true
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom",
+          "desc": "Echipe mari"
+        }
+      ],
+      "pricing": "Gratuit (200 credite/lună) · $20/lună Premium",
+      "trendExplanation": "Standard pentru generare UI în ecosistemul Vercel/Next.js."
+    },
+    {
+      "name": "Lovable",
+      "cats": [
+        "programare"
+      ],
+      "price": "freemium",
+      "country": "Suedia",
+      "region": "europa",
+      "tagline": "Generare aplicații web full-stack cu AI, de la idee la produs live în minute.",
+      "when": "Alege Lovable pentru a construi MVP-uri sau produse SaaS rapid din text, cu backend inclus.",
+      "audience": "Fondatori, antreprenori, non-tehnici ambiționoși",
+      "source": "Lovable (GPT Engineer AB)",
+      "trend": 81,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "vibe-coding",
+        "startup"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [
+        "Supabase",
+        "GitHub",
+        "Stripe"
+      ],
+      "similar": [
+        "Bolt.new",
+        "V0.dev",
+        "Cursor"
+      ],
+      "longDescription": "Lovable (fostul GPT Engineer) generează aplicații full-stack complete din text, cu backend Supabase, autentificare și integrare Stripe incluse.",
+      "features": [
+        "Full-stack din text (React + Supabase)",
+        "Autentificare integrată",
+        "Integrare Stripe pentru plăți",
+        "GitHub sync automat",
+        "Visual editing",
+        "Deploy și hosting inclus"
+      ],
+      "useCases": [
+        "MVP SaaS în câteva ore",
+        "Portal cu autentificare",
+        "Aplicație cu plăți integrate",
+        "Internal tools rapide",
+        "Prototip pentru investitori"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "5 mesaje/zi",
+          "desc": "Trial"
+        },
+        {
+          "name": "Starter",
+          "price": "$20/lună",
+          "desc": "100 mesaje/lună"
+        },
+        {
+          "name": "Launch",
+          "price": "$50/lună",
+          "desc": "Nelimitat",
+          "highlight": true
+        }
+      ],
+      "pricing": "Gratuit (5 msg/zi) · $20/lună Starter · $50/lună Launch",
+      "trendExplanation": "Puternic în Europa cu calitate tehnică superioară pentru app-uri complete."
+    },
+    {
+      "name": "Suno AI",
+      "cats": [
+        "design"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Generare muzică originală din text. De la pop la jazz la metal, cu voci și instrumente.",
+      "when": "Alege Suno când ai nevoie de muzică de fundal, jingle sau compoziție originală fără cunoștințe muzicale.",
+      "audience": "Creatori de conținut, marketing, game developers",
+      "source": "Suno Inc.",
+      "trend": 80,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "audio",
+        "creativ"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "API",
+        "Microsoft Copilot"
+      ],
+      "similar": [
+        "ElevenLabs",
+        "Runway ML"
+      ],
+      "longDescription": "Suno generează muzică originală completă (voce + instrumente) dintr-un prompt text. Poate crea orice gen muzical, de la pop la metal la muzică de film.",
+      "features": [
+        "Generare muzică completă din text",
+        "Orice gen muzical",
+        "Voce AI inclusă",
+        "Custom lyrics sau generate",
+        "Continuare și editare piese",
+        "Licență comercială (pro)"
+      ],
+      "useCases": [
+        "Muzică de fundal pentru video",
+        "Jingle-uri pentru reclame",
+        "Muzică pentru podcast-uri",
+        "Game soundtrack prototip",
+        "Muzică personalizată cadou"
+      ],
+      "platforms": [
+        "Web",
+        "iOS",
+        "Android"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "50 credite/zi",
+          "desc": "10 cântece/zi"
+        },
+        {
+          "name": "Pro",
+          "price": "$8/lună",
+          "desc": "2.500 credite/lună",
+          "highlight": true
+        },
+        {
+          "name": "Premier",
+          "price": "$24/lună",
+          "desc": "10.000 credite/lună"
+        }
+      ],
+      "pricing": "Gratuit (50 credite/zi) · $8/lună Pro · $24/lună Premier",
+      "trendExplanation": "Viral în categoria muzică generativă."
+    },
+    {
+      "name": "Descript",
+      "cats": [
+        "design",
+        "productivitate"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Editor video și podcast AI: editează prin transcript text, clonează vocea, elimină filler words.",
+      "when": "Alege Descript când înregistrezi podcast sau video și vrei să editezi ca pe un document text.",
+      "audience": "Podcast creatori, YouTuberi, marketeri video",
+      "source": "Descript Inc.",
+      "trend": 76,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "video",
+        "podcast"
+      ],
+      "type": "standalone",
+      "apiAvailable": false,
+      "integrations": [
+        "YouTube",
+        "Riverside.fm",
+        "Slack"
+      ],
+      "similar": [
+        "Runway ML",
+        "ElevenLabs",
+        "HeyGen"
+      ],
+      "longDescription": "Descript revoluționează editarea video și podcast prin editarea directă a transcriptului — ștergând text din transcript, ștergi și audio/video corespunzător.",
+      "features": [
+        "Editare video prin transcript text",
+        "Eliminare filler words automat",
+        "Voice cloning personal",
+        "Overdub (înlocuire cuvinte cu voce AI)",
+        "Screen recording inclusiv",
+        "Subtitles automate"
+      ],
+      "useCases": [
+        "Editare podcast rapid prin transcript",
+        "Eliminare 'um', 'uh', pauze lungi",
+        "Corectare greșeli cu voice AI",
+        "Transcriere automată episoade",
+        "Creare clips pentru social media"
+      ],
+      "platforms": [
+        "Desktop",
+        "Mac",
+        "Windows"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "1 oră transcriere/lună",
+          "desc": "Funcții de bază"
+        },
+        {
+          "name": "Hobbyist",
+          "price": "$12/lună",
+          "desc": "10 ore/lună",
+          "highlight": true
+        },
+        {
+          "name": "Creator",
+          "price": "$24/lună",
+          "desc": "Nelimitat"
+        }
+      ],
+      "pricing": "Gratuit (1 oră/lună) · $12/lună Hobbyist · $24/lună Creator",
+      "trendExplanation": "Lider în editare podcast și video prin text. Workflow unic."
+    },
+    {
+      "name": "Kling AI",
+      "cats": [
+        "design"
+      ],
+      "price": "freemium",
+      "country": "China",
+      "region": "asia",
+      "tagline": "Generare video AI de la Kuaishou. Calitate cinematică, până la 2 minute, cu fizică realistă.",
+      "when": "Alege Kling AI când vrei video AI de calitate cinematică la un preț mai mic decât Runway.",
+      "audience": "Video creatori, filmmakers, marketing",
+      "source": "Kuaishou Technology",
+      "trend": 78,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "video",
+        "china"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "API"
+      ],
+      "similar": [
+        "Runway ML",
+        "HeyGen"
+      ],
+      "longDescription": "Kling AI este modelul video AI de la Kuaishou, capabil să genereze video până la 2 minute cu fizică realistă și mișcări cinematice.",
+      "features": [
+        "Video până la 2 minute",
+        "Fizică și mișcări realiste",
+        "Calitate cinematică HD",
+        "Image-to-video avansat",
+        "Camera motion control",
+        "API disponibil"
+      ],
+      "useCases": [
+        "Reclame video scurte",
+        "Animare fotografii",
+        "Scene cinematice cu personaje",
+        "Product demos animate",
+        "Content pentru social media"
+      ],
+      "platforms": [
+        "Web",
+        "API"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "66 credite/zi",
+          "desc": "Acces de bază"
+        },
+        {
+          "name": "Standard",
+          "price": "$9.99/lună",
+          "desc": "660 credite/lună",
+          "highlight": true
+        },
+        {
+          "name": "Pro",
+          "price": "$29.99/lună",
+          "desc": "3.000 credite/lună"
+        }
+      ],
+      "pricing": "Gratuit (66 credite/zi) · $9.99/lună Standard · $29.99/lună Pro",
+      "trendExplanation": "Unul din cele mai competitive modele video AI din Asia."
+    },
+    {
+      "name": "Ideogram",
+      "cats": [
+        "design"
+      ],
+      "price": "freemium",
+      "country": "Canada",
+      "region": "america",
+      "tagline": "Generator imagini AI specializat în text în imagini. Logo-urile și posterele cu text arată corect.",
+      "when": "Alege Ideogram când ai nevoie de imagini cu text lizibil (postere, logo-uri, cărți poștale).",
+      "audience": "Designeri grafici, marketeri, creatori de conținut",
+      "source": "Ideogram AI Inc.",
+      "trend": 75,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "design",
+        "text-in-image"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "API",
+        "Canva"
+      ],
+      "similar": [
+        "Midjourney",
+        "Adobe Firefly",
+        "Leonardo AI"
+      ],
+      "longDescription": "Ideogram rezolvă problema istorică a AI-ului cu textul în imagini — poate genera postere, logo-uri și materiale cu text citibil și corect ortografic.",
+      "features": [
+        "Text corect în imagini",
+        "Generare logo și poster",
+        "Magic Prompt (expandare prompt)",
+        "Reframe și editare imagine",
+        "Stiluri artistice diverse",
+        "API pentru integrări"
+      ],
+      "useCases": [
+        "Postere cu text și slogane",
+        "Logo-uri și brand identity",
+        "Cărți de felicitare digitale",
+        "Social media graphics cu text",
+        "Thumbnail-uri pentru YouTube"
+      ],
+      "platforms": [
+        "Web",
+        "API"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "10 imagini/zi",
+          "desc": "Acces de bază"
+        },
+        {
+          "name": "Basic",
+          "price": "$7/lună",
+          "desc": "400 imagini/lună",
+          "highlight": true
+        },
+        {
+          "name": "Plus",
+          "price": "$16/lună",
+          "desc": "1.000 imagini/lună"
+        }
+      ],
+      "pricing": "Gratuit (10 imagini/zi) · $7/lună Basic · $16/lună Plus",
+      "trendExplanation": "Nișă clară și unică: text în imagini."
+    },
+    {
+      "name": "Murf AI",
+      "cats": [
+        "design"
+      ],
+      "price": "freemium",
+      "country": "India",
+      "region": "asia",
+      "tagline": "Studio text-to-speech AI: 120+ voci, 20+ limbi, pentru eLearning, reclame și prezentări.",
+      "when": "Alege Murf când vrei voiceover profesional pentru eLearning, explicații sau reclame fără înregistrare studio.",
+      "audience": "Instructional designers, marketeri, prezentatori",
+      "source": "Murf Inc.",
+      "trend": 72,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "audio",
+        "e-learning"
+      ],
+      "type": "standalone",
+      "apiAvailable": true,
+      "integrations": [
+        "Canva",
+        "Google Slides",
+        "PowerPoint",
+        "API"
+      ],
+      "similar": [
+        "ElevenLabs",
+        "Descript"
+      ],
+      "longDescription": "Murf AI este un studio text-to-speech dedicat producției de voiceover pentru cursuri online, reclame și explainer videos, cu 120+ voci naturale.",
+      "features": [
+        "120+ voci AI naturale",
+        "20+ limbi și accente",
+        "Editor video cu voiceover sincronizat",
+        "Voice changer",
+        "Pitch, speed, emphasis control",
+        "Collaboration echipă"
+      ],
+      "useCases": [
+        "Cursuri eLearning cu voiceover",
+        "Reclame radio/digital",
+        "Prezentări cu voce profesională",
+        "Audiodescripții accesibilitate",
+        "IVR și chatbot voices"
+      ],
+      "platforms": [
+        "Web",
+        "API"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "10 minute voce",
+          "desc": "Trial"
+        },
+        {
+          "name": "Basic",
+          "price": "$19/lună",
+          "desc": "24 ore voce/an",
+          "highlight": true
+        },
+        {
+          "name": "Pro",
+          "price": "$26/lună",
+          "desc": "96 ore voce/an"
+        }
+      ],
+      "pricing": "Gratuit (10 min) · $19/lună Basic · $26/lună Pro",
+      "trendExplanation": "Standard în eLearning voiceover."
+    },
+    {
+      "name": "Amazon Q Developer",
+      "cats": [
+        "programare"
+      ],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Asistent AI pentru developeri AWS: cod, debugging, optimizare și migrare aplicații cloud.",
+      "when": "Alege Amazon Q Developer dacă lucrezi cu AWS și vrei asistență AI pentru cloud infrastructure și code.",
+      "audience": "Developeri AWS, cloud engineers, DevOps",
+      "source": "Amazon Web Services",
+      "trend": 74,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "AWS",
+        "enterprise"
+      ],
+      "type": "hybrid",
+      "apiAvailable": true,
+      "integrations": [
+        "VS Code",
+        "JetBrains",
+        "AWS Console",
+        "CLI"
+      ],
+      "similar": [
+        "GitHub Copilot",
+        "Cursor",
+        "Windsurf"
+      ],
+      "longDescription": "Amazon Q Developer este asistentul AI pentru developeri în ecosistemul AWS, cu autocompletare cod, debugging, și migrare automată a aplicațiilor legacy.",
+      "features": [
+        "Autocompletare cod optimizată AWS SDK",
+        "Debugging și fix erori AWS",
+        "Transformare cod legacy (Java 8→17)",
+        "Q&A pe documentația AWS",
+        "Security vulnerability scanning",
+        "Agent pentru feature-uri noi"
+      ],
+      "useCases": [
+        "Accelerare development cu AWS SDK",
+        "Migrare aplicații Java legacy",
+        "Optimizare infrastructure as code",
+        "Debugging erori AWS CloudWatch",
+        "Learning AWS prin chat"
+      ],
+      "platforms": [
+        "VS Code",
+        "JetBrains",
+        "Web",
+        "CLI"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Free",
+          "price": "Gratuit",
+          "desc": "50 interacțiuni/lună"
+        },
+        {
+          "name": "Pro",
+          "price": "$19/user/lună",
+          "desc": "Nelimitat + agent",
+          "highlight": true
+        }
+      ],
+      "pricing": "Gratuit (limitat) · $19/user/lună Pro",
+      "trendExplanation": "Adopție naturală în echipele care rulează deja AWS."
+    },
+    {
+      "name": "Cohere",
+      "cats": [
+        "programare",
+        "date"
+      ],
+      "price": "freemium",
+      "country": "Canada",
+      "region": "america",
+      "tagline": "Platformă AI enterprise pentru search semantic, RAG și LLM-uri optimizate pentru business.",
+      "when": "Alege Cohere când construiești sisteme enterprise cu RAG, search semantic sau fine-tuning LLM propriu.",
+      "audience": "Enterprise developers, ML engineers, data teams",
+      "source": "Cohere Inc.",
+      "trend": 75,
+      "lastUpdated": "mai 2026",
+      "badges": [
+        "enterprise",
+        "RAG"
+      ],
+      "type": "platform",
+      "apiAvailable": true,
+      "apiInfo": "Cohere API complet: Command (chat), Embed (semantic search), Rerank pentru enterprise.",
+      "integrations": [
+        "AWS",
+        "Azure",
+        "Google Cloud",
+        "LangChain",
+        "LlamaIndex"
+      ],
+      "similar": [
+        "Hugging Face",
+        "AI21 Labs / Jamba"
+      ],
+      "longDescription": "Cohere oferă modele LLM optimizate pentru enterprise: Command pentru generare text, Embed pentru search semantic și Rerank. Focus pe RAG și deployment on-premise.",
+      "features": [
+        "Command R+ (model enterprise)",
+        "Embed (semantic search și RAG)",
+        "Rerank pentru search relevant",
+        "Fine-tuning pe date proprii",
+        "Deployment on-premise și în orice cloud",
+        "Toolkit RAG inclus"
+      ],
+      "useCases": [
+        "Search semantic în documente interne",
+        "Chatbot enterprise pe baza cunoștințe",
+        "Clasificare și extracție date",
+        "Summarizare documente la scară",
+        "Fine-tuning pe industrie specifică"
+      ],
+      "platforms": [
+        "API",
+        "Web"
+      ],
+      "pricingTiers": [
+        {
+          "name": "Trial",
+          "price": "Gratuit",
+          "desc": "API key, limitat"
+        },
+        {
+          "name": "Production",
+          "price": "Pay-as-you-go",
+          "desc": "Per token",
+          "highlight": true
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom",
+          "desc": "On-premise, SLA"
+        }
+      ],
+      "pricing": "Trial gratuit · Pay-as-you-go production · Enterprise custom",
+      "trendExplanation": "Poziționare clară în enterprise RAG și search semantic."
     }
   ]
 }
