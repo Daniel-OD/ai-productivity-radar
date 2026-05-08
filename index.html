@@ -3,7 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AI Productivity Radar · Ghid interactiv</title>
+<title>SIGNAL · AI Stack Intelligence</title>
+<meta name="description" content="SIGNAL mapează workflow-ul tău și îți construiește stack-ul AI perfect. Nu o listă de tooluri — inteligență aplicată.">
+<meta property="og:title" content="SIGNAL · AI Stack Intelligence">
+<meta property="og:description" content="SIGNAL mapează workflow-ul tău și îți construiește stack-ul AI perfect. Nu o listă de tooluri — inteligență aplicată.">
+<meta name="twitter:title" content="SIGNAL">
+<meta name="twitter:description" content="Mapează-ți workflow-ul și construiește stack-ul AI perfect.">
+<link rel="canonical" href="https://ai-productivity-htnu.onrender.com/">
+<meta name="keywords" content="tooluri AI, productivitate AI, stack AI, comparatie AI, workflow AI, Claude, ChatGPT, Cursor, Perplexity, SIGNAL">
+<meta name="author" content="SIGNAL">
+<meta property="og:image" content="https://ai-productivity-htnu.onrender.com/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"SIGNAL","description":"AI Stack Intelligence Platform — mapează workflow-uri și recomandă tooluri AI personalizate","url":"https://ai-productivity-htnu.onrender.com","applicationCategory":"ProductivityApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -18,7 +30,11 @@
   --text: #f4ede2;
   --text-muted: #a89a85;
   --text-dim: #6e6354;
-  --gold: #d4a574;
+  --gold: #E8B86D;
+  --void: #080808;
+  --neural: #3B82F6;
+  --pulse: #10B981;
+  --critical: #EF4444;
   --sage: #94b08c;
   --sage-bg: rgba(148, 176, 140, 0.12);
   --coral: #d97757;
@@ -1095,41 +1111,128 @@ footer {
     padding-top: 48px;
   }
 }
+
+/* ── Phase: Hero signal status ── */
+.signal-status { margin-top: 28px; font-family: var(--mono); font-size: 12px; color: var(--gold); display: flex; align-items: center; gap: 8px; }
+.signal-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pulse); animation: signalPulse 2s ease-in-out infinite; flex-shrink: 0; }
+@keyframes signalPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+@media(prefers-reduced-motion:reduce){.signal-dot{animation:none}}
+
+/* ── Phase: Workflow Genome ── */
+.wg-section{background:linear-gradient(180deg,transparent,rgba(59,130,246,.04),transparent)}
+.wg-panel{border:1px solid var(--border);border-radius:12px;padding:36px;background:rgba(28,23,18,.6);backdrop-filter:blur(8px)}
+.wg-input-area{margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.wg-textarea{background:var(--surface);border:1px solid var(--border-strong);color:var(--text);padding:16px;border-radius:8px;font-size:15px;font-family:var(--sans);line-height:1.6;resize:vertical;min-height:120px;width:100%}
+.wg-textarea:focus{outline:2px solid var(--gold);border-color:transparent}
+.wg-analyze-btn{align-self:flex-start}
+.wg-results{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.wg-map-wrap{min-height:200px;background:rgba(0,0,0,.2);border-radius:8px;overflow:hidden}
+.wg-map{width:100%;height:200px}
+.wg-rec-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px;cursor:pointer;transition:border-color .15s}
+.wg-rec-card:hover{border-color:var(--gold)}
+.wg-rec-task{font-family:var(--serif);font-size:20px;margin-bottom:6px}
+.wg-saving{font-family:var(--mono);font-size:11px;color:var(--pulse);letter-spacing:.08em;margin-bottom:10px}
+.wg-total{grid-column:1/-1;text-align:center;font-family:var(--serif);font-size:26px;color:var(--gold);padding:20px;border:1px solid rgba(232,184,109,.3);border-radius:8px;background:rgba(232,184,109,.05)}
+@media(max-width:720px){.wg-results{grid-template-columns:1fr}}
+
+/* ── Phase: Stack Score ── */
+.ss-questions{margin-top:24px;display:flex;flex-direction:column;gap:20px}
+.ss-q-label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--text-dim);margin-bottom:10px}
+.ss-options{display:flex;gap:10px;flex-wrap:wrap}
+.ss-opt{background:var(--surface);border:1px solid var(--border-strong);border-radius:8px;padding:10px 16px;font-family:var(--mono);font-size:12px;color:var(--text-muted);cursor:pointer;transition:border-color .15s,color .15s}
+.ss-opt:hover{border-color:var(--gold);color:var(--text)}
+.ss-opt.selected{border-color:var(--gold);color:var(--gold);background:rgba(232,184,109,.08)}
+.ss-submit-wrap{margin-top:24px}
+.ss-result{margin-top:28px;text-align:center}
+.ss-score-display{font-family:var(--serif);font-size:72px;font-weight:300;color:var(--gold);line-height:1}
+.ss-score-label{font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-top:8px}
+.ss-recs{margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;text-align:left}
+.ss-rec-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:14px}
+.ss-rec-card .ss-rec-icon{font-size:20px;margin-bottom:6px}
+.ss-rec-card p{font-size:13px;color:var(--text-muted);line-height:1.6}
+.ss-actions{margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ── Phase: Signal Feed ── */
+.feed-list{margin-top:24px;display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.feed-item{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:start;background:var(--bg-soft);padding:16px 20px;cursor:pointer;transition:background .15s}
+.feed-item:hover{background:var(--surface)}
+.feed-dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.feed-dot-high{background:var(--critical)}
+.feed-dot-medium{background:var(--gold)}
+.feed-dot-low{background:var(--text-dim)}
+.feed-type{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim)}
+.feed-tool{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--text)}
+.feed-title{font-size:14px;color:var(--text-muted);margin-top:3px}
+.feed-body{font-size:13px;color:var(--text-dim);margin-top:6px;line-height:1.6;display:none}
+.feed-body.expanded{display:block}
+.feed-meta{text-align:right;flex-shrink:0}
+.feed-date{font-family:var(--mono);font-size:10px;color:var(--text-dim)}
+.feed-impact{display:inline-block;margin-top:4px;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;padding:2px 6px;border-radius:3px}
+.feed-impact-high{background:rgba(239,68,68,.15);color:#EF4444}
+.feed-impact-medium{background:rgba(232,184,109,.15);color:var(--gold)}
+.feed-impact-low{background:rgba(110,99,84,.15);color:var(--text-dim)}
+
+/* ── Phase: Tool Card Upgrades ── */
+.trend-bar{height:3px;background:var(--border);border-radius:2px;width:50px;flex-shrink:0}
+.trend-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .5s ease}
+.tool-stack-toggle{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.stack-toggle-btn{font-family:var(--mono);font-size:10px;background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:3px 8px;border-radius:4px;cursor:pointer}
+.stack-toggle-btn.in-stack{border-color:var(--pulse);color:var(--pulse)}
 </style>
 </head>
 <body>
 <nav class="topnav">
   <div class="container">
-    <div class="brand">AI Productivity Radar</div>
+    <div class="brand">SIGNAL</div>
     <div class="navlinks">
-      <a href="#wizard">Găsește-mi toolul</a>
-      <a href="#trending">Trending</a>
-      <a href="#tools">Toate toolurile</a>
-      <button class="mini-btn" id="commandBtn">⌘K Search</button>
+      <a href="#workflow-genome">Workflow Genome</a>
+      <a href="#signal-feed">Signal Feed</a>
+      <a href="#tools">Tools</a>
+      <button class="mini-btn" id="commandBtn" aria-label="Deschide Command Palette (Ctrl+K)">⌘K</button>
+      <button class="mini-btn" id="favQuick" aria-label="Arată favorite">Favorite</button>
+      <a href="#stack-score" class="mini-btn" style="position:relative">Stack Score<span id="ssNavBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:var(--gold);color:var(--bg);font-size:9px;font-family:var(--mono);padding:1px 4px;border-radius:99px;min-width:14px;text-align:center"></span></a>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">🌓</button>
-      <button class="mini-btn" id="favQuick">Favorite</button>
     </div>
   </div>
 </nav>
 
-<header>
-  <div class="container">
-    <div class="eyebrow">Ghid interactiv · Render live</div>
-    <h1>Găsește AI-ul potrivit <em>fără să pierzi ore</em>.</h1>
-    <p class="lead">Un radar prietenos pentru tool-uri AI: alegi ce vrei să faci, vezi recomandări, compari opțiuni și salvezi favorite. Datele vin din JSON, dar pagina nu mai apare niciodată goală.</p>
-    <div class="hero-actions">
-      <a class="primary" href="#wizard">Ajută-mă să aleg →</a>
-      <a class="secondary" href="#tools">Explorează lista</a>
+<header role="banner" style="position:relative;overflow:hidden">
+  <canvas id="constellationCanvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none"></canvas>
+  <div class="container" style="position:relative;z-index:1">
+    <div class="eyebrow">AI Stack Intelligence · Live</div>
+    <h1>Your AI stack is either<br><span style="display:block">working for you</span><em>or against you.</em></h1>
+    <p class="lead">SIGNAL mapează workflow-ul tău, identifică unde pierzi timp și îți construiește stack-ul AI perfect. Nu o listă de tooluri. Inteligență aplicată.</p>
+    <div class="hero-actions" style="margin-top:28px">
+      <a href="#workflow-genome" class="primary">Analizează-mi workflow-ul →</a>
+      <a href="#stack-score" class="secondary">Calculează Stack Score</a>
     </div>
-    <div class="meta-bar">
-      <span><strong id="metaTools">12</strong> tooluri</span>
-      <span><strong>7</strong> categorii</span>
-      <span><strong>4</strong> regiuni</span>
-      <span>Actualizat <strong id="metaUpdated">mai 2026</strong></span>
-      <span class="data-status warn" id="dataStatus">Se încarcă radarul...</span>
+    <div class="signal-status" id="signalStatus">
+      <span class="signal-dot"></span>
+      <span id="signalStatusText">⚡ SIGNAL monitorizează <strong id="metaTools">64</strong> tooluri AI în timp real</span>
     </div>
   </div>
 </header>
+
+<section class="section wg-section" id="workflow-genome" aria-label="Workflow Genome">
+  <div class="container">
+    <div class="wg-panel">
+      <div class="section-sub">Workflow Genome™</div>
+      <h2 class="section-title">Descrie ce faci. <em>SIGNAL face restul.</em></h2>
+      <p class="helper">Scrie în limbaj natural ce faci în muncă. SIGNAL identifică unde AI poate interveni și îți recomandă toolurile potrivite.</p>
+      <div class="wg-input-area">
+        <textarea id="wgInput" class="wg-textarea" placeholder="Ex: Dimineața citesc emailuri și Slack, am 3 meeting-uri pe săptămână, scriu rapoarte în Excel vinerea, și uneori prezint rezultate în PowerPoint..." aria-label="Descrie workflow-ul tău"></textarea>
+        <button class="primary wg-analyze-btn" id="wgAnalyze" aria-label="Analizează workflow-ul">Analizează workflow-ul →</button>
+      </div>
+      <div class="wg-results" id="wgResults" style="display:none" aria-live="polite">
+        <div class="wg-map-wrap">
+          <svg id="wgMap" class="wg-map" aria-label="Harta workflow-ului tău"></svg>
+        </div>
+        <div class="wg-recs-wrap" id="wgRecs"></div>
+        <div class="wg-total" id="wgTotal"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section" id="wizard">
   <div class="container">
@@ -1154,6 +1257,17 @@ footer {
       <button class="stack-pill" data-stack="date">Stack data</button>
       <button class="stack-pill" data-region-stack="europa">Radar Europa</button>
       <button class="stack-pill" data-region-stack="asia">Radar Asia</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="stack-score" aria-label="Stack Score Calculator">
+  <div class="container">
+    <div class="panel">
+      <div class="section-sub">Stack Intelligence</div>
+      <h2 class="section-title">Cât de bun este <em>stack-ul tău AI</em>?</h2>
+      <p class="helper">Răspunde la 5 întrebări. SIGNAL îți calculează Stack Score-ul și îți spune unde pierzi timp și bani.</p>
+      <div id="stackScoreUI"></div>
     </div>
   </div>
 </section>
@@ -1199,12 +1313,12 @@ footer {
   <button id="showFilters">Filtre</button>
 </div>
 
-<section class="section">
+<section class="section" id="signal-feed" aria-label="SIGNAL Feed">
   <div class="container">
-    <div class="panel">
-      <div class="section-sub">Live radar</div>
-      <h2 class="section-title">Pulsul datasetului.</h2>
-      <div class="radar-grid" id="radarGrid"></div>
+    <div class="section-sub">Live Intelligence</div>
+    <h2 class="section-title">Signal Feed — <em>Ce s-a schimbat azi în AI.</em></h2>
+    <div class="feed-list" id="feedList" aria-live="polite">
+      <div class="loading-state">Se încarcă feed-ul...</div>
     </div>
   </div>
 </section>
@@ -1225,17 +1339,24 @@ footer {
   <div class="container">
     <div class="footer-grid">
       <div class="footer-block">
-        <h4>Cum să folosești ghidul</h4>
-        <p>Folosește ⌘K / Ctrl+K pentru Command Palette, apoi rafinează cu filtrele. Marchează favoritele și compară 2-4 tooluri înainte să plătești.</p>
+        <h4>Despre SIGNAL</h4>
+        <p>SIGNAL este platforma de inteligență AI pentru knowledge workers. Mapăm workflow-uri, măsurăm stack-uri și monitorizăm ecosistemul AI în timp real.</p>
       </div>
       <div class="footer-block">
         <h4>Stack-uri recomandate</h4>
         <p>Research: Perplexity + NotebookLM + Claude. Cod: Cursor + Claude + DeepSeek. Date: Julius + Hex + Power BI Copilot.</p>
       </div>
       <div class="footer-block">
-        <h4>Feedback</h4>
-        <p>Îmbunătățește ghidul pe GitHub: Daniel-OD/ai-productivity-radar/issues.</p>
+        <h4>Signal Weekly</h4>
+        <p style="margin-bottom:12px">Primești în fiecare luni cele mai importante schimbări din AI.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <input id="signalEmail" type="email" placeholder="email@tău.com" aria-label="Adresa ta de email" style="background:var(--surface);border:1px solid var(--border-strong);color:var(--text);padding:10px 14px;border-radius:6px;font-size:13px;flex:1;min-width:160px">
+          <button class="mini-btn" id="signalSubscribe" aria-label="Abonează-te la Signal Weekly">Abonează-te</button>
+        </div>
       </div>
+    </div>
+    <div style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border);text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-dim)">
+      © 2026 SIGNAL · Construit cu Claude Code · <a href="https://github.com/Daniel-OD/ai-productivity-radar" style="color:var(--gold);text-decoration:none">github.com/Daniel-OD/ai-productivity-radar</a>
     </div>
   </div>
 </footer>
@@ -1283,24 +1404,101 @@ footer {
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<script src="js/dom-utils.js" defer></script>
+<script src="js/workflow-genome.js" defer></script>
+<script src="js/stack-score.js" defer></script>
+<script src="js/signal-feed.js" defer></script>
+
+<!-- Constellation Canvas -->
+<script>
+(function(){
+  var canvas = document.getElementById('constellationCanvas');
+  if (!canvas) return;
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) { canvas.style.display='none'; return; }
+  if (!canvas.getContext) { canvas.style.display='none'; return; }
+  var ctx = canvas.getContext('2d');
+  var dots = [], W, H, raf;
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  function init() {
+    dots = [];
+    for (var i = 0; i < 50; i++) {
+      dots.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*2+1, phase: Math.random()*Math.PI*2, speed: .3+Math.random()*.5 });
+    }
+  }
+  function draw(t) {
+    ctx.clearRect(0,0,W,H);
+    var time = t * 0.001;
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var alpha = .15 + .2 * Math.sin(time * d.speed + d.phase);
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(232,184,109,' + alpha + ')';
+      ctx.fill();
+      for (var j = i+1; j < dots.length; j++) {
+        var e = dots[j];
+        var dx = d.x-e.x, dy = d.y-e.y;
+        var dist = Math.sqrt(dx*dx+dy*dy);
+        if (dist < 120) {
+          var lineAlpha = (1 - dist/120) * 0.08;
+          ctx.beginPath();
+          ctx.moveTo(d.x, d.y);
+          ctx.lineTo(e.x, e.y);
+          ctx.strokeStyle = 'rgba(232,184,109,' + lineAlpha + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    raf = requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', function(){ resize(); init(); });
+  resize(); init();
+  raf = requestAnimationFrame(draw);
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) { cancelAnimationFrame(raf); }
+    else { raf = requestAnimationFrame(draw); }
+  });
+})();
+</script>
+
 <!-- Service Worker Registration -->
 <script>
-// Register Service Worker
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+  window.addEventListener('load', function() {
     navigator.serviceWorker.register('/sw.js')
-      .then(registration => {
-        console.log('[Service Worker] Registered with scope:', registration.scope);
+      .then(function(registration) {
         registration.update();
       })
-      .catch(error => {
-        console.error('[Service Worker] Registration failed:', error);
+      .catch(function(error) {
+        console.warn('[Service Worker] Registration failed:', error);
       });
   });
 }
 </script>
 
 <script>
+// ==================== ESCAPE HELPERS ====================
+function escapeHtml(str) {
+  return String(str == null ? '' : str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+function escapeAttr(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 // ==================== DATA ====================
 const FALLBACK_TOOLS = [
   {
@@ -1681,6 +1879,7 @@ function syncUrl() {
 
 function setDataStatus(mode, msg) {
   const el = $('dataStatus');
+  if (!el) return;
   el.textContent = msg;
   el.className = 'data-status ' + (mode === 'ok' ? 'ok' : 'warn');
 }
@@ -1817,36 +2016,44 @@ function getFiltered() {
   return out;
 }
 
-// Updated renderToolCard with modern design and logo
+// renderToolCard with Phase 6 upgrades
 function renderToolCard(t) {
-  const isFav = favorites.has(t.name);
-  const logo = toolLogos[t.name] || '🛠️';
-  const stars = '⭐'.repeat(Math.floor((t.trend || 80) / 20));
-  const emptyStars = '☆'.repeat(5 - Math.floor((t.trend || 80) / 20));
-  
-  return `
-    <div class="tool-card" data-tool="${t.name}" onclick="openToolDetails('${t.name.replace(/'/g, "\\'")}')">
-      <div class="tool-header">
-        <div class="tool-logo">${logo}</div>
-        <div>
-          <h3 class="tool-name">${t.name}</h3>
-          <div class="tool-meta">
-            <span>${flag[t.country] || '🌍'} ${t.country}</span>
-            <span class="tool-rating">${stars}${emptyStars} ${t.trend || 80}</span>
-          </div>
-        </div>
-      </div>
-      <p class="tool-description">${t.tagline}</p>
-      <div class="tool-tags">
-        ${t.cats.map(cat => `<span class="tool-tag">${cat}</span>`).join('')}
-      </div>
-      <div class="tool-actions">
-        <a class="tool-link" href="${t.url}" target="_blank" rel="noopener noreferrer">🔗 Link</a>
-        <button class="fav-btn" data-action="fav" data-tool="${t.name}" aria-label="${isFav ? 'Șterge din favorite' : 'Adaugă la favorite'}">${isFav ? '❤️' : '🤍'}</button>
-        <button class="compare-btn" data-action="compare" data-tool="${t.name}" aria-label="Adaugă la comparare">⚖️</button>
-      </div>
-    </div>
-  `;
+  var isFav = favorites.has(t.name);
+  var logo = toolLogos[t.name] || '🛠️';
+  var catBorders = {programare:'#3B82F6',date:'#38bdf8',design:'#c084fc',cercetare:'#E8B86D',scris:'#10B981',productivitate:'#5eead4',studiu:'#818cf8'};
+  var borderColor = catBorders[t.cats[0]] || 'var(--border)';
+  var myStack = [];
+  try { myStack = JSON.parse(localStorage.getItem('signalMyStack') || '[]'); } catch(e) {}
+  var inStack = myStack.indexOf(t.name) > -1;
+
+  return '<div class="tool-card" data-tool="' + escapeAttr(t.name) + '" style="border-left:3px solid ' + borderColor + '">' +
+    '<div class="tool-header">' +
+      '<div class="tool-logo">' + logo + '</div>' +
+      '<div>' +
+        '<h3 class="tool-name">' + escapeHtml(t.name) + '</h3>' +
+        '<div class="tool-meta">' +
+          '<span>' + (flag[t.country] || '🌍') + ' ' + escapeHtml(t.country) + '</span>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<p class="tool-description">' + escapeHtml(t.tagline) + '</p>' +
+    '<div class="tool-tags">' +
+      t.cats.map(function(cat){ return '<span class="tool-tag">' + escapeHtml(cat) + '</span>'; }).join('') +
+    '</div>' +
+    '<div class="tool-actions">' +
+      '<div style="display:flex;align-items:center;gap:6px">' +
+        '<span class="trend-tag">↗ ' + escapeHtml(String(t.trend)) + '</span>' +
+        '<div class="trend-bar"><div class="trend-fill" style="width:' + Math.min(t.trend,100) + '%"></div></div>' +
+      '</div>' +
+      '<a class="tool-link" href="' + escapeAttr(t.url) + '" target="_blank" rel="noopener noreferrer">🔗 Link</a>' +
+      '<button class="fav-btn" data-action="fav" data-tool="' + escapeAttr(t.name) + '" aria-label="' + (isFav ? 'Șterge din favorite' : 'Adaugă la favorite') + '">' + (isFav ? '❤️' : '🤍') + '</button>' +
+      '<button class="compare-btn" data-action="compare" data-tool="' + escapeAttr(t.name) + '" aria-label="Adaugă la comparare">⚖️</button>' +
+    '</div>' +
+    '<div class="tool-stack-toggle">' +
+      '<span style="font-family:var(--mono);font-size:10px;color:var(--text-dim)">Stack-ul meu?</span>' +
+      '<button class="stack-toggle-btn' + (inStack ? ' in-stack' : '') + '" data-stack="' + escapeAttr(t.name) + '" aria-label="' + (inStack ? 'Scoate ' : 'Adaugă ') + escapeAttr(t.name) + ' din stack-ul meu">' + (inStack ? '✓ Da' : 'Da') + '</button>' +
+    '</div>' +
+  '</div>';
 }
 
 function renderTrending() {
@@ -1873,25 +2080,26 @@ function renderTrending() {
 }
 
 function renderRadar() {
+  var radarEl = $('radarGrid');
+  if (!radarEl) return;
   const hot = tools.filter(t => t.trend >= 85).length;
   const free = tools.filter(t => t.price === 'gratuit' || t.price === 'freemium').length;
   const data = tools.filter(t => t.cats.includes('date')).length;
   const eu = tools.filter(t => t.region === 'europa').length;
-  
-  $('radarGrid').innerHTML = `
-    <div class="radar-card"><strong>${tools.length}</strong><span>tooluri monitorizate</span></div>
-    <div class="radar-card"><strong>${hot}</strong><span>trend 85+</span></div>
-    <div class="radar-card"><strong>${free}</strong><span>gratuite/freemium</span></div>
-    <div class="radar-card"><strong>${data}</strong><span>pentru date</span></div>
-    <div class="radar-card"><strong>${eu}</strong><span>Europa</span></div>
-  `;
+  radarEl.innerHTML =
+    '<div class="radar-card"><strong>' + tools.length + '</strong><span>tooluri monitorizate</span></div>' +
+    '<div class="radar-card"><strong>' + hot + '</strong><span>trend 85+</span></div>' +
+    '<div class="radar-card"><strong>' + free + '</strong><span>gratuite/freemium</span></div>' +
+    '<div class="radar-card"><strong>' + data + '</strong><span>pentru date</span></div>' +
+    '<div class="radar-card"><strong>' + eu + '</strong><span>Europa</span></div>';
 }
 
-function renderTools(msg = '') {
+function renderTools(msg) {
+  msg = msg === undefined ? '' : msg;
   if (isLoading) { renderLoading(); return; }
-  const out = getFiltered();
+  var out = getFiltered();
   $('toolsGrid').style.display = 'block';
-  
+
   if (!out.length) {
     $('toolsGrid').innerHTML = '';
     $('emptyState').classList.add('show');
@@ -1899,10 +2107,11 @@ function renderTools(msg = '') {
   } else {
     $('emptyState').classList.remove('show');
     $('toolsGrid').innerHTML = out.map(renderToolCard).join('');
-    $('resultsCount').textContent = `${out.length} rezultate`;
+    $('resultsCount').textContent = out.length + ' rezultate';
+    setupStackToggles();
   }
-  
-  if (msg) $('resultsCount').innerHTML += ` – ${msg}`;
+
+  if (msg) $('resultsCount').innerHTML += ' – ' + msg;
 }
 
 // ==================== SETUP FUNCTIONS ====================
@@ -2059,6 +2268,31 @@ function setupStacks() {
   });
 }
 
+function setQuery(v) {
+  hasInteracted = true;
+  searchQuery = v;
+  $('search').value = v;
+  var cs = $('compactSearch');
+  if (cs) cs.value = v;
+  save();
+  renderTools();
+}
+
+window.filterByCategory = function(cat) {
+  hasInteracted = true;
+  activeCat = cat;
+  activePrice = activeRegion = 'all';
+  searchQuery = '';
+  $('search').value = '';
+  var cs = $('compactSearch');
+  if (cs) cs.value = '';
+  save();
+  renderPills();
+  renderTools('Stack: <strong>' + escapeHtml(cat) + '</strong>');
+  var toolsSec = document.querySelector('#tools');
+  if (toolsSec) toolsSec.scrollIntoView({ behavior: 'smooth' });
+};
+
 function setupSearch() {
   const searchInput = $('search'), compactInput = $('compactSearch');
   [searchInput, compactInput].forEach(el => {
@@ -2083,6 +2317,44 @@ function setupReset() {
     save();
     renderPills();
     renderTools();
+  };
+}
+
+function setupStackToggles() {
+  document.querySelectorAll('[data-stack]').forEach(function(btn) {
+    if (btn.classList.contains('stack-toggle-btn')) {
+      btn.onclick = function(e) {
+        e.stopPropagation();
+        var name = btn.dataset.stack;
+        var myStack = [];
+        try { myStack = JSON.parse(localStorage.getItem('signalMyStack') || '[]'); } catch(e2) {}
+        var idx = myStack.indexOf(name);
+        if (idx > -1) {
+          myStack.splice(idx, 1);
+          btn.textContent = 'Da';
+          btn.classList.remove('in-stack');
+          toast('Scos din stack-ul tău');
+        } else {
+          myStack.push(name);
+          btn.textContent = '✓ Da';
+          btn.classList.add('in-stack');
+          toast('Adăugat în stack-ul tău');
+        }
+        try { localStorage.setItem('signalMyStack', JSON.stringify(myStack)); } catch(e2) {}
+      };
+    }
+  });
+}
+
+// Subscribe button
+var subBtn = document.getElementById('signalSubscribe');
+if (subBtn) {
+  subBtn.onclick = function() {
+    var email = (document.getElementById('signalEmail').value || '').trim();
+    if (!email || !email.includes('@')) { toast('Introdu o adresă de email validă.'); return; }
+    try { navigator.clipboard.writeText(email); } catch(e) {}
+    toast('Ne-ai trimis emailul. Îți scriem în curând.');
+    document.getElementById('signalEmail').value = '';
   };
 }
 
@@ -2112,7 +2384,7 @@ async function init() {
   
   tools = FALLBACK_TOOLS.map(normalize);
   $('metaTools').textContent = tools.length;
-  $('metaUpdated').textContent = 'mai 2026';
+  if ($('metaUpdated')) $('metaUpdated').textContent = 'mai 2026';
   
   renderWizard();
   renderPills();
@@ -2128,7 +2400,7 @@ async function init() {
     if (!Array.isArray(arr) || !arr.length) throw new Error('Listă goală');
     tools = arr.map(normalize);
     setDataStatus('ok', 'Date live sincronizate');
-    $('metaUpdated').textContent = data.updatedAt || 'mai 2026';
+    if ($('metaUpdated')) $('metaUpdated').textContent = data.updatedAt || 'mai 2026';
   } catch (e) {
     setDataStatus('warn', 'Fallback local');
     toast('Eroare la încărcare, folosesc fallback local');
@@ -2164,6 +2436,10 @@ init().then(() => {
   setupStacks();
   setupSearch();
   setupReset();
+  setupStackToggles();
+  if (typeof initWorkflowGenome === 'function') initWorkflowGenome();
+  if (typeof initStackScore === 'function') initStackScore();
+  if (typeof initSignalFeed === 'function') initSignalFeed();
 });
 </script>
 </body>

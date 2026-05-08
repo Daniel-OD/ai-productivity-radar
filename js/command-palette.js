@@ -1,5 +1,5 @@
 /**
- * Command Palette – semantic task search for AI Productivity Radar.
+ * Command Palette – semantic task search for SIGNAL.
  *
  * Phases covered: 2 (command palette hardening)
  *
