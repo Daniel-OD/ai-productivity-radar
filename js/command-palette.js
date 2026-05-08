@@ -4,9 +4,8 @@
  * Features:
  * - Open with Cmd+K / Ctrl+K
  * - Real-time search with debounce
- * - Arrow key navigation
- * - Enter to select
- * - Escape to close
+ * - Keyboard navigation (Arrow Up/Down, Enter, Escape)
+ * - Click to select
  * - Highlights matching text
  * - Mobile support
  * - Accessibility support
@@ -17,7 +16,7 @@ let commandIndex = 0;
 let commandMatches = [];
 
 /**
- * Open the command palette modal
+ * Opens the command palette modal
  */
 function openCommandPalette() {
   const modal = document.getElementById('commandModal');
@@ -33,7 +32,7 @@ function openCommandPalette() {
 }
 
 /**
- * Close the command palette modal
+ * Closes the command palette modal
  */
 function closeCommandPalette() {
   const modal = document.getElementById('commandModal');
@@ -43,7 +42,7 @@ function closeCommandPalette() {
 }
 
 /**
- * Filter tools based on search query
+ * Filters tools based on search query
  * @param {string} query - Search term
  * @returns {Array} - Filtered tools
  */
@@ -66,7 +65,7 @@ function filterTools(query) {
 }
 
 /**
- * Highlight matching text in search results
+ * Highlights matching text in search results
  * @param {string} text - Text to highlight
  * @param {string} query - Search query
  * @returns {string} - Text with matching parts wrapped in <mark>
@@ -82,7 +81,7 @@ function highlightMatch(text, query) {
 }
 
 /**
- * Render command palette results
+ * Renders command palette results
  * @param {Array} results - Tools to display
  */
 function renderCommandResults(results) {
@@ -108,7 +107,7 @@ function renderCommandResults(results) {
     const logo = toolLogos[tool.name] || '🛠️';
     
     // Escape tool name for use in onclick
-    const escapedName = tool.name.replace(/'/g, "\\'\"");
+    const escapedName = tool.name.replace(/'/g, "\\'");
     
     return `
       <div class="command-item ${index === commandIndex ? 'active' : ''}"
