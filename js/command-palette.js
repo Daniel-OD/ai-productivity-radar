@@ -1,12 +1,16 @@
 /**
- * Command Palette – semantic task search for AI Productivity Radar.
- *
- * Phases covered: 2 (command palette hardening)
- *
- * Runtime dependencies (resolved lazily from global scope, set by app.js):
- *   tools, normKey, TASK_INTENTS, flag, priceLabels, openDecision,
- *   escapeHtml, escapeAttr, debounce
+ * Command Palette for AI Productivity Radar
+ * Enhanced version with:
+ * - Semantic task search
+ * - Fuzzy matching
+ * - Intent-based ranking
+ * - Keyboard navigation
+ * - Mobile support
+ * 
+ * Runtime dependencies (from global scope):
+ *   tools, normKey, TASK_INTENTS, flag, priceLabels, openDecision, openToolDetails
  */
+
 (function () {
   'use strict';
 
@@ -33,7 +37,7 @@
 
   function intentMatches(q) {
     var nq = normKey(q);
-    return TASK_INTENTS.map(function (intent) {
+    return (window.TASK_INTENTS || []).map(function (intent) {
       var hits = intent.words.filter(function (w) { return nq.includes(normKey(w)); });
       return hits.length ? { intent: intent, hits: hits } : null;
     }).filter(Boolean);
@@ -73,8 +77,8 @@
       if (fs > 0.7) score += Math.round(fs * 20);
     }
 
-    intentMatches(q).forEach(function (m) {
-      var it = m.intent;
+    (window.TASK_INTENTS || []).forEach(function (intent) {
+      var it = intent;
       if (it.cats) {
         var overlap = it.cats.filter(function (c) { return t.cats.includes(c); }).length;
         if (overlap) { score += 34 * overlap; reasons.push(it.label); }
@@ -112,12 +116,12 @@
     var q = inputEl.value.trim();
 
     if (!q) {
-      cpMatches = Array.prototype.slice.call(tools)
+      cpMatches = Array.prototype.slice.call(window.tools || [])
         .sort(function (a, b) { return b.trend - a.trend; })
         .slice(0, 8)
         .map(function (t) { return { tool: t, score: t.trend, reason: 'Popular acum' }; });
     } else {
-      cpMatches = tools
+      cpMatches = (window.tools || [])
         .map(function (t) { return rankForTask(t, q); })
         .filter(function (r) { return r.score > 0; })
         .sort(function (a, b) { return b.score - a.score || b.tool.trend - a.tool.trend; })
@@ -134,16 +138,18 @@
 
     resultsEl.innerHTML = cpMatches.map(function (r, i) {
       var t = r.tool;
+      var flagEmoji = window.flag ? (window.flag[t.country] || '🌍') : '🌍';
+      var priceLabel = window.priceLabels ? (window.priceLabels[t.price] || t.price) : t.price;
       return '<div class="command-item' + (i === cpIndex ? ' active' : '') +
         '" data-command-index="' + i +
         '" role="option" aria-selected="' + (i === cpIndex) + '">' +
         '<div>' +
-        '<div class="command-name">' + escapeHtml((flag[t.country] || '🌍') + ' ' + t.name) + '</div>' +
-        '<div class="command-meta">' + escapeHtml(t.country + ' · ' + priceLabels[t.price] + ' · ' + t.cats.join(', ')) + '</div>' +
-        '<div class="command-tagline">' + escapeHtml(t.tagline) + '</div>' +
-        '<div class="command-reason">Potrivire: ' + escapeHtml(r.reason) + '</div>' +
+        '<div class="command-name">' + (typeof escapeHtml === 'function' ? escapeHtml(flagEmoji + ' ' + t.name) : flagEmoji + ' ' + t.name) + '</div>' +
+        '<div class="command-meta">' + (typeof escapeHtml === 'function' ? escapeHtml(t.country + ' · ' + priceLabel + ' · ' + (t.cats || []).join(', ')) : t.country + ' · ' + priceLabel + ' · ' + (t.cats || []).join(', ')) + '</div>' +
+        '<div class="command-tagline">' + (typeof escapeHtml === 'function' ? escapeHtml(t.tagline) : t.tagline) + '</div>' +
+        '<div class="command-reason">Potrivire: ' + (typeof escapeHtml === 'function' ? escapeHtml(r.reason) : r.reason) + '</div>' +
         '</div>' +
-        '<div class="command-score">↗ ' + escapeHtml(String(t.trend)) + '</div>' +
+        '<div class="command-score">↗ ' + (typeof escapeHtml === 'function' ? escapeHtml(String(t.trend)) : String(t.trend)) + '</div>' +
         '</div>';
     }).join('');
 
@@ -176,7 +182,11 @@
     if (!t) return;
     closeCommandPalette();
     if (openLink) { window.open(t.url, '_blank', 'noopener,noreferrer'); return; }
-    if (typeof openDecision === 'function') openDecision(t.name);
+    if (typeof window.openDecision === 'function') {
+      window.openDecision(t.name);
+    } else if (typeof window.openToolDetails === 'function') {
+      window.openToolDetails(t.name);
+    }
   }
 
   /* ── Public API ───────────────────────────────────────────────────────────── */
@@ -235,6 +245,21 @@
       if (e.key === 'ArrowUp')   { e.preventDefault(); cpIndex = (cpIndex - 1 + len) % len; updateActive(); return; }
       if (e.key === 'Enter')     { e.preventDefault(); selectCommand(e.metaKey || e.ctrlKey); }
     });
+
+    /* Global Cmd+K / Ctrl+K shortcut */
+    document.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openCommandPalette();
+      }
+    });
   };
+
+  /* Auto-initialize when DOM is ready */
+  if (document.readyState !== 'loading') {
+    window.initCommandPalette();
+  } else {
+    document.addEventListener('DOMContentLoaded', window.initCommandPalette);
+  }
 
 })();
