@@ -67,6 +67,7 @@ Format acceptat: array de tooluri direct sau obiect `{ updatedAt, tools: [...] }
 | Câmp | Tip | Descriere |
 |---|---|---|
 | `type` | string | `standalone`, `api-based`, `hybrid`, `integrated`, `platform` |
+| `url` | string | URL oficial opțional; dacă lipsește, UI-ul și scripturile folosesc catalogul intern de URL-uri/fallback search |
 | `apiAvailable` | boolean | Dacă există un API public |
 | `apiInfo` | string | Detalii concrete despre API |
 | `integrations` | string[] | Platforme compatibile (Zapier, Make.com, n8n, LangChain etc.) |

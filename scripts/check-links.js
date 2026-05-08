@@ -14,6 +14,9 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const { resolveToolUrl } = require('./tool-url-resolver');
+const HTTP_FORBIDDEN = 403;
+const HTTP_METHOD_NOT_ALLOWED = 405;
+const MAX_REDIRECTS = 5;
 
 // Cale către fișierul tools-market.json
 const toolsFilePath = path.join(__dirname, '..', 'tools-market.json');
@@ -185,14 +188,14 @@ async function requestUrl(url, userAgent) {
   const headers = { 'User-Agent': userAgent };
   let response = await axiosInstance.head(url, {
     headers,
-    maxRedirects: 5,
+    maxRedirects: MAX_REDIRECTS,
     validateStatus: () => true
   });
 
-  if ([403, 405].includes(response.status)) {
+  if ([HTTP_FORBIDDEN, HTTP_METHOD_NOT_ALLOWED].includes(response.status)) {
     response = await axiosInstance.get(url, {
       headers,
-      maxRedirects: 5,
+      maxRedirects: MAX_REDIRECTS,
       validateStatus: () => true
     });
   }
