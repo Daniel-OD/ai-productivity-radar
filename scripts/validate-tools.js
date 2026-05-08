@@ -16,7 +16,7 @@ const ajv = new Ajv({ allErrors: true, strict: false });
 // Schema pentru validarea unui tool individual
 const toolSchema = {
   type: 'object',
-  required: ['name', 'cats', 'price', 'country', 'region', 'tagline', 'url'],
+  required: ['name', 'cats', 'price', 'country', 'region', 'tagline'],
   properties: {
     name: { type: 'string', minLength: 1 },
     cats: { 
@@ -54,7 +54,13 @@ const toolSchema = {
       type: 'array', 
       items: { type: 'string' } 
     },
-    standaloneNote: { type: 'string' }
+    standaloneNote: { type: 'string' },
+    bestFor: { oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }] },
+    notIdeal: { oneOf: [{ type: 'string' }, { type: 'array', items: { type: 'string' } }] },
+    strengths: { type: 'array', items: { type: 'string' } },
+    similar: { type: 'array', items: { type: 'string' } },
+    pricing: { type: 'string' },
+    trendExplanation: { type: 'string' }
   },
   additionalProperties: false
 };

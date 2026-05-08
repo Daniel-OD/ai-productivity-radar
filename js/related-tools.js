@@ -80,37 +80,35 @@ function renderRelatedTools(tool) {
       <h3 style="font-family: var(--serif); font-size: 18px; margin-bottom: 12px; color: var(--text);">Tool-uri similare</h3>
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
         ${relatedTools.map(relatedTool => {
-          const logo = toolLogos[relatedTool.name] || '🛠️';
-          const countryFlag = flag[relatedTool.country] || '🌍';
+          const logo = escapeHtml(toolLogos[relatedTool.name] || '🛠️');
+          const countryFlag = escapeHtml(flag[relatedTool.country] || '🌍');
           const stars = '⭐'.repeat(Math.floor((relatedTool.trend || 80) / 20));
           const emptyStars = '☆'.repeat(5 - Math.floor((relatedTool.trend || 80) / 20));
-          const priceLabel = priceLabels[relatedTool.price] || relatedTool.price;
-          
-          // Escape tool name for use in onclick
-          const escapedName = relatedTool.name.replace(/'/g, "\\'");
+          const priceLabel = escapeHtml(priceLabels[relatedTool.price] || relatedTool.price || '');
+          const toolName = escapeHtml(relatedTool.name);
+          const toolNameAttr = escapeAttr(relatedTool.name);
+          const taglineText = escapeHtml((relatedTool.tagline || '').slice(0, 50) + (relatedTool.tagline && relatedTool.tagline.length > 50 ? '...' : ''));
+          const countryText = escapeHtml(relatedTool.country || '');
           
           return `
             <div class="tool-card" 
                  style="padding: 12px; cursor: pointer; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 8px;"
-                 onclick="if (typeof window.openToolDetails === 'function') window.openToolDetails('${escapedName}')"
-                 onkeydown="if (event.key === 'Enter' || event.key === ' ') { if (typeof window.openToolDetails === 'function') window.openToolDetails('${escapedName}'); event.preventDefault(); }"
+                 data-tool-name="${toolNameAttr}"
                  tabindex="0"
                  role="button"
-                 aria-label="Deschide detalii pentru ${relatedTool.name}">
+                 aria-label="Deschide detalii pentru ${toolNameAttr}">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                <span class="tool-logo" style="font-size: 18px;" aria-label="${relatedTool.name} logo">${logo}</span>
-                <span style="font-family: var(--serif); font-size: 14px; font-weight: 500;">${relatedTool.name}</span>
+                <span class="tool-logo" style="font-size: 18px;" aria-label="${toolNameAttr} logo">${logo}</span>
+                <span style="font-family: var(--serif); font-size: 14px; font-weight: 500;">${toolName}</span>
               </div>
-              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
-                ${(relatedTool.tagline || '').slice(0, 50)}${relatedTool.tagline && relatedTool.tagline.length > 50 ? '...' : ''}
-              </p>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">${taglineText}</p>
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                <span style="font-size: 12px; color: var(--text-dim);">${countryFlag} ${relatedTool.country}</span>
+                <span style="font-size: 12px; color: var(--text-dim);">${countryFlag} ${countryText}</span>
                 <span class="tool-rating" style="font-size: 12px;">${stars}${emptyStars}</span>
               </div>
               <div style="display: flex; gap: 4px; flex-wrap: wrap;">
                 ${(relatedTool.cats || []).slice(0, 2).map(cat => 
-                  `<span class="tool-tag" style="font-size: 10px; padding: 2px 6px;">${cat}</span>`
+                  `<span class="tool-tag" style="font-size: 10px; padding: 2px 6px;">${escapeHtml(cat)}</span>`
                 ).join('')}
               </div>
             </div>
@@ -143,23 +141,35 @@ function enhancedOpenToolDetails(toolName) {
   const flag = window.flag || {};
   const priceLabels = window.priceLabels || {};
   
+  const logoHtml = escapeHtml(toolLogos[tool.name] || '🛠️');
+  const catsHtml = (tool.cats || []).map(c => escapeHtml(c)).join(', ');
+  const priceHtml = escapeHtml(priceLabels[tool.price] || tool.price || '');
+  const countryFlagHtml = escapeHtml(flag[tool.country] || '🌍');
+  const countryHtml = escapeHtml(tool.country || '');
+  const regionHtml = escapeHtml(tool.region || '');
+  const whenHtml = escapeHtml(tool.when || '');
+  const taglineHtml = escapeHtml(tool.tagline || '');
+  const audienceHtml = escapeHtml(tool.audience || '');
+  const urlAttr = escapeAttr(tool.url || '#');
+  const nameAttr = escapeAttr(tool.name);
+  
   // Main tool info
   let html = `
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-      <div class="tool-logo" style="width: 48px; height: 48px; font-size: 24px;" aria-label="${tool.name} logo">${toolLogos[tool.name] || '🛠️'}</div>
+      <div class="tool-logo" style="width: 48px; height: 48px; font-size: 24px;" aria-label="${nameAttr} logo">${logoHtml}</div>
       <div>
-        <p><strong>Categorie:</strong> ${(tool.cats || []).join(', ')}</p>
-        <p><strong>Preț:</strong> ${priceLabels[tool.price] || tool.price}</p>
+        <p><strong>Categorie:</strong> ${catsHtml}</p>
+        <p><strong>Preț:</strong> ${priceHtml}</p>
       </div>
     </div>
-    <p><strong>Țară:</strong> ${flag[tool.country] || '🌍'} ${tool.country} · <strong>Regiune:</strong> ${tool.region}</p>
-    <p><strong>Rating:</strong> <span class="tool-rating">${stars}${emptyStars} ${tool.trend || 80}</span></p>
-    <p><strong>Când să-l folosești:</strong> ${tool.when || ''}</p>
-    <p><strong>Descriere:</strong> ${tool.tagline || ''}</p>
-    ${tool.audience ? `<p><strong>Audience:</strong> ${tool.audience}</p>` : ''}
-    ${(tool.badges || []).length > 0 ? `<p><strong>Badges:</strong> ${tool.badges.map(b => `<span class="tool-tag">${b}</span>`).join('')}</p>` : ''}
-    ${tool.apiInfo ? `<p><strong>API Info:</strong> ${tool.apiInfo}</p>` : ''}
-    ${tool.standaloneNote ? `<p><strong>Standalone Note:</strong> ${tool.standaloneNote}</p>` : ''}
+    <p><strong>Țară:</strong> ${countryFlagHtml} ${countryHtml} · <strong>Regiune:</strong> ${regionHtml}</p>
+    <p><strong>Rating:</strong> <span class="tool-rating">${stars}${emptyStars} ${Number(tool.trend) || 80}</span></p>
+    <p><strong>Când să-l folosești:</strong> ${whenHtml}</p>
+    <p><strong>Descriere:</strong> ${taglineHtml}</p>
+    ${tool.audience ? `<p><strong>Audience:</strong> ${audienceHtml}</p>` : ''}
+    ${(tool.badges || []).length > 0 ? `<p><strong>Badges:</strong> ${tool.badges.map(b => `<span class="tool-tag">${escapeHtml(b)}</span>`).join('')}</p>` : ''}
+    ${tool.apiInfo ? `<p><strong>API Info:</strong> ${escapeHtml(tool.apiInfo)}</p>` : ''}
+    ${tool.standaloneNote ? `<p><strong>Standalone Note:</strong> ${escapeHtml(tool.standaloneNote)}</p>` : ''}
   `;
   
   // Add related tools
@@ -168,12 +178,34 @@ function enhancedOpenToolDetails(toolName) {
   // Add actions
   html += `
     <div class="tool-actions" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-      <a href="${tool.url}" class="primary" target="_blank" rel="noopener noreferrer">Deschide Link</a>
-      <button class="secondary" onclick="if (typeof window.closeToolDetails === 'function') window.closeToolDetails(); else document.getElementById('toolDetailsModal').classList.remove('show')">Închide</button>
+      <a href="${urlAttr}" class="primary" target="_blank" rel="noopener noreferrer">Deschide Link</a>
+      <button class="secondary" id="closeToolDetailsBtn">Închide</button>
     </div>
   `;
   
   contentEl.innerHTML = html;
+
+  // Attach close button handler safely (no inline onclick)
+  const closeBtn = contentEl.querySelector('#closeToolDetailsBtn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      if (typeof window.closeToolDetails === 'function') window.closeToolDetails();
+      else modal.classList.remove('show');
+    });
+  }
+
+  // Attach click/keydown handlers for related tool cards
+  contentEl.querySelectorAll('.tool-card[data-tool-name]').forEach(card => {
+    const name = card.dataset.toolName;
+    const activate = () => {
+      if (typeof window.openToolDetails === 'function') window.openToolDetails(name);
+    };
+    card.addEventListener('click', activate);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+    });
+  });
+
   modal.classList.add('show');
 }
 
@@ -203,10 +235,16 @@ window.initRelatedTools = initRelatedTools;
 // Initialize when DOM is ready and tools are loaded
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
+    let attempts = 0;
+    const MAX_ATTEMPTS = 100; // 10 seconds max (100 × 100ms)
     const checkTools = setInterval(() => {
+      attempts++;
       if (window.tools && window.tools.length > 0) {
         clearInterval(checkTools);
         initRelatedTools();
+      } else if (attempts >= MAX_ATTEMPTS) {
+        clearInterval(checkTools);
+        console.warn('[RelatedTools] Timed out waiting for tools data.');
       }
     }, 100);
   });

@@ -1,6 +1,6 @@
 // Service Worker for AI Productivity Radar
-// Cache version: ai-radar-v1
-const CACHE_NAME = 'ai-radar-v1';
+// Cache version: ai-radar-v2
+const CACHE_NAME = 'ai-radar-v2';
 
 // Assets to cache on install
 const ASSETS_TO_CACHE = [
@@ -69,22 +69,20 @@ self.addEventListener('fetch', (event) => {
     );
   }
   
-  // Network-first for tools-market.json
+  // Stale-while-revalidate for tools-market.json
   if (url.pathname === '/tools-market.json') {
     event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          // Clone and cache the response
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME)
-            .then((cache) => cache.put(event.request, responseClone));
+      caches.open(CACHE_NAME).then(async (cache) => {
+        const cached = await cache.match(event.request);
+        const fetchPromise = fetch(event.request).then((response) => {
+          if (response.ok) {
+            cache.put(event.request, response.clone());
+          }
           return response;
-        })
-        .catch(() => {
-          // Fallback to cache if network fails
-          console.log('[Service Worker] Network failed for tools-market.json, using cache');
-          return caches.match(event.request);
-        })
+        }).catch(() => null);
+        // Return cached immediately; fetch update in background
+        return cached || fetchPromise || caches.match(event.request);
+      })
     );
   }
   

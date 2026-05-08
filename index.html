@@ -696,4 +696,1645 @@ h1 em {
   gap: 16px;
 }
 
-/* Modern Tool Cards (Inspired by TopAI
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.primary {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--gold);
+}
+
+.meta-bar {
+  display: flex;
+  gap: 18px 26px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.meta-bar strong {
+  color: var(--text);
+}
+
+.data-status {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 8px;
+  color: var(--text-muted);
+  background: rgba(28, 23, 18, 0.5);
+}
+
+.light-mode .data-status {
+  background: rgba(248, 249, 250, 0.5);
+}
+
+.data-status.ok {
+  color: var(--sage);
+  border-color: rgba(148, 176, 140, 0.45);
+}
+
+.data-status.warn {
+  color: var(--gold);
+  border-color: rgba(212, 165, 116, 0.45);
+}
+
+/* Panels */
+.panel {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.08), rgba(127, 163, 191, 0.05));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px;
+}
+
+.light-mode .panel {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), rgba(127, 163, 191, 0.02));
+}
+
+.section {
+  padding: 54px 0;
+}
+
+.section-sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+
+.section-title em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.helper {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 760px;
+}
+
+/* Wizard Grid */
+.wizard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.choice, .trend-card {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: left;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.light-mode .choice, .light-mode .trend-card {
+  background: var(--surface);
+}
+
+.choice:hover, .choice.active, .trend-card:hover {
+  border-color: var(--gold);
+  background: var(--surface);
+}
+
+.light-mode .choice:hover, .light-mode .choice.active, .light-mode .trend-card:hover {
+  background: var(--bg-soft);
+}
+
+.choice strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.choice span, .trend-card p {
+  display: block;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.recommendation {
+  margin-top: 18px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.recommendation strong {
+  color: var(--gold);
+}
+
+/* Trending Strip */
+.trending-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.trend-card .score {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.trend-card h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 22px;
+}
+
+/* Stack Row */
+.stack-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.stack-pill {
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stack-pill:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Filters Section */
+.filters-section {
+  padding: 28px 0;
+  position: sticky;
+  top: 46px;
+  background: rgba(15, 13, 10, 0.93);
+  z-index: 180;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  transition: transform 0.28s ease, opacity 0.22s ease;
+}
+
+.light-mode .filters-section {
+  background: rgba(248, 249, 250, 0.93);
+}
+
+.filters-section.filters-hidden {
+  transform: translateY(calc(-100% - 52px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.compact-filter-bar {
+  position: fixed;
+  left: 50%;
+  top: 58px;
+  transform: translate(-50%, -120%);
+  z-index: 210;
+  width: min(980px, calc(100% - 28px));
+  background: rgba(28, 23, 18, 0.94);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(14px);
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.28s ease, opacity 0.22s ease;
+}
+
+.light-mode .compact-filter-bar {
+  background: rgba(248, 249, 250, 0.94);
+}
+
+.compact-filter-bar.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.compact-filter-bar input {
+  flex: 1;
+  min-width: 160px;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  padding: 8px 10px;
+  outline: none;
+}
+
+.compact-filter-bar span {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.compact-filter-bar button {
+  background: var(--gold);
+  color: var(--bg);
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+/* Filter Rows */
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 13px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  min-width: 90px;
+}
+
+.pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.pill {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 7px 14px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pill:hover {
+  border-color: var(--gold);
+  color: var(--text);
+}
+
+.pill.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg);
+}
+
+.count {
+  opacity: 0.65;
+  margin-left: 4px;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+/* Search Row */
+.search-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 240px;
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 12px 16px 12px 44px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.search-box:before {
+  content: '⌕';
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  font-size: 18px;
+}
+
+.sort-select, .reset-btn {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 11px 14px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  border-color: var(--coral);
+  color: var(--coral);
+}
+
+.results-count {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 14px;
+}
+
+.results-count strong {
+  color: var(--gold);
+}
+
+/* Tools Section */
+.tools-section {
+  padding: 40px 0 80px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+/* Modern Tool Cards (Inspired by TopAI.Tools) */
+.tool-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.light-mode .tool-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-color: var(--gold);
+}
+
+.light-mode .tool-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.tool-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.tool-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.light-mode .tool-logo {
+  background: var(--bg-soft);
+}
+
+.tool-name {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.tool-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.tool-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--gold);
+  font-size: 14px;
+}
+
+.tool-description {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.tool-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tool-tag {
+  background: var(--bg-soft);
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--mono);
+}
+
+.light-mode .tool-tag {
+  background: var(--bg-soft);
+}
+
+.tool-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.tool-link, .similar-btn, .fav-btn, .compare-btn {
+  color: var(--text-muted);
+  background: transparent;
+  border: 0;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tool-link:hover, .similar-btn:hover, .fav-btn:hover, .compare-btn:hover {
+  color: var(--gold);
+}
+
+/* Compare Bar */
+.compare-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 300;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: 10px 14px;
+  display: none;
+  gap: 12px;
+  align-items: center;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.compare-bar.show {
+  display: flex;
+}
+
+.compare-bar button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Modals */
+.modal, .command-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 400;
+  padding: 20px;
+}
+
+.modal.show, .command-modal.show {
+  display: flex;
+}
+
+.modal-card, .command-card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.command-card {
+  max-width: 780px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.55);
+}
+
+.command-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 18px;
+}
+
+.command-top span {
+  font-family: var(--mono);
+  color: var(--gold);
+  font-size: 18px;
+}
+
+.command-top input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--text);
+  font-size: 18px;
+  font-family: var(--sans);
+}
+
+.command-results {
+  max-height: 460px;
+  overflow: auto;
+  padding: 8px;
+}
+
+.command-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.command-item:hover, .command-item.active {
+  background: var(--bg-soft);
+  border-color: var(--border-strong);
+}
+
+.command-name {
+  font-family: var(--serif);
+  font-size: 21px;
+}
+
+.command-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.command-tagline {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.command-score {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.command-footer {
+  border-top: 1px solid var(--border);
+  padding: 10px 16px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Compare Table */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-table td, .compare-table th {
+  border: 1px solid var(--border);
+  padding: 10px;
+  text-align: left;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.compare-table th {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+/* Empty State */
+.empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  display: none;
+}
+
+.empty.show {
+  display: block;
+}
+
+.empty .big {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 32px;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+/* Loading State */
+.loading-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+/* Radar Grid */
+.radar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  margin-top: 24px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.radar-card {
+  background: var(--bg-soft);
+  padding: 18px;
+}
+
+.light-mode .radar-card {
+  background: var(--surface);
+}
+
+.radar-card strong {
+  display: block;
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.radar-card span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 54px 0 70px;
+  color: var(--text-muted);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+}
+
+.footer-block h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.footer-block p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: var(--surface);
+  border: 1px solid var(--gold);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: none;
+  z-index: 500;
+}
+
+.toast.show {
+  display: block;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .topnav .container {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .filters-section {
+    top: 84px;
+  }
+
+  .filters-section.filters-hidden {
+    transform: translateY(calc(-100% - 90px));
+  }
+
+  .compact-filter-bar {
+    top: 90px;
+    border-radius: 16px;
+    flex-wrap: wrap;
+  }
+
+  .compact-filter-bar span {
+    display: none;
+  }
+
+  .tool-card {
+    padding: 20px;
+  }
+
+  .filter-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .filter-label {
+    min-width: 0;
+  }
+
+  .compare-bar {
+    width: calc(100% - 30px);
+    justify-content: space-between;
+  }
+
+  .command-modal {
+    align-items: flex-start;
+    padding: 90px 14px 14px;
+  }
+
+  .command-card {
+    max-height: 80vh;
+  }
+
+  .command-name {
+    font-size: 18px;
+  }
+
+  header {
+    padding-top: 48px;
+  }
+}
+
+/* ── Phase: Hero signal status ── */
+.signal-status { margin-top: 28px; font-family: var(--mono); font-size: 12px; color: var(--gold); display: flex; align-items: center; gap: 8px; }
+.signal-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pulse); animation: signalPulse 2s ease-in-out infinite; flex-shrink: 0; }
+@keyframes signalPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+@media(prefers-reduced-motion:reduce){.signal-dot{animation:none}}
+
+/* ── Phase: Workflow Genome ── */
+.wg-section{background:linear-gradient(180deg,transparent,rgba(59,130,246,.04),transparent)}
+.wg-panel{border:1px solid var(--border);border-radius:12px;padding:36px;background:rgba(28,23,18,.6);backdrop-filter:blur(8px)}
+.wg-input-area{margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.wg-textarea{background:var(--surface);border:1px solid var(--border-strong);color:var(--text);padding:16px;border-radius:8px;font-size:15px;font-family:var(--sans);line-height:1.6;resize:vertical;min-height:120px;width:100%}
+.wg-textarea:focus{outline:2px solid var(--gold);border-color:transparent}
+.wg-analyze-btn{align-self:flex-start}
+.wg-results{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.wg-map-wrap{min-height:200px;background:rgba(0,0,0,.2);border-radius:8px;overflow:hidden}
+.wg-map{width:100%;height:200px}
+.wg-rec-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:12px;cursor:pointer;transition:border-color .15s}
+.wg-rec-card:hover{border-color:var(--gold)}
+.wg-rec-task{font-family:var(--serif);font-size:20px;margin-bottom:6px}
+.wg-saving{font-family:var(--mono);font-size:11px;color:var(--pulse);letter-spacing:.08em;margin-bottom:10px}
+.wg-total{grid-column:1/-1;text-align:center;font-family:var(--serif);font-size:26px;color:var(--gold);padding:20px;border:1px solid rgba(232,184,109,.3);border-radius:8px;background:rgba(232,184,109,.05)}
+@media(max-width:720px){.wg-results{grid-template-columns:1fr}}
+
+/* ── Phase: Stack Score ── */
+.ss-questions{margin-top:24px;display:flex;flex-direction:column;gap:20px}
+.ss-q-label{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--text-dim);margin-bottom:10px}
+.ss-options{display:flex;gap:10px;flex-wrap:wrap}
+.ss-opt{background:var(--surface);border:1px solid var(--border-strong);border-radius:8px;padding:10px 16px;font-family:var(--mono);font-size:12px;color:var(--text-muted);cursor:pointer;transition:border-color .15s,color .15s}
+.ss-opt:hover{border-color:var(--gold);color:var(--text)}
+.ss-opt.selected{border-color:var(--gold);color:var(--gold);background:rgba(232,184,109,.08)}
+.ss-submit-wrap{margin-top:24px}
+.ss-result{margin-top:28px;text-align:center}
+.ss-score-display{font-family:var(--serif);font-size:72px;font-weight:300;color:var(--gold);line-height:1}
+.ss-score-label{font-family:var(--mono);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-top:8px}
+.ss-recs{margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;text-align:left}
+.ss-rec-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:14px}
+.ss-rec-card .ss-rec-icon{font-size:20px;margin-bottom:6px}
+.ss-rec-card p{font-size:13px;color:var(--text-muted);line-height:1.6}
+.ss-actions{margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ── Phase: Signal Feed ── */
+.feed-list{margin-top:24px;display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.feed-item{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:start;background:var(--bg-soft);padding:16px 20px;cursor:pointer;transition:background .15s}
+.feed-item:hover{background:var(--surface)}
+.feed-dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.feed-dot-high{background:var(--critical)}
+.feed-dot-medium{background:var(--gold)}
+.feed-dot-low{background:var(--text-dim)}
+.feed-type{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim)}
+.feed-tool{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--text)}
+.feed-title{font-size:14px;color:var(--text-muted);margin-top:3px}
+.feed-body{font-size:13px;color:var(--text-dim);margin-top:6px;line-height:1.6;display:none}
+.feed-body.expanded{display:block}
+.feed-meta{text-align:right;flex-shrink:0}
+.feed-date{font-family:var(--mono);font-size:10px;color:var(--text-dim)}
+.feed-impact{display:inline-block;margin-top:4px;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;padding:2px 6px;border-radius:3px}
+.feed-impact-high{background:rgba(239,68,68,.15);color:#EF4444}
+.feed-impact-medium{background:rgba(232,184,109,.15);color:var(--gold)}
+.feed-impact-low{background:rgba(110,99,84,.15);color:var(--text-dim)}
+
+/* ── Phase: Tool Card Upgrades ── */
+.trend-bar{height:3px;background:var(--border);border-radius:2px;width:50px;flex-shrink:0}
+.trend-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .5s ease}
+.tool-stack-toggle{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
+.stack-toggle-btn{font-family:var(--mono);font-size:10px;background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:3px 8px;border-radius:4px;cursor:pointer}
+.stack-toggle-btn.in-stack{border-color:var(--pulse);color:var(--pulse)}
+
+.footer-subscribe {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.footer-subscribe input {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.footer-subscribe button {
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.footer-bottom a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.wg-section {
+  background: linear-gradient(180deg, transparent, rgba(59,130,246,.04), transparent);
+}
+
+.wg-panel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px;
+}
+
+.wg-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+#wgInput {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: var(--sans);
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 110px;
+}
+
+#wgInput:focus {
+  outline: 2px solid var(--gold);
+  border-color: transparent;
+}
+
+.wg-btn {
+  align-self: flex-start;
+}
+
+.wg-results {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wg-node {
+  display: flex;
+  gap: 16px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  animation: fadeIn .35s ease backwards;
+}
+
+.wg-node-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.wg-node-body {
+  flex: 1;
+}
+
+.wg-node-task {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.wg-node-saving {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #10B981;
+  margin-bottom: 10px;
+}
+
+.wg-node-tools {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.wg-tool-pill {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.wg-tool-pill:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.wg-total {
+  text-align: center;
+}
+
+.wg-total-inner {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--gold);
+  padding: 18px 24px;
+  border: 1px solid rgba(232,184,109,.3);
+  border-radius: 8px;
+  background: rgba(232,184,109,.05);
+}
+
+.ss-question {
+  margin-bottom: 22px;
+}
+
+.ss-q-label {
+  font-family: var(--serif);
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.ss-opts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ss-opt {
+  background: var(--bg-soft);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.ss-opt:hover {
+  border-color: var(--gold);
+  color: var(--text);
+}
+
+.ss-opt.active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(232,184,109,.1);
+}
+
+.ss-calc-btn {
+  margin-top: 8px;
+}
+
+.ss-calc-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.ss-result {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.ss-score-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.ss-score-num {
+  font-family: var(--serif);
+  font-size: 80px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.ss-score-max {
+  font-family: var(--mono);
+  font-size: 20px;
+  color: var(--text-dim);
+}
+
+.ss-tier {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.ss-tier-desc {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.ss-recs {
+  text-align: left;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.ss-recs-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.ss-rec {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.ss-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+  .wg-panel {
+    padding: 22px;
+  }
+
+  .wg-node {
+    flex-direction: column;
+  }
+
+  .wg-btn {
+    width: 100%;
+  }
+
+  .ss-score-num {
+    font-size: 58px;
+  }
+
+  .ss-opt {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wg-node {
+    animation: none !important;
+  }
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Sari la conținut</a>
+<nav class="topnav">
+  <div class="container">
+    <div class="brand">SIGNAL</div>
+    <div class="navlinks">
+      <a href="#workflow-genome">Workflow Genome</a>
+      <a href="#trending">Signal Feed</a>
+      <a href="#tools">Tools</a>
+      <button class="mini-btn" id="commandBtn" aria-label="Deschide Command Palette (Ctrl+K)">⌘K</button>
+      <button class="mini-btn" id="favQuick" aria-label="Arată favorite">Favorite</button>
+      <a href="#stack-score" class="mini-btn" style="position:relative">Stack Score<span id="ssNavBadge" style="display:none;position:absolute;top:-6px;right:-6px;background:var(--gold);color:var(--bg);font-size:9px;font-family:var(--mono);padding:1px 4px;border-radius:99px;min-width:14px;text-align:center"></span></a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">🌓</button>
+    </div>
+  </div>
+</nav>
+
+<header role="banner" style="position:relative;overflow:hidden">
+  <canvas id="constellationCanvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none"></canvas>
+  <div class="container" style="position:relative;z-index:1">
+    <div class="eyebrow">AI Stack Intelligence · Live</div>
+    <h1>Your AI stack is either<br><span style="display:block">working for you</span><em>or against you.</em></h1>
+    <p class="lead">SIGNAL mapează workflow-ul tău, identifică unde pierzi timp și îți construiește stack-ul AI perfect. Nu o listă de tooluri. Inteligență aplicată.</p>
+    <div class="hero-actions" style="margin-top:28px">
+      <a href="#workflow-genome" class="primary">Analizează-mi workflow-ul →</a>
+      <a href="#stack-score" class="secondary">Calculează Stack Score</a>
+    </div>
+    <div class="signal-status" id="signalStatus">
+      <span class="signal-dot"></span>
+      <span id="signalStatusText">⚡ SIGNAL monitorizează <strong id="metaTools">64</strong> tooluri AI în timp real</span>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+<section class="section wg-section" id="workflow-genome" aria-label="Workflow Genome">
+  <div class="container">
+    <div class="wg-panel">
+      <div class="section-sub">Workflow Genome™</div>
+      <h2 class="section-title">Descrie ce faci. <em>SIGNAL face restul.</em></h2>
+      <p class="helper">Scrie în limbaj natural ce faci în muncă. SIGNAL identifică unde AI poate interveni și îți recomandă toolurile potrivite.</p>
+      <div class="wg-input-area">
+        <textarea id="wgInput" class="wg-textarea" placeholder="Ex: Dimineața citesc emailuri și Slack, am 3 meeting-uri pe săptămână, scriu rapoarte în Excel vinerea, și uneori prezint rezultate în PowerPoint..." aria-label="Descrie workflow-ul tău"></textarea>
+        <button class="primary wg-btn" id="wgAnalyze" aria-label="Analizează workflow-ul">Analizează workflow-ul →</button>
+      </div>
+      <div class="wg-results" id="wgResults" style="display:none" aria-live="polite">
+        <div class="wg-nodes" id="wgNodes" style="display:flex;flex-direction:column;gap:16px"></div>
+        <div class="wg-total" id="wgTotal" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="wizard">
+  <div class="container">
+    <div class="panel">
+      <div class="section-sub">Start aici</div>
+      <h2 class="section-title">Ce vrei să faci <em>acum</em>?</h2>
+      <p class="helper">Apasă pe un profil și radarul îți filtrează automat lista.</p>
+      <div class="wizard-grid" id="wizardGrid"></div>
+      <div class="recommendation" id="recommendation">Alege un profil pentru o recomandare rapidă.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="trending">
+  <div class="container">
+    <div class="section-sub">Trending now</div>
+    <h2 class="section-title">Semnale rapide din <em>piață</em>.</h2>
+    <div class="trending-strip" id="trendingStrip"></div>
+    <div class="stack-row">
+      <button class="stack-pill" data-stack="programare">Stack cod</button>
+      <button class="stack-pill" data-stack="cercetare">Stack research</button>
+      <button class="stack-pill" data-stack="date">Stack data</button>
+      <button class="stack-pill" data-region-stack="europa">Radar Europa</button>
+      <button class="stack-pill" data-region-stack="asia">Radar Asia</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="stack-score" aria-label="Stack Score Calculator">
+  <div class="container">
+    <div class="panel">
+      <div class="section-sub">Stack Intelligence</div>
+      <h2 class="section-title">Cât de bun este <em>stack-ul tău AI</em>?</h2>
+      <p class="helper">Răspunde la 5 întrebări. SIGNAL îți calculează Stack Score-ul și îți spune unde pierzi timp și bani.</p>
+      <div id="stackScoreUI"></div>
+    </div>
+  </div>
+</section>
+
+<!-- hidden legacy input for backward compat (referenced in app.js) -->
+<input id="search" type="hidden" aria-hidden="true">
+
+<section class="section" id="signal-feed" aria-label="SIGNAL Feed">
+  <div class="container">
+    <div class="section-sub">Live Intelligence</div>
+    <h2 class="section-title">Signal Feed — <em>Ce s-a schimbat azi în AI.</em></h2>
+    <div class="feed-list" id="feedList" aria-live="polite">
+      <div class="loading-state">Se încarcă feed-ul...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contextual Filter Toolbar (desktop sticky / mobile static) ── -->
+<div class="signal-toolbar" id="signalToolbar" role="search" aria-label="Filtrare tooluri">
+  <div class="stb-inner">
+    <div class="stb-search-wrap">
+      <input
+        id="stbSearch"
+        class="stb-search"
+        type="search"
+        autocomplete="off"
+        placeholder="Caută tooluri AI..."
+        aria-label="Caută tooluri AI"
+      />
+    </div>
+
+    <div class="stb-filters" id="stbFilters" aria-label="Filtre rapide">
+      <div class="stb-select-wrap">
+        <select id="stbCat" class="stb-select" aria-label="Categorie">
+          <option value="all">Categorie</option>
+        </select>
+      </div>
+      <div class="stb-select-wrap">
+        <select id="stbPrice" class="stb-select" aria-label="Preț">
+          <option value="all">Preț</option>
+        </select>
+      </div>
+      <div class="stb-select-wrap">
+        <select id="stbRegion" class="stb-select" aria-label="Regiune">
+          <option value="all">Regiune</option>
+        </select>
+      </div>
+      <div class="stb-select-wrap">
+        <select id="stbSort" class="stb-select" aria-label="Sortare">
+          <option value="default">Sortare</option>
+          <option value="trend">Trend</option>
+          <option value="rating">Rating</option>
+          <option value="name">Nume A-Z</option>
+          <option value="price">Preț</option>
+          <option value="favorites">Favorite</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="stb-right">
+      <span class="stb-count" id="stbCount" aria-live="polite"></span>
+      <button class="stb-active-badge" id="stbActiveBadge" aria-label="Filtre active" style="display:none">
+        <span id="stbActiveBadgeCount">0</span> filtru activ
+      </button>
+      <button class="stb-reset" id="stbReset" aria-label="Resetează filtrele" style="display:none">
+        Reset
+      </button>
+    </div>
+
+    <!-- Mobile-only filter button -->
+    <button
+      class="stb-mobile-filter-btn"
+      id="stbMobileFilterBtn"
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      aria-controls="mobileFilterSheet"
+    >
+      Filtre
+      <span class="stb-mobile-badge" id="stbMobileBadge" style="display:none">0</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── Mobile Filter Bottom Sheet ── -->
+<div
+  class="mobile-filter-sheet"
+  id="mobileFilterSheet"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Filtre"
+  hidden
+>
+  <div class="mfs-backdrop" id="mfsBackdrop"></div>
+  <div class="mfs-panel" id="mfsPanel">
+    <div class="mfs-header">
+      <span class="mfs-title">Filtre</span>
+      <button class="mfs-close" id="mfsClose" aria-label="Închide filtrele">×</button>
+    </div>
+    <div class="mfs-body">
+      <div class="mfs-group">
+        <label class="mfs-label" for="mfsCat">Categorie</label>
+        <select id="mfsCat" class="mfs-select" aria-label="Categorie"></select>
+      </div>
+      <div class="mfs-group">
+        <label class="mfs-label" for="mfsPrice">Preț</label>
+        <select id="mfsPrice" class="mfs-select" aria-label="Preț"></select>
+      </div>
+      <div class="mfs-group">
+        <label class="mfs-label" for="mfsRegion">Regiune</label>
+        <select id="mfsRegion" class="mfs-select" aria-label="Regiune"></select>
+      </div>
+      <div class="mfs-group">
+        <label class="mfs-label" for="mfsSort">Sortare</label>
+        <select id="mfsSort" class="mfs-select" aria-label="Sortare">
+          <option value="default">Implicit</option>
+          <option value="trend">Trend</option>
+          <option value="rating">Rating</option>
+          <option value="name">Nume A-Z</option>
+          <option value="price">Preț</option>
+          <option value="favorites">Favorite</option>
+        </select>
+      </div>
+    </div>
+    <div class="mfs-footer">
+      <button class="mfs-reset" id="mfsReset">Reset</button>
+      <button class="primary mfs-apply" id="mfsApply">Aplică filtrele</button>
+    </div>
+  </div>
+</div>
+
+<section class="tools-section" id="tools">
+  <div class="container">
+    <div class="tools-grid" id="toolsGrid">
+      <div class="loading-state">Se încarcă radarul...</div>
+    </div>
+    <div class="empty" id="emptyState">
+      <div class="big">Nu am găsit nimic aici.</div>
+      <p>Încearcă alt cuvânt sau apasă Reset.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-block">
+        <h4>Despre SIGNAL</h4>
+        <p>SIGNAL este platforma de inteligență AI pentru knowledge workers. Mapăm workflow-uri, măsurăm stack-uri și monitorizăm ecosistemul AI în timp real.</p>
+      </div>
+      <div class="footer-block">
+        <h4>Stack-uri recomandate</h4>
+        <p>Research: Perplexity + NotebookLM + Claude. Cod: Cursor + Claude + DeepSeek. Date: Julius + Hex + Power BI Copilot.</p>
+      </div>
+      <div class="footer-block">
+        <h4>Signal Weekly</h4>
+        <p>Primești săptămânal ce s-a schimbat în AI, relevant pentru tine.</p>
+        <div class="footer-subscribe">
+          <input id="footerEmail" type="email" placeholder="email@tău.com" aria-label="Adresa ta de email">
+          <button id="footerSubscribe" aria-label="Abonează-te la Signal Weekly">Abonează-te</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 SIGNAL · Construit cu Claude Code · <a href="https://github.com/Daniel-OD/ai-productivity-radar" style="color:var(--gold);text-decoration:none">github.com/Daniel-OD/ai-productivity-radar</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Modal pentru detalii tool -->
+<div class="modal" id="toolDetailsModal" role="dialog" aria-modal="true" aria-labelledby="toolDetailsName">
+  <div class="modal-card">
+    <button class="modal-close" id="closeToolDetails" aria-label="Închide">×</button>
+    <h2 class="section-title" id="toolDetailsName">Nume Tool</h2>
+    <div id="toolDetailsContent"></div>
+  </div>
+</div>
+
+<!-- Command Palette Modal -->
+<div class="command-modal" id="commandModal" role="dialog" aria-modal="true" aria-label="Command Palette">
+  <div class="command-card">
+    <div class="command-top">
+      <span>⌘K</span>
+      <input id="commandInput" aria-label="Caută tool sau comandă" autocomplete="off" placeholder="Caută tool, categorie, țară, use-case..." />
+    </div>
+    <div class="command-results" id="commandResults"></div>
+    <div class="command-footer">
+      <span>↑↓ navighează · Enter filtrează · ⌘/Ctrl+Enter deschide · Esc închide</span>
+      <span id="commandCount">0 rezultate</span>
+    </div>
+  </div>
+</div>
+
+<!-- Decision Modal -->
+<div class="decision-modal" id="decisionModal" role="dialog" aria-modal="true" aria-label="Analiză decizie">
+  <div class="decision-card" id="decisionCard"></div>
+</div>
+
+<!-- Compare Bar -->
+<div class="compare-bar" id="compareBar" role="region" aria-label="Comparare tooluri selectate" aria-live="polite">
+  <span id="compareText">0 selectate</span>
+  <button class="mini-btn" id="openCompare" disabled>Compară</button>
+  <button class="mini-btn" id="clearCompare">Curăță</button>
+</div>
+
+<!-- Compare Modal -->
+<div class="modal" id="compareModal" role="dialog" aria-modal="true" aria-labelledby="compareModalTitle">
+  <div class="modal-card">
+    <h2 class="section-title" id="compareModalTitle">Comparare tooluri</h2>
+    <div id="compareContent"></div>
+    <button class="primary" id="closeCompare" style="margin-top:18px">Închide</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="js/dom-utils.js" defer></script>
+<script src="js/command-palette.js" defer></script>
+<script src="js/decision-modal.js" defer></script>
+<script src="js/workflow-genome.js" defer></script>
+<script src="js/stack-score.js" defer></script>
+<script src="js/signal-feed.js" defer></script>
+<script src="js/app.js" defer></script>
+<script src="js/phase0-hardening.js" defer></script>
+
+<!-- Constellation Canvas -->
+<script>
+(function(){
+  var canvas = document.getElementById('constellationCanvas');
+  if (!canvas) return;
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) { canvas.style.display='none'; return; }
+  if (!canvas.getContext) { canvas.style.display='none'; return; }
+  var ctx = canvas.getContext('2d');
+  var dots = [], W, H, raf;
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  function init() {
+    dots = [];
+    for (var i = 0; i < 50; i++) {
+      dots.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*2+1, phase: Math.random()*Math.PI*2, speed: .3+Math.random()*.5 });
+    }
+  }
+  function draw(t) {
+    ctx.clearRect(0,0,W,H);
+    var time = t * 0.001;
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var alpha = .15 + .2 * Math.sin(time * d.speed + d.phase);
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(232,184,109,' + alpha + ')';
+      ctx.fill();
+      for (var j = i+1; j < dots.length; j++) {
+        var e = dots[j];
+        var dx = d.x-e.x, dy = d.y-e.y;
+        var dist = Math.sqrt(dx*dx+dy*dy);
+        if (dist < 120) {
+          var lineAlpha = (1 - dist/120) * 0.08;
+          ctx.beginPath();
+          ctx.moveTo(d.x, d.y);
+          ctx.lineTo(e.x, e.y);
+          ctx.strokeStyle = 'rgba(232,184,109,' + lineAlpha + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    raf = requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', function(){ resize(); init(); });
+  resize(); init();
+  raf = requestAnimationFrame(draw);
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) { cancelAnimationFrame(raf); }
+    else { raf = requestAnimationFrame(draw); }
+  });
+})();
+</script>
+
+</body>
+</html>

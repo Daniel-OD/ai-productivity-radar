@@ -71,12 +71,14 @@ function filterTools(query) {
  * @returns {string} - Text with matching parts wrapped in <mark>
  */
 function highlightMatch(text, query) {
-  if (!query) return text;
+  if (!query) return escapeHtml(text);
+  const escapedText = escapeHtml(text);
   try {
-    const regex = new RegExp(`(${query})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+    return escapedText.replace(regex, '<mark>$1</mark>');
   } catch (e) {
-    return text; // Fallback if regex is invalid
+    return escapedText;
   }
 }
 
@@ -104,30 +106,27 @@ function renderCommandResults(results) {
     const name = highlightMatch(tool.name, query);
     const tagline = highlightMatch(tool.tagline || '', query);
     const when = highlightMatch(tool.when || '', query);
-    const logo = toolLogos[tool.name] || '🛠️';
-    
-    // Escape tool name for use in onclick
-    const escapedName = tool.name.replace(/'/g, "\\'");
+    const logo = escapeHtml(toolLogos[tool.name] || '🛠️');
+    const logoLabel = escapeAttr(tool.name + ' logo');
+    const trend = Number(tool.trend) || 80;
     
     return `
       <div class="command-item ${index === commandIndex ? 'active' : ''}"
-           data-index="${index}"
+           data-index="${escapeAttr(index)}"
            role="option"
            aria-selected="${index === commandIndex}"
-           tabindex="0"
-           onclick="if (typeof window.openToolDetails === 'function') window.openToolDetails('${escapedName}'); window.closeCommandPalette();"
-           onkeydown="if (event.key === 'Enter' || event.key === ' ') { if (typeof window.openToolDetails === 'function') window.openToolDetails('${escapedName}'); window.closeCommandPalette(); event.preventDefault(); }">
+           tabindex="0">
         <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
-          <span class="tool-logo" style="font-size: 18px;" aria-label="${tool.name} logo">${logo}</span>
+          <span class="tool-logo" style="font-size: 18px;" aria-label="${logoLabel}">${logo}</span>
           <div style="flex: 1;">
             <div class="command-name" style="font-family: var(--serif); font-size: 16px; margin-bottom: 4px;">${name}</div>
             <div class="command-meta" style="font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-bottom: 4px;">
-              ${(tool.cats || []).slice(0, 2).map(cat => `<span class="tool-tag" style="font-size: 10px; padding: 2px 6px; margin-right: 4px;">${cat}</span>`).join('')}
+              ${(tool.cats || []).slice(0, 2).map(cat => `<span class="tool-tag" style="font-size: 10px; padding: 2px 6px; margin-right: 4px;">${escapeHtml(cat)}</span>`).join('')}
             </div>
-            <div class="command-tagline" style="font-size: 13px; color: var(--text-muted);">${tagline || when || tool.tagline}</div>
+            <div class="command-tagline" style="font-size: 13px; color: var(--text-muted);">${tagline || when}</div>
           </div>
         </div>
-        <div class="command-score" style="color: var(--gold); font-family: var(--mono);">↗ ${tool.trend || 80}</div>
+        <div class="command-score" style="color: var(--gold); font-family: var(--mono);">↗ ${trend}</div>
       </div>
     `;
   }).join('');
@@ -193,6 +192,8 @@ function setupCommandPalette() {
   const modal = document.getElementById('commandModal');
   
   if (!input || !modal) return;
+  if (modal.dataset.paletteInit) return; // idempotency guard
+  modal.dataset.paletteInit = '1';
   
   // Open with Cmd+K / Ctrl+K
   document.addEventListener('keydown', (e) => {
@@ -233,6 +234,21 @@ function setupCommandPalette() {
         window.openToolDetails(commandMatches[index].name);
       }
       closeCommandPalette();
+    }
+  });
+
+  // Keydown on result items (Enter/Space to select)
+  modal.querySelector('.command-results')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const item = e.target.closest('.command-item');
+      if (item) {
+        e.preventDefault();
+        const index = parseInt(item.dataset.index);
+        if (commandMatches[index] && typeof window.openToolDetails === 'function') {
+          window.openToolDetails(commandMatches[index].name);
+        }
+        closeCommandPalette();
+      }
     }
   });
   
