@@ -1,10 +1,12 @@
 /**
- * Related Tools for AI Productivity Radar
+ * Related Tools Module for AI Productivity Radar
  * 
  * Features:
  * - Find similar tools based on categories, region, and trend
- * - Display in tool details modal
+ * - Display related tools in the tool details modal
  * - Configurable similarity scoring
+ * - Mobile-optimized layout
+ * - Accessibility support
  */
 
 /**
@@ -82,25 +84,29 @@ function renderRelatedTools(tool) {
           const countryFlag = flag[relatedTool.country] || '🌍';
           const stars = '⭐'.repeat(Math.floor((relatedTool.trend || 80) / 20));
           const emptyStars = '☆'.repeat(5 - Math.floor((relatedTool.trend || 80) / 20));
+          const priceLabel = priceLabels[relatedTool.price] || relatedTool.price;
+          
+          // Escape tool name for use in onclick
+          const escapedName = relatedTool.name.replace(/'/g, "\\'\\'");
           
           return `
             <div class="tool-card" 
-                 style="padding: 12px; cursor: pointer; background: var(--bg-soft); border: 1px solid var(--border);"
-                 onclick="window.openToolDetails && window.openToolDetails('${relatedTool.name.replace(/'/g, "\\'\\'")}')"
-                 onkeydown="if (event.key === 'Enter' || event.key === ' ') { window.openToolDetails && window.openToolDetails('${relatedTool.name.replace(/'/g, "\\'\\'")}'); event.preventDefault(); }"
+                 style="padding: 12px; cursor: pointer; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 8px;"
+                 onclick="if (typeof window.openToolDetails === 'function') window.openToolDetails('${escapedName}')"
+                 onkeydown="if (event.key === 'Enter' || event.key === ' ') { if (typeof window.openToolDetails === 'function') window.openToolDetails('${escapedName}'); event.preventDefault(); }"
                  tabindex="0"
                  role="button"
                  aria-label="Deschide detalii pentru ${relatedTool.name}">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                 <span class="tool-logo" style="font-size: 18px;" aria-label="${relatedTool.name} logo">${logo}</span>
-                <span style="font-family: var(--serif); font-size: 14px;">${relatedTool.name}</span>
+                <span style="font-family: var(--serif); font-size: 14px; font-weight: 500;">${relatedTool.name}</span>
               </div>
               <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
                 ${(relatedTool.tagline || '').slice(0, 50)}${relatedTool.tagline && relatedTool.tagline.length > 50 ? '...' : ''}
               </p>
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                 <span style="font-size: 12px; color: var(--text-dim);">${countryFlag} ${relatedTool.country}</span>
-                <span class="tool-rating" style="font-size: 12px;">${stars}${emptyStars} ${relatedTool.trend || 80}</span>
+                <span class="tool-rating" style="font-size: 12px;">${stars}${emptyStars}</span>
               </div>
               <div style="display: flex; gap: 4px; flex-wrap: wrap;">
                 ${(relatedTool.cats || []).slice(0, 2).map(cat => 
@@ -163,7 +169,7 @@ function enhancedOpenToolDetails(toolName) {
   html += `
     <div class="tool-actions" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
       <a href="${tool.url}" class="primary" target="_blank" rel="noopener noreferrer">Deschide Link</a>
-      <button class="secondary" onclick="window.closeToolDetails && window.closeToolDetails()">Închide</button>
+      <button class="secondary" onclick="if (typeof window.closeToolDetails === 'function') window.closeToolDetails(); else document.getElementById('toolDetailsModal').classList.remove('show')">Închide</button>
     </div>
   `;
   
@@ -178,8 +184,8 @@ function enhancedOpenToolDetails(toolName) {
  * - Override openToolDetails to include Related Tools
  */
 function initRelatedTools() {
-  // Save reference to original function if it exists
-  if (typeof window.openToolDetails === 'function' && !window.openToolDetailsOriginal) {
+  // Only override if we haven't already
+  if (typeof window.openToolDetailsOriginal === 'undefined' && typeof window.openToolDetails === 'function') {
     window.openToolDetailsOriginal = window.openToolDetails;
   }
   
@@ -193,3 +199,19 @@ window.getRelatedTools = getRelatedTools;
 window.calculateSimilarity = calculateSimilarity;
 window.renderRelatedTools = renderRelatedTools;
 window.initRelatedTools = initRelatedTools;
+
+// Initialize when DOM is ready and tools are loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkTools = setInterval(() => {
+      if (window.tools && window.tools.length > 0) {
+        clearInterval(checkTools);
+        initRelatedTools();
+      }
+    }, 100);
+  });
+} else {
+  if (window.tools && window.tools.length > 0) {
+    initRelatedTools();
+  }
+}
