@@ -290,7 +290,7 @@ function renderLoading() {
     $('toolsGrid').innerHTML = '<div class="loading-state">Se încarcă radarul...</div>';
   }
   if ($('emptyState')) $('emptyState').classList.remove('show');
-  if ($('resultsCount')) $('resultsCount').textContent = 'Se încarcă radarul...';
+  if (window.__stbUpdateCount) window.__stbUpdateCount(0);
 }
 
 /* ── Filter pill helpers ─────────────────────────────────────────────────── */
@@ -408,9 +408,7 @@ function renderTools(msg) {
   $('emptyState')?.classList.toggle('show', !out.length && hasInteracted);
   if (!out.length) {
     $('toolsGrid').innerHTML = '';
-    if ($('resultsCount')) $('resultsCount').innerHTML = hasInteracted
-      ? 'Afișez <strong>0</strong> rezultate'
-      : 'Alege un profil sau folosește filtrele pentru a începe.';
+    if (window.__stbUpdateCount) window.__stbUpdateCount(0);
     return;
   }
   $('toolsGrid').innerHTML = out.map((t, i) =>
@@ -449,7 +447,6 @@ function renderTools(msg) {
     '<button class="compare-btn" data-compare="' + escapeAttr(t.name) + '">' + (compare.has(t.name)?'✓':'+') + ' Compară</button>' +
     '</div></div>'
   ).join('');
-  if ($('resultsCount')) $('resultsCount').innerHTML = msg || 'Afișez <strong>' + out.length + '</strong> din <strong>' + tools.length + '</strong> tooluri';
   if (window.__stbUpdateCount) window.__stbUpdateCount(out.length);
   wireCards();
 }
