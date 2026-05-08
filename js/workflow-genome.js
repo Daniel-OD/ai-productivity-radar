@@ -113,11 +113,11 @@
 
     var btn = document.getElementById('wgAnalyze');
     var textarea = document.getElementById('wgInput');
-    var resultsEl = document.getElementById('wgResults');
-    var nodesEl = document.getElementById('wgNodes');
+    var resultsWrapperEl = document.getElementById('wgResults');
+    var resultsTargetEl = document.getElementById('wgNodes') || resultsWrapperEl;
     var totalEl = document.getElementById('wgTotal');
 
-    if (!btn || !textarea || !resultsEl || !nodesEl || !totalEl) return;
+    if (!btn || !textarea || !resultsWrapperEl || !resultsTargetEl || !totalEl) return;
 
     var saved = safeGet('signalWorkflow');
     if (saved && saved.text) textarea.value = saved.text;
@@ -129,10 +129,10 @@
       var patterns = analyzeWorkflow(text);
       safeSet('signalWorkflow', { text: text, patterns: patterns });
 
-      resultsEl.style.display = '';
-      renderResults(patterns, nodesEl);
+      resultsWrapperEl.style.display = '';
+      renderResults(patterns, resultsTargetEl);
       renderTotal(patterns, totalEl);
-      resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      resultsTargetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     btn.addEventListener('click', run);

@@ -1537,7 +1537,7 @@ footer {
       </div>
       <div class="wg-results" id="wgResults" style="display:none" aria-live="polite">
         <div class="wg-nodes" id="wgNodes" style="display:flex;flex-direction:column;gap:16px"></div>
-        <div class="wg-total" id="wgTotal"></div>
+        <div class="wg-total" id="wgTotal" style="display:none"></div>
       </div>
     </div>
   </div>
@@ -1581,46 +1581,8 @@ footer {
   </div>
 </section>
 
-<section class="filters-section" id="filters">
-  <div class="container">
-    <div class="filter-row">
-      <span class="filter-label">Categorie</span>
-      <div class="pills" id="categoryPills"></div>
-    </div>
-    <div class="filter-row">
-      <span class="filter-label">Preț</span>
-      <div class="pills" id="pricePills"></div>
-    </div>
-    <div class="filter-row">
-      <span class="filter-label">Regiune</span>
-      <div class="pills" id="regionPills"></div>
-    </div>
-    <div class="filter-row">
-      <span class="filter-label">Sortare</span>
-      <div class="pills">
-        <button class="pill" data-sort="default">Implicit</button>
-        <button class="pill" data-sort="trend">Trend</button>
-        <button class="pill" data-sort="rating">Rating</button>
-        <button class="pill" data-sort="name">Nume A-Z</button>
-        <button class="pill" data-sort="price">Preț</button>
-        <button class="pill" data-sort="favorites">Favorite</button>
-      </div>
-    </div>
-    <div class="search-row">
-      <div class="search-box">
-        <input id="search" aria-label="Caută tooluri AI" placeholder="Caută: excel, video, cod, Europa, open-source..." />
-      </div>
-      <button class="reset-btn" id="resetBtn">Reset</button>
-    </div>
-    <div class="results-count" id="resultsCount" aria-live="polite">Se încarcă radarul...</div>
-  </div>
-</section>
-
-<div class="compact-filter-bar" id="compactBar">
-  <input id="compactSearch" aria-label="Căutare rapidă" placeholder="Caută rapid..." />
-  <span id="compactCount">0 rezultate</span>
-  <button id="showFilters">Filtre</button>
-</div>
+<!-- hidden legacy input for backward compat (referenced in app.js) -->
+<input id="search" type="hidden" aria-hidden="true">
 
 <section class="section" id="signal-feed" aria-label="SIGNAL Feed">
   <div class="container">
@@ -1631,6 +1593,119 @@ footer {
     </div>
   </div>
 </section>
+
+<!-- ── Contextual Filter Toolbar (desktop sticky / mobile static) ── -->
+<div class="signal-toolbar" id="signalToolbar" role="search" aria-label="Filtrare tooluri">
+  <div class="stb-inner">
+    <div class="stb-search-wrap">
+      <input
+        id="stbSearch"
+        class="stb-search"
+        type="search"
+        autocomplete="off"
+        placeholder="Caută tooluri AI..."
+        aria-label="Caută tooluri AI"
+      />
+    </div>
+
+    <div class="stb-filters" id="stbFilters" aria-label="Filtre rapide">
+      <div class="stb-select-wrap">
+        <select id="stbCat" class="stb-select" aria-label="Categorie">
+          <option value="all">Categorie</option>
+        </select>
+      </div>
+      <div class="stb-select-wrap">
+        <select id="stbPrice" class="stb-select" aria-label="Preț">
+          <option value="all">Preț</option>
+        </select>
+      </div>
+      <div class="stb-select-wrap">
+        <select id="stbRegion" class="stb-select" aria-label="Regiune">
+          <option value="all">Regiune</option>
+        </select>
+      </div>
+      <div class="stb-select-wrap">
+        <select id="stbSort" class="stb-select" aria-label="Sortare">
+          <option value="default">Sortare</option>
+          <option value="trend">Trend</option>
+          <option value="rating">Rating</option>
+          <option value="name">Nume A-Z</option>
+          <option value="price">Preț</option>
+          <option value="favorites">Favorite</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="stb-right">
+      <span class="stb-count" id="stbCount" aria-live="polite"></span>
+      <button class="stb-active-badge" id="stbActiveBadge" aria-label="Filtre active" style="display:none">
+        <span id="stbActiveBadgeCount">0</span> filtru activ
+      </button>
+      <button class="stb-reset" id="stbReset" aria-label="Resetează filtrele" style="display:none">
+        Reset
+      </button>
+    </div>
+
+    <!-- Mobile-only filter button -->
+    <button
+      class="stb-mobile-filter-btn"
+      id="stbMobileFilterBtn"
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      aria-controls="mobileFilterSheet"
+    >
+      Filtre
+      <span class="stb-mobile-badge" id="stbMobileBadge" style="display:none">0</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── Mobile Filter Bottom Sheet ── -->
+<div
+  class="mobile-filter-sheet"
+  id="mobileFilterSheet"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Filtre"
+  hidden
+>
+  <div class="mfs-backdrop" id="mfsBackdrop"></div>
+  <div class="mfs-panel" id="mfsPanel">
+    <div class="mfs-header">
+      <span class="mfs-title">Filtre</span>
+      <button class="mfs-close" id="mfsClose" aria-label="Închide filtrele">×</button>
+    </div>
+    <div class="mfs-body">
+      <div class="mfs-group">
+        <label class="mfs-label" for="mfsCat">Categorie</label>
+        <select id="mfsCat" class="mfs-select" aria-label="Categorie"></select>
+      </div>
+      <div class="mfs-group">
+        <label class="mfs-label" for="mfsPrice">Preț</label>
+        <select id="mfsPrice" class="mfs-select" aria-label="Preț"></select>
+      </div>
+      <div class="mfs-group">
+        <label class="mfs-label" for="mfsRegion">Regiune</label>
+        <select id="mfsRegion" class="mfs-select" aria-label="Regiune"></select>
+      </div>
+      <div class="mfs-group">
+        <label class="mfs-label" for="mfsSort">Sortare</label>
+        <select id="mfsSort" class="mfs-select" aria-label="Sortare">
+          <option value="default">Implicit</option>
+          <option value="trend">Trend</option>
+          <option value="rating">Rating</option>
+          <option value="name">Nume A-Z</option>
+          <option value="price">Preț</option>
+          <option value="favorites">Favorite</option>
+        </select>
+      </div>
+    </div>
+    <div class="mfs-footer">
+      <button class="mfs-reset" id="mfsReset">Reset</button>
+      <button class="primary mfs-apply" id="mfsApply">Aplică filtrele</button>
+    </div>
+  </div>
+</div>
 
 <section class="tools-section" id="tools">
   <div class="container">

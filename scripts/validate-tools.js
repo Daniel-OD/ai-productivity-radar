@@ -13,10 +13,22 @@ const path = require('path');
 const Ajv = require('ajv');
 const ajv = new Ajv({ allErrors: true, strict: false });
 
+const pricingTierSchema = {
+  type: 'object',
+  required: ['name', 'price', 'desc'],
+  properties: {
+    name: { type: 'string', minLength: 1 },
+    price: { type: 'string', minLength: 1 },
+    desc: { type: 'string', minLength: 1 },
+    highlight: { type: 'boolean' }
+  },
+  additionalProperties: false
+};
+
 // Schema pentru validarea unui tool individual
 const toolSchema = {
   type: 'object',
-  required: ['name', 'cats', 'price', 'country', 'region', 'tagline', 'url'],
+  required: ['name', 'cats', 'price', 'country', 'region', 'tagline'],
   properties: {
     name: { type: 'string', minLength: 1 },
     cats: { 
@@ -31,7 +43,7 @@ const toolSchema = {
     country: { type: 'string', minLength: 1 },
     region: { 
       type: 'string', 
-      enum: ['america', 'europa', 'asia', 'israel', 'romania'] 
+      enum: ['america', 'europa', 'asia', 'israel'] 
     },
     tagline: { type: 'string', minLength: 5 },
     when: { type: 'string', minLength: 5 },
@@ -54,7 +66,42 @@ const toolSchema = {
       type: 'array', 
       items: { type: 'string' } 
     },
-    standaloneNote: { type: 'string' }
+    standaloneNote: { type: 'string' },
+    bestFor: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    notIdeal: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    strengths: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    similar: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    pricing: { type: 'string' },
+    trendExplanation: { type: 'string' },
+    longDescription: { type: 'string' },
+    features: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    useCases: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    platforms: {
+      type: 'array',
+      items: { type: 'string' }
+    },
+    pricingTiers: {
+      type: 'array',
+      items: pricingTierSchema
+    }
   },
   additionalProperties: false
 };

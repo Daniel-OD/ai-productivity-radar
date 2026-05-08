@@ -60,12 +60,15 @@ Setul curent include:
 
 Toate toolurile sunt definite în fișierul `tools-market.json` din rădăcina repo-ului. Pagina `index.html` îl citește direct în browser prin `fetch`.  
 Format acceptat: array de tooluri direct sau obiect `{ updatedAt, tools: [...] }`.
+`url` poate lipsi; în acest caz, aplicația și scripturile de validare folosesc un catalog intern de URL-uri canonice sau fallback search.
+Pentru tooluri noi sau listări sensibile la acuratețe, preferă totuși un `url` explicit în dataset.
 
 ### Câmpuri per tool
 
 | Câmp | Tip | Descriere |
 |---|---|---|
 | `type` | string | `standalone`, `api-based`, `hybrid`, `integrated`, `platform` |
+| `url` | string | URL oficial opțional; dacă lipsește, UI-ul și scripturile folosesc catalogul intern de URL-uri/fallback search |
 | `apiAvailable` | boolean | Dacă există un API public |
 | `apiInfo` | string | Detalii concrete despre API |
 | `integrations` | string[] | Platforme compatibile (Zapier, Make.com, n8n, LangChain etc.) |

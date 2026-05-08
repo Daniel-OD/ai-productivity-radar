@@ -13,6 +13,10 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const { resolveToolUrl } = require('./tool-url-resolver');
+const HTTP_FORBIDDEN = 403;
+const HTTP_METHOD_NOT_ALLOWED = 405;
+const MAX_REDIRECTS = 5;
 
 // Cale către fișierul tools-market.json
 const toolsFilePath = path.join(__dirname, '..', 'tools-market.json');
@@ -32,6 +36,26 @@ const userAgents = [
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15'
 ];
+
+async function requestUrl(url, userAgent) {
+  const headers = { 'User-Agent': userAgent };
+  let response = await axiosInstance.head(url, {
+    headers,
+    maxRedirects: MAX_REDIRECTS,
+    // We want to inspect non-2xx/3xx responses ourselves and optionally retry with GET.
+    validateStatus: () => true
+  });
+
+  if ([HTTP_FORBIDDEN, HTTP_METHOD_NOT_ALLOWED].includes(response.status)) {
+    response = await axiosInstance.get(url, {
+      headers,
+      maxRedirects: MAX_REDIRECTS,
+      validateStatus: () => true
+    });
+  }
+
+  return response;
+}
 
 async function checkLinks() {
   console.log('🔗 Checking links in tools-market.json...\n');
@@ -62,17 +86,28 @@ async function checkLinks() {
   console.log(`📊 Found ${data.tools.length} tools to check...\n`);
   
   // Filtrează tool-urile cu URL-uri
-  const toolsWithUrls = data.tools.filter(tool => tool.url);
-  console.log(`🔍 Checking ${toolsWithUrls.length} unique URLs...\n`);
+  const toolsWithUrls = data.tools.map(tool => {
+    const resolved = resolveToolUrl(tool);
+    return {
+      ...tool,
+      resolvedUrl: resolved.url,
+      resolvedUrlSource: resolved.source
+    };
+  }).filter(tool => tool.resolvedUrl);
   
   // Grupează URL-urile pentru a evita duplicate
   const uniqueUrls = new Map();
   toolsWithUrls.forEach(tool => {
-    if (!uniqueUrls.has(tool.url)) {
-      uniqueUrls.set(tool.url, []);
+    if (!uniqueUrls.has(tool.resolvedUrl)) {
+      uniqueUrls.set(tool.resolvedUrl, []);
     }
-    uniqueUrls.get(tool.url).push(tool.name);
+    uniqueUrls.get(tool.resolvedUrl).push({
+      name: tool.name,
+      source: tool.resolvedUrlSource,
+      explicitUrl: tool.url || null
+    });
   });
+  console.log(`🔍 Checking ${uniqueUrls.size} unique URLs...\n`);
   
   // Rezultate
   const results = {
@@ -84,14 +119,12 @@ async function checkLinks() {
   };
   
   // Verifică fiecare URL
-  for (const [url, toolNames] of uniqueUrls) {
+  for (const [url, toolRefs] of uniqueUrls) {
+    const toolNames = toolRefs.map(tool => tool.name);
     try {
       // Alege un user-agent aleatoriu pentru a evita blocarea
       const userAgent = userAgents[Math.floor(Math.random() * userAgents.length)];
-      
-      const response = await axiosInstance.head(url, {
-        headers: { 'User-Agent': userAgent }
-      });
+      const response = await requestUrl(url, userAgent);
       
       const status = response.status;
       
@@ -102,7 +135,8 @@ async function checkLinks() {
           url,
           toolNames,
           status,
-          statusText: response.statusText
+          statusText: response.statusText,
+          requestMethod: response.config.method.toUpperCase()
         });
       } else if (status >= 300 && status < 400) {
         // Redirect - considerăm OK
@@ -113,7 +147,8 @@ async function checkLinks() {
           toolNames,
           status,
           statusText: response.statusText,
-          note: 'Redirect'
+          note: 'Redirect',
+          requestMethod: response.config.method.toUpperCase()
         });
       } else {
         console.log(`❌ ${url} (used by: ${toolNames.join(', ')}) - Status: ${status}`);
@@ -123,7 +158,8 @@ async function checkLinks() {
           toolNames,
           status,
           statusText: response.statusText,
-          error: `HTTP ${status}`
+          error: `HTTP ${status}`,
+          requestMethod: response.config.method.toUpperCase()
         });
       }
     } catch (error) {
