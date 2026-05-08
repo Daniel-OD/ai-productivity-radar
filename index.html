@@ -13,12 +13,39 @@
   "updatedAt": "2026-05-08T12:00:00Z",
   "sources": [
     {"name": "Product Hunt", "url": "https://producthunt.com", "contribution": "upvotes"},
-    {"name": "GitHub", "url": "https://github.com/trending", "contribution": "stars"}
+    {"name": "GitHub", "url": "https://github.com/trending", "contribution": "stars"},
+    {"name": "Google Trends", "url": "https://trends.google.com", "contribution": "search_volume"}
   ],
-  "trendMethodology": "Scor normalizat 0-100 bazat pe GitHub stars și Product Hunt upvotes.",
+  "trendMethodology": "Scor normalizat 0-100 bazat pe: 50% GitHub stars, 30% Product Hunt upvotes, 20% Google Trends search volume. Actualizat zilnic.",
   "tools": [
-    {"name": "ChatGPT", "cats": ["programare", "scris"], "price": "freemium", "country": "SUA", "region": "america", "tagline": "Asistent AI generalist.", "when": "Pentru orice workflow.", "url": "https://chatgpt.com", "trend": 92, "badges": ["popular"]},
-    {"name": "Claude", "cats": ["programare"], "price": "freemium", "country": "SUA", "region": "america", "tagline": "AI cu raționament puternic.", "when": "Pentru documente lungi.", "url": "https://claude.ai", "trend": 88, "badges": ["documente"]}
+    {
+      "name": "ChatGPT",
+      "cats": ["programare", "scris", "cercetare", "productivitate", "studiu", "date"],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "Asistent AI generalist pentru scris, cod, research și analiză de date.",
+      "when": "Când vrei un punct de pornire universal pentru aproape orice workflow.",
+      "url": "https://chatgpt.com",
+      "lastUpdated": "2026-05-08",
+      "trend": 92,
+      "badges": ["popular", "generalist"],
+      "audience": "Toți utilizatorii"
+    },
+    {
+      "name": "Claude",
+      "cats": ["programare", "scris", "cercetare", "date"],
+      "price": "freemium",
+      "country": "SUA",
+      "region": "america",
+      "tagline": "AI cu raționament puternic, excelent la documente lungi și cod.",
+      "when": "Când ai proiecte complexe sau vrei răspunsuri atent structurate.",
+      "url": "https://claude.ai",
+      "lastUpdated": "2026-05-08",
+      "trend": 88,
+      "badges": ["cod-clean", "documente"],
+      "audience": "Developeri, cercetători, scriitori"
+    }
   ]
 }
 </script>
@@ -51,23 +78,4 @@ h1{font-family:var(--serif);font-size:2.5rem;color:var(--gold)}
 </head>
 <body>
 <nav class="topnav"><div class="container"><div class="brand">AI Radar</div><div class="navlinks"><a href="#">Home</a><button class="theme-toggle" id="themeToggle">🌓</button></div></div></nav>
-<header><div class="container"><h1>AI Productivity Radar</h1><p class="lead">Găsește tool-ul potrivit</p></div></header>
-<main class="container"><div class="tools-grid" id="toolsGrid"></div></main>
-<div class="modal" id="toolDetailsModal"><div class="modal-card"><button class="modal-close" id="closeToolDetails">×</button><h2 id="toolDetailsName">Tool</h2><div id="toolDetailsContent"></div></div></div>
-<script src="js/command-palette.js"></script>
-<script src="js/related-tools.js"></script>
-<script src="js/app.js"></script>
-<script>
-const tools=JSON.parse(document.getElementById('embedded-tools-data').textContent).tools;
-function renderTools(){document.getElementById('toolsGrid').innerHTML=tools.map(t=>`<div class="tool-card" onclick="openToolDetails('${t.name}')"><div class="tool-name">${t.name}</div><p class="tool-tagline">${t.tagline}</p><div class="tool-actions"><a href="${t.url}">Link</a></div></div>`).join('')}
-function openToolDetails(name){const tool=tools.find(t=>t.name===name);document.getElementById('toolDetailsName').textContent=tool.name;document.getElementById('toolDetailsContent').innerHTML=`<p>${tool.tagline}</p><p>${tool.when}</p>`;document.getElementById('toolDetailsModal').classList.add('show')}
-function closeToolDetails(){document.getElementById('toolDetailsModal').classList.remove('show')}
-document.getElementById('closeToolDetails').onclick=closeToolDetails;
-document.addEventListener('click',e=>{if(e.target.classList.contains('modal'))closeToolDetails()});
-renderTools();
-if(typeof initCommandPalette==='function')initCommandPalette();
-if(typeof initRelatedTools==='function')initRelatedTools();
-if(typeof toggleTheme==='function')document.getElementById('themeToggle').onclick=toggleTheme;
-</script>
-</body>
-</html>
+<header><div class="container"><h1>AI Productivity Radar</h1><p class="lead">Găsește tool-ul potriv
