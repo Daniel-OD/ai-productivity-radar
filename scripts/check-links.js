@@ -189,6 +189,7 @@ async function requestUrl(url, userAgent) {
   let response = await axiosInstance.head(url, {
     headers,
     maxRedirects: MAX_REDIRECTS,
+    // We want to inspect non-2xx/3xx responses ourselves and optionally retry with GET.
     validateStatus: () => true
   });
 

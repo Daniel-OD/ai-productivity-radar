@@ -139,16 +139,12 @@ const normalizedToolDomains = createNormalizedLookup(TOOL_DOMAINS);
 
 function lookupNormalized(map, key) {
   if (map[key]) return map[key];
+  const paddedKey = ` ${key} `;
   for (const [candidate, value] of Object.entries(map)) {
-    const candidatePattern = new RegExp(`(^| )${escapeRegExp(candidate)}( |$)`);
-    const keyPattern = new RegExp(`(^| )${escapeRegExp(key)}( |$)`);
-    if (candidatePattern.test(key) || keyPattern.test(candidate)) return value;
+    const paddedCandidate = ` ${candidate} `;
+    if (paddedKey.includes(paddedCandidate) || paddedCandidate.includes(paddedKey)) return value;
   }
   return '';
-}
-
-function escapeRegExp(value) {
-  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 function resolveToolUrl(tool) {
