@@ -37,6 +37,26 @@ const userAgents = [
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15'
 ];
 
+async function requestUrl(url, userAgent) {
+  const headers = { 'User-Agent': userAgent };
+  let response = await axiosInstance.head(url, {
+    headers,
+    maxRedirects: MAX_REDIRECTS,
+    // We want to inspect non-2xx/3xx responses ourselves and optionally retry with GET.
+    validateStatus: () => true
+  });
+
+  if ([HTTP_FORBIDDEN, HTTP_METHOD_NOT_ALLOWED].includes(response.status)) {
+    response = await axiosInstance.get(url, {
+      headers,
+      maxRedirects: MAX_REDIRECTS,
+      validateStatus: () => true
+    });
+  }
+
+  return response;
+}
+
 async function checkLinks() {
   console.log('🔗 Checking links in tools-market.json...\n');
   
@@ -182,26 +202,6 @@ async function checkLinks() {
     console.log('\n✅ All URLs are valid!');
     process.exit(0);
   }
-}
-
-async function requestUrl(url, userAgent) {
-  const headers = { 'User-Agent': userAgent };
-  let response = await axiosInstance.head(url, {
-    headers,
-    maxRedirects: MAX_REDIRECTS,
-    // We want to inspect non-2xx/3xx responses ourselves and optionally retry with GET.
-    validateStatus: () => true
-  });
-
-  if ([HTTP_FORBIDDEN, HTTP_METHOD_NOT_ALLOWED].includes(response.status)) {
-    response = await axiosInstance.get(url, {
-      headers,
-      maxRedirects: MAX_REDIRECTS,
-      validateStatus: () => true
-    });
-  }
-
-  return response;
 }
 
 // Rulează verificarea

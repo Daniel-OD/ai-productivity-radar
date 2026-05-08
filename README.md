@@ -61,6 +61,7 @@ Setul curent include:
 Toate toolurile sunt definite în fișierul `tools-market.json` din rădăcina repo-ului. Pagina `index.html` îl citește direct în browser prin `fetch`.  
 Format acceptat: array de tooluri direct sau obiect `{ updatedAt, tools: [...] }`.
 `url` poate lipsi; în acest caz, aplicația și scripturile de validare folosesc un catalog intern de URL-uri canonice sau fallback search.
+Pentru tooluri noi sau listări sensibile la acuratețe, preferă totuși un `url` explicit în dataset.
 
 ### Câmpuri per tool
 
