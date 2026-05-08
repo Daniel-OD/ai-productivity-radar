@@ -331,6 +331,9 @@ function renderWizard() {
 /* ── Filtering & sorting ─────────────────────────────────────────────────── */
 function getFiltered() {
   const q = searchQuery.toLowerCase().trim();
+  const ratingScore = (tool) => {
+    return (tool.trend || 0) + ((tool.badges || []).length * 2) + ((tool.integrations || []).length || 0) + (tool.apiAvailable ? 4 : 0);
+  };
   let out = tools.filter(t => {
     const hay = [t.name,t.tagline,t.when,t.country,t.region,t.price,t.apiInfo,t.standaloneNote,t.audience,...t.cats,...t.badges].join(' ').toLowerCase();
     return (activeCat    === 'all' || t.cats.includes(activeCat))
@@ -339,7 +342,7 @@ function getFiltered() {
         && (!q || hay.includes(q));
   });
   if      (sortMode === 'trend')    out.sort((a,b) => b.trend - a.trend);
-  else if (sortMode === 'rating')   out.sort((a,b) => b.trend - a.trend);
+  else if (sortMode === 'rating')   out.sort((a,b) => ratingScore(b) - ratingScore(a) || b.trend - a.trend);
   else if (sortMode === 'name')     out.sort((a,b) => a.name.localeCompare(b.name,'ro'));
   else if (sortMode === 'price')    out.sort((a,b) => priceOrder[a.price] - priceOrder[b.price]);
   else if (sortMode === 'favorites')out.sort((a,b) => favorites.has(b.name) - favorites.has(a.name));
