@@ -30,6 +30,7 @@ const validPrices  = new Set(prices.map(x => x[0]));
 const validRegions = new Set(regions.map(x => x[0]));
 
 const flag = {SUA:'🇺🇸',Canada:'🇨🇦',China:'🇨🇳',Franța:'🇫🇷',Germania:'🇩🇪',UK:'🇬🇧',Israel:'🇮🇱','Coreea de Sud':'🇰🇷',Japonia:'🇯🇵',India:'🇮🇳',Australia:'🇦🇺',România:'🇷🇴'};
+// Synthetic rating weights keep "Rating" distinct from raw trend without introducing a new backend field.
 const RATING_BADGE_WEIGHT = 2;
 const RATING_API_WEIGHT = 4;
 
@@ -273,6 +274,13 @@ function mergeTools(localTools, remoteTools) {
   return Array.from(merged.values());
 }
 
+function computeToolRating(tool) {
+  return (tool.trend || 0)
+    + ((tool.badges || []).length * RATING_BADGE_WEIGHT)
+    + ((tool.integrations || []).length || 0)
+    + (tool.apiAvailable ? RATING_API_WEIGHT : 0);
+}
+
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(e => console.warn('[SW] Registration failed:', e));
@@ -346,12 +354,6 @@ function renderWizard() {
 /* ── Filtering & sorting ─────────────────────────────────────────────────── */
 function getFiltered() {
   const q = searchQuery.toLowerCase().trim();
-  const ratingScore = (tool) => {
-    return (tool.trend || 0)
-      + ((tool.badges || []).length * RATING_BADGE_WEIGHT)
-      + ((tool.integrations || []).length || 0)
-      + (tool.apiAvailable ? RATING_API_WEIGHT : 0);
-  };
   let out = tools.filter(t => {
     const hay = [t.name,t.tagline,t.when,t.country,t.region,t.price,t.apiInfo,t.standaloneNote,t.audience,...t.cats,...t.badges].join(' ').toLowerCase();
     return (activeCat    === 'all' || t.cats.includes(activeCat))
@@ -360,7 +362,7 @@ function getFiltered() {
         && (!q || hay.includes(q));
   });
   if      (sortMode === 'trend')    out.sort((a,b) => b.trend - a.trend);
-  else if (sortMode === 'rating')   out.sort((a,b) => ratingScore(b) - ratingScore(a) || b.trend - a.trend);
+  else if (sortMode === 'rating')   out.sort((a,b) => computeToolRating(b) - computeToolRating(a) || b.trend - a.trend);
   else if (sortMode === 'name')     out.sort((a,b) => a.name.localeCompare(b.name,'ro'));
   else if (sortMode === 'price')    out.sort((a,b) => priceOrder[a.price] - priceOrder[b.price]);
   else if (sortMode === 'favorites')out.sort((a,b) => favorites.has(b.name) - favorites.has(a.name));
@@ -629,7 +631,7 @@ function setupFooterSubscribe() {
     const email = emailInput.value.trim();
     const emailLooksValid = emailInput.checkValidity
       ? emailInput.checkValidity()
-      : /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
+      : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!email || !emailLooksValid) {
       toast('Introdu o adresă de email validă.');
       return;

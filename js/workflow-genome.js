@@ -36,7 +36,7 @@
   }
 
   function analyzeWorkflow(text) {
-    var normalized = String(text ?? '').toLowerCase();
+    var normalized = String(text == null ? '' : text).toLowerCase();
     var matched = [];
     for (var i = 0; i < WORKFLOW_PATTERNS.length; i++) {
       var pattern = WORKFLOW_PATTERNS[i];
