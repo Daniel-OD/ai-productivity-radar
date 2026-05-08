@@ -1178,6 +1178,318 @@ footer {
 .tool-stack-toggle{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}
 .stack-toggle-btn{font-family:var(--mono);font-size:10px;background:transparent;border:1px solid var(--border);color:var(--text-dim);padding:3px 8px;border-radius:4px;cursor:pointer}
 .stack-toggle-btn.in-stack{border-color:var(--pulse);color:var(--pulse)}
+
+.footer-subscribe {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.footer-subscribe input {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.footer-subscribe button {
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.footer-bottom a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.wg-section {
+  background: linear-gradient(180deg, transparent, rgba(59,130,246,.04), transparent);
+}
+
+.wg-panel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px;
+}
+
+.wg-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+#wgInput {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: var(--sans);
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 110px;
+}
+
+#wgInput:focus {
+  outline: 2px solid var(--gold);
+  border-color: transparent;
+}
+
+.wg-btn {
+  align-self: flex-start;
+}
+
+.wg-results {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wg-node {
+  display: flex;
+  gap: 16px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  animation: fadeIn .35s ease backwards;
+}
+
+.wg-node-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.wg-node-body {
+  flex: 1;
+}
+
+.wg-node-task {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.wg-node-saving {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #10B981;
+  margin-bottom: 10px;
+}
+
+.wg-node-tools {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.wg-tool-pill {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.wg-tool-pill:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.wg-total {
+  text-align: center;
+}
+
+.wg-total-inner {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--gold);
+  padding: 18px 24px;
+  border: 1px solid rgba(232,184,109,.3);
+  border-radius: 8px;
+  background: rgba(232,184,109,.05);
+}
+
+.ss-question {
+  margin-bottom: 22px;
+}
+
+.ss-q-label {
+  font-family: var(--serif);
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.ss-opts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ss-opt {
+  background: var(--bg-soft);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.ss-opt:hover {
+  border-color: var(--gold);
+  color: var(--text);
+}
+
+.ss-opt.active {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(232,184,109,.1);
+}
+
+.ss-calc-btn {
+  margin-top: 8px;
+}
+
+.ss-calc-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.ss-result {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.ss-score-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.ss-score-num {
+  font-family: var(--serif);
+  font-size: 80px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.ss-score-max {
+  font-family: var(--mono);
+  font-size: 20px;
+  color: var(--text-dim);
+}
+
+.ss-tier {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.ss-tier-desc {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.ss-recs {
+  text-align: left;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.ss-recs-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.ss-rec {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.ss-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+  .wg-panel {
+    padding: 22px;
+  }
+
+  .wg-node {
+    flex-direction: column;
+  }
+
+  .wg-btn {
+    width: 100%;
+  }
+
+  .ss-score-num {
+    font-size: 58px;
+  }
+
+  .ss-opt {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wg-node {
+    animation: none !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1186,7 +1498,7 @@ footer {
     <div class="brand">SIGNAL</div>
     <div class="navlinks">
       <a href="#workflow-genome">Workflow Genome</a>
-      <a href="#signal-feed">Signal Feed</a>
+      <a href="#trending">Signal Feed</a>
       <a href="#tools">Tools</a>
       <button class="mini-btn" id="commandBtn" aria-label="Deschide Command Palette (Ctrl+K)">⌘K</button>
       <button class="mini-btn" id="favQuick" aria-label="Arată favorite">Favorite</button>
@@ -1221,15 +1533,10 @@ footer {
       <p class="helper">Scrie în limbaj natural ce faci în muncă. SIGNAL identifică unde AI poate interveni și îți recomandă toolurile potrivite.</p>
       <div class="wg-input-area">
         <textarea id="wgInput" class="wg-textarea" placeholder="Ex: Dimineața citesc emailuri și Slack, am 3 meeting-uri pe săptămână, scriu rapoarte în Excel vinerea, și uneori prezint rezultate în PowerPoint..." aria-label="Descrie workflow-ul tău"></textarea>
-        <button class="primary wg-analyze-btn" id="wgAnalyze" aria-label="Analizează workflow-ul">Analizează workflow-ul →</button>
+        <button class="primary wg-btn" id="wgAnalyze" aria-label="Analizează workflow-ul">Analizează workflow-ul →</button>
       </div>
-      <div class="wg-results" id="wgResults" style="display:none" aria-live="polite">
-        <div class="wg-map-wrap">
-          <svg id="wgMap" class="wg-map" aria-label="Harta workflow-ului tău"></svg>
-        </div>
-        <div class="wg-recs-wrap" id="wgRecs"></div>
-        <div class="wg-total" id="wgTotal"></div>
-      </div>
+      <div class="wg-results" id="wgResults" style="display:none" aria-live="polite"></div>
+      <div class="wg-total" id="wgTotal" style="display:none"></div>
     </div>
   </div>
 </section>
@@ -1348,14 +1655,14 @@ footer {
       </div>
       <div class="footer-block">
         <h4>Signal Weekly</h4>
-        <p style="margin-bottom:12px">Primești în fiecare luni cele mai importante schimbări din AI.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <input id="signalEmail" type="email" placeholder="email@tău.com" aria-label="Adresa ta de email" style="background:var(--surface);border:1px solid var(--border-strong);color:var(--text);padding:10px 14px;border-radius:6px;font-size:13px;flex:1;min-width:160px">
-          <button class="mini-btn" id="signalSubscribe" aria-label="Abonează-te la Signal Weekly">Abonează-te</button>
+        <p>Primești săptămânal ce s-a schimbat în AI, relevant pentru tine.</p>
+        <div class="footer-subscribe">
+          <input id="footerEmail" type="email" placeholder="email@tău.com" aria-label="Adresa ta de email">
+          <button id="footerSubscribe" aria-label="Abonează-te la Signal Weekly">Abonează-te</button>
         </div>
       </div>
     </div>
-    <div style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border);text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-dim)">
+    <div class="footer-bottom">
       © 2026 SIGNAL · Construit cu Claude Code · <a href="https://github.com/Daniel-OD/ai-productivity-radar" style="color:var(--gold);text-decoration:none">github.com/Daniel-OD/ai-productivity-radar</a>
     </div>
   </div>
@@ -1385,6 +1692,11 @@ footer {
   </div>
 </div>
 
+<!-- Decision Modal -->
+<div class="decision-modal" id="decisionModal" role="dialog" aria-modal="true" aria-label="Analiză decizie">
+  <div class="decision-card" id="decisionCard"></div>
+</div>
+
 <!-- Compare Bar -->
 <div class="compare-bar" id="compareBar">
   <span id="compareText">0 selectate</span>
@@ -1405,9 +1717,13 @@ footer {
 <div class="toast" id="toast"></div>
 
 <script src="js/dom-utils.js" defer></script>
+<script src="js/command-palette.js" defer></script>
+<script src="js/decision-modal.js" defer></script>
 <script src="js/workflow-genome.js" defer></script>
 <script src="js/stack-score.js" defer></script>
 <script src="js/signal-feed.js" defer></script>
+<script src="js/app.js" defer></script>
+<script src="js/phase0-hardening.js" defer></script>
 
 <!-- Constellation Canvas -->
 <script>
@@ -1466,981 +1782,5 @@ footer {
 })();
 </script>
 
-<!-- Service Worker Registration -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js')
-      .then(function(registration) {
-        registration.update();
-      })
-      .catch(function(error) {
-        console.warn('[Service Worker] Registration failed:', error);
-      });
-  });
-}
-</script>
-
-<script>
-// ==================== ESCAPE HELPERS ====================
-function escapeHtml(str) {
-  return String(str == null ? '' : str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-function escapeAttr(s) {
-  return String(s == null ? '' : s)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-// ==================== DATA ====================
-const FALLBACK_TOOLS = [
-  {
-    name: 'ChatGPT',
-    cats: ['programare', 'scris', 'cercetare', 'productivitate', 'studiu', 'date'],
-    price: 'freemium',
-    country: 'SUA',
-    region: 'america',
-    tagline: 'Asistent AI generalist pentru scris, cod, research și analiză de date.',
-    when: 'Când vrei un punct de pornire universal pentru aproape orice workflow.',
-    url: 'https://chatgpt.com',
-    lastUpdated: 'mai 2026',
-    trend: 92,
-    badges: ['popular', 'generalist'],
-    audience: 'Toți utilizatorii'
-  },
-  {
-    name: 'Claude',
-    cats: ['programare', 'scris', 'cercetare', 'date'],
-    price: 'freemium',
-    country: 'SUA',
-    region: 'america',
-    tagline: 'AI cu raționament puternic, excelent la documente lungi și cod.',
-    when: 'Când ai proiecte complexe sau vrei răspunsuri atent structurate.',
-    url: 'https://claude.ai',
-    lastUpdated: 'mai 2026',
-    trend: 88,
-    badges: ['cod-clean', 'documente'],
-    audience: 'Developeri, cercetători, scriitori'
-  },
-  {
-    name: 'Perplexity',
-    cats: ['cercetare'],
-    price: 'freemium',
-    country: 'SUA',
-    region: 'america',
-    tagline: 'Motor de căutare AI cu surse și citări.',
-    when: 'Când vrei research rapid și verificabil.',
-    url: 'https://www.perplexity.ai',
-    lastUpdated: 'mai 2026',
-    trend: 75,
-    badges: ['research', 'citation-verified'],
-    audience: 'Cercetători, jurnaliști, studenți'
-  },
-  {
-    name: 'Cursor',
-    cats: ['programare'],
-    price: 'freemium',
-    country: 'SUA',
-    region: 'america',
-    tagline: 'IDE-ul desenat de AI. Înțelege codul tău și editează mai multe fișiere deodată.',
-    when: 'Alegi Cursor ca editor dacă vrei să scrii cod mai rapid cu ajutorul AI integrat direct.',
-    url: 'https://cursor.com',
-    lastUpdated: 'mai 2026',
-    trend: 85,
-    badges: ['editor', 'coding'],
-    audience: 'Developeri'
-  },
-  {
-    name: 'DeepSeek',
-    cats: ['programare', 'cercetare', 'scris'],
-    price: 'freemium',
-    country: 'China',
-    region: 'asia',
-    tagline: 'Modele puternice și eficiente, bune pentru cod și reasoning.',
-    when: 'Alegi DeepSeek când vrei o alternativă ieftină și capabilă.',
-    url: 'https://chat.deepseek.com',
-    lastUpdated: 'mai 2026',
-    trend: 82,
-    badges: ['open-source', 'ieftin'],
-    audience: 'Startup-uri, studenți, buget mic'
-  },
-  {
-    name: 'Mistral / Le Chat',
-    cats: ['programare', 'scris', 'cercetare'],
-    price: 'freemium',
-    country: 'Franța',
-    region: 'europa',
-    tagline: 'Campion european LLM cu modele open-weight.',
-    when: 'Alegi Mistral dacă preferi o alternativă europeană rapidă și serioasă.',
-    url: 'https://chat.mistral.ai',
-    lastUpdated: 'mai 2026',
-    trend: 80,
-    badges: ['europa', 'open-weight'],
-    audience: 'Europa, enterprise, GDPR-conscious'
-  },
-  {
-    name: 'Hugging Face',
-    cats: ['programare', 'cercetare', 'date'],
-    price: 'freemium',
-    country: 'Franța',
-    region: 'europa',
-    tagline: 'Hub pentru modele, datasets și aplicații open-source.',
-    when: 'Alegi Hugging Face dacă vrei să testezi sau să construiești cu modele AI reale.',
-    url: 'https://huggingface.co',
-    lastUpdated: 'mai 2026',
-    trend: 85,
-    badges: ['open-source', 'community', 'datasets'],
-    audience: 'Cercetători, developeri, MLOps'
-  },
-  {
-    name: 'NotebookLM',
-    cats: ['cercetare', 'studiu'],
-    price: 'gratuit',
-    country: 'SUA',
-    region: 'america',
-    tagline: 'Analizează documente și creează sinteze utile pentru studiu.',
-    when: 'Alegi NotebookLM dacă vrei să studiezi documente și să transformi materiale în audio.',
-    url: 'https://notebooklm.google.com',
-    lastUpdated: 'mai 2026',
-    trend: 86,
-    badges: ['gratuit', 'podcast', 'documente'],
-    audience: 'Studenți, cercetători, content creators'
-  },
-  {
-    name: 'Julius AI',
-    cats: ['date'],
-    price: 'freemium',
-    country: 'Canada',
-    region: 'america',
-    tagline: 'Analiză de CSV/Excel în limbaj natural. AI vede datele și explică.',
-    when: 'Alegi Julius AI dacă vrei să analizezi date fără să scrii cod SQL.',
-    url: 'https://julius.ai',
-    lastUpdated: 'mai 2026',
-    trend: 78,
-    badges: ['data-analysis', 'no-code', 'excel'],
-    audience: 'Analiști, business, non-tehnici'
-  },
-  {
-    name: 'Power BI Copilot',
-    cats: ['date', 'productivitate'],
-    price: 'platit',
-    country: 'SUA',
-    region: 'america',
-    tagline: 'Copilot pentru Microsoft BI. Crează rapoarte cu o descriere în text.',
-    when: 'Alegi Power BI Copilot dacă lucrezi deja în ecosistemul Microsoft.',
-    url: 'https://powerbi.microsoft.com',
-    lastUpdated: 'mai 2026',
-    trend: 81,
-    badges: ['microsoft', 'bi', 'enterprise'],
-    audience: 'Microsoft enterprise, BI analysts'
-  },
-  {
-    name: 'Synthesia',
-    cats: ['design'],
-    price: 'platit',
-    country: 'UK',
-    region: 'europa',
-    tagline: 'Crează videoclipuri cu avatare AI. Perfect pentru training și comunicare.',
-    when: 'Alegi Synthesia dacă vrei să generezi videoclipuri profesionale fără să filmezi.',
-    url: 'https://www.synthesia.io',
-    lastUpdated: 'mai 2026',
-    trend: 74,
-    badges: ['video', 'avatare', 'corporate'],
-    audience: 'Marketing, training corporativ, comunicare'
-  }
-];
-
-const categories = [
-  ['all', 'Toate'],
-  ['programare', 'Programare'],
-  ['scris', 'Scris'],
-  ['cercetare', 'Cercetare'],
-  ['design', 'Design'],
-  ['productivitate', 'Productivitate'],
-  ['studiu', 'Studiu'],
-  ['date', 'Date']
-];
-
-const prices = [
-  ['all', 'Toate'],
-  ['gratuit', 'Gratuit'],
-  ['freemium', 'Freemium'],
-  ['platit', 'Plătit']
-];
-
-const regions = [
-  ['all', 'Toate'],
-  ['america', 'America'],
-  ['europa', 'Europa'],
-  ['asia', 'Asia'],
-  ['israel', 'Israel']
-];
-
-const priceLabels = { gratuit: 'Gratuit', freemium: 'Freemium', platit: 'Plătit' };
-const priceOrder = { gratuit: 1, freemium: 2, platit: 3 };
-const validCats = new Set(categories.map(x => x[0]));
-const validPrices = new Set(prices.map(x => x[0]));
-const validRegions = new Set(regions.map(x => x[0]));
-
-const flag = {
-  SUA: '🇺🇸', Canada: '🇨🇦', China: '🇨🇳', Franța: '🇫🇷', Germania: '🇩🇪',
-  UK: '🇬🇧', Israel: '🇮🇱', 'Coreea de Sud': '🇰🇷', Japonia: '🇯🇵', India: '🇮🇳',
-  Australia: '🇦🇺', România: '🇷🇴'
-};
-
-const OFFICIAL_URLS = {
-  'chatgpt': 'https://chatgpt.com',
-  'claude': 'https://claude.ai',
-  'perplexity': 'https://www.perplexity.ai',
-  'cursor': 'https://cursor.com',
-  'deepseek': 'https://chat.deepseek.com',
-  'qwen': 'https://chat.qwen.ai',
-  'tongyi qianwen': 'https://chat.qwen.ai',
-  'mistral': 'https://chat.mistral.ai',
-  'le chat': 'https://chat.mistral.ai',
-  'hugging face': 'https://huggingface.co',
-  'notebooklm': 'https://notebooklm.google.com',
-  'julius': 'https://julius.ai',
-  'power bi copilot': 'https://powerbi.microsoft.com',
-  'synthesia': 'https://www.synthesia.io'
-};
-
-const profiles = [
-  { title: 'Scriu cod', cat: 'programare', hint: 'IDE, agenți, debugging', rec: 'Cursor + Claude + DeepSeek.' },
-  { title: 'Fac research', cat: 'cercetare', hint: 'surse, PDF-uri, sinteză', rec: 'Perplexity + NotebookLM + Claude.' },
-  { title: 'Analizez date', cat: 'date', hint: 'CSV, Excel, BI, SQL', rec: 'Julius + Hex + Power BI Copilot.' },
-  { title: 'Creez vizual', cat: 'design', hint: 'imagini, video, avatar', rec: 'Midjourney + Runway + Synthesia.' },
-  { title: 'Scriu mai bine', cat: 'scris', hint: 'copy, email, documente', rec: 'Claude + ChatGPT + Grammarly.' },
-  { title: 'Vreau productivitate', cat: 'productivitate', hint: 'meeting, calendar, taskuri', rec: 'Notion AI + Granola + Reclaim.' }
-];
-
-// Logo mappings for tools
-const toolLogos = {
-  'ChatGPT': '🤖',
-  'Claude': '💬',
-  'Perplexity': '🔍',
-  'Cursor': '💻',
-  'DeepSeek': '🔬',
-  'Mistral / Le Chat': '🌍',
-  'Hugging Face': '🤗',
-  'NotebookLM': '📓',
-  'Julius AI': '📊',
-  'Power BI Copilot': '📈',
-  'Synthesia': '🎥'
-};
-
-// ==================== STATE ====================
-let tools = [],
-    activeCat = 'all',
-    activePrice = 'all',
-    activeRegion = 'all',
-    searchQuery = '',
-    sortMode = 'default',
-    lastScroll = 0,
-    hasInteracted = false,
-    isLoading = true,
-    hasDeepLink = false;
-
-let favorites = new Set(JSON.parse(safeStorageGet('aiRadarFavorites', '[]')));
-let compare = new Set();
-
-const $ = id => document.getElementById(id);
-
-// ==================== UTILITY FUNCTIONS ====================
-function safeStorageGet(k, f) {
-  try { return localStorage.getItem(k) || f; } catch (e) { return f; }
-}
-
-function safeStorageSet(k, v) {
-  try { localStorage.setItem(k, v); } catch (e) {}
-}
-
-function toast(t) {
-  const el = $('toast');
-  el.textContent = t;
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2200);
-}
-
-function normKey(s) {
-  return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
-}
-
-function officialUrl(t) {
-  if (t && /^https?:\/\//i.test(t.url || '')) return t.url;
-  const n = normKey(t && t.name);
-  if (OFFICIAL_URLS[n]) return OFFICIAL_URLS[n];
-  for (const k in OFFICIAL_URLS) {
-    if (n.includes(k) || k.includes(n)) return OFFICIAL_URLS[k];
-  }
-  return `https://www.google.com/search?q=${encodeURIComponent((t && t.name ? t.name : 'AI tool') + ' official website')}`;
-}
-
-function regionOf(c) {
-  if (['SUA', 'Canada'].includes(c)) return 'america';
-  if (['China', 'Japonia', 'Coreea de Sud', 'India', 'Australia'].includes(c)) return 'asia';
-  if (c === 'Israel') return 'israel';
-  return 'europa';
-}
-
-function normalize(t, i) {
-  t = t || {};
-  let cats = Array.isArray(t.cats) ? t.cats.filter(Boolean) : ['productivitate'];
-  if (!cats.length) cats = ['productivitate'];
-  let country = String(t.country || 'SUA');
-  return {
-    name: String(t.name || 'Tool AI'),
-    cats,
-    price: priceLabels[t.price] ? t.price : 'freemium',
-    country,
-    region: t.region || regionOf(country),
-    tagline: String(t.tagline || t.description || 'Descriere în curs de verificare.'),
-    when: String(t.when || t.whenToUse || 'Folosește după testare.'),
-    url: officialUrl(t),
-    lastUpdated: String(t.lastUpdated || 'mai 2026'),
-    trend: Number.isFinite(Number(t.trend)) ? Number(t.trend) : 80,
-    badges: Array.isArray(t.badges) ? t.badges : [],
-    audience: t.audience || '',
-    _i: i
-  };
-}
-
-// ==================== THEME FUNCTIONS ====================
-function toggleTheme() {
-  const html = document.documentElement;
-  const currentTheme = html.classList.contains('light-mode') ? 'light' : 'dark';
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  
-  html.classList.toggle('light-mode', newTheme === 'light');
-  localStorage.setItem('theme', newTheme);
-  updateThemeButton();
-}
-
-function updateThemeButton() {
-  const theme = localStorage.getItem('theme') || 'dark';
-  const btn = document.getElementById('themeToggle');
-  if (btn) {
-    btn.textContent = theme === 'dark' ? '☀️' : '🌙';
-  }
-}
-
-function loadTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  document.documentElement.classList.toggle('light-mode', savedTheme === 'light');
-  updateThemeButton();
-}
-
-// ==================== URL STATE ====================
-function readUrlState() {
-  const p = new URLSearchParams(location.search);
-  const cat = p.get('cat'), price = p.get('price'), region = p.get('region'), q = p.get('q'), sort = p.get('sort');
-  if (cat && validCats.has(cat)) { activeCat = cat; hasDeepLink = true; }
-  if (price && validPrices.has(price)) { activePrice = price; hasDeepLink = true; }
-  if (region && validRegions.has(region)) { activeRegion = region; hasDeepLink = true; }
-  if (q) { searchQuery = q; hasDeepLink = true; }
-  if (sort && ['default', 'trend', 'rating', 'name', 'price', 'favorites'].includes(sort)) { sortMode = sort; hasDeepLink = true; }
-  if (hasDeepLink) hasInteracted = true;
-}
-
-function save() {
-  safeStorageSet('aiRadarState', JSON.stringify({ activeCat, activePrice, activeRegion, searchQuery, sortMode }));
-  syncUrl();
-}
-
-function loadState() {
-  try {
-    const s = JSON.parse(safeStorageGet('aiRadarState', '{}'));
-    activeCat = s.activeCat || activeCat;
-    activePrice = s.activePrice || activePrice;
-    activeRegion = s.activeRegion || activeRegion;
-    searchQuery = s.searchQuery || searchQuery;
-    sortMode = s.sortMode || sortMode;
-  } catch (e) {}
-  readUrlState();
-}
-
-function syncUrl() {
-  const p = new URLSearchParams();
-  if (activeCat !== 'all') p.set('cat', activeCat);
-  if (activePrice !== 'all') p.set('price', activePrice);
-  if (activeRegion !== 'all') p.set('region', activeRegion);
-  if (searchQuery.trim()) p.set('q', searchQuery.trim());
-  if (sortMode !== 'default') p.set('sort', sortMode);
-  const qs = p.toString();
-  history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
-}
-
-function setDataStatus(mode, msg) {
-  const el = $('dataStatus');
-  if (!el) return;
-  el.textContent = msg;
-  el.className = 'data-status ' + (mode === 'ok' ? 'ok' : 'warn');
-}
-
-// ==================== TOOL DETAILS MODAL ====================
-function openToolDetails(toolName) {
-  const tool = tools.find(t => t.name === toolName);
-  if (!tool) return;
-  
-  const modal = $('toolDetailsModal');
-  const nameEl = $('toolDetailsName');
-  const contentEl = $('toolDetailsContent');
-  
-  nameEl.textContent = tool.name;
-  
-  // Generate star rating
-  const stars = '⭐'.repeat(Math.floor((tool.trend || 80) / 20));
-  const emptyStars = '☆'.repeat(5 - Math.floor((tool.trend || 80) / 20));
-  
-  contentEl.innerHTML = `
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-      <div class="tool-logo" style="width: 48px; height: 48px; font-size: 24px;">${toolLogos[tool.name] || '🛠️'}</div>
-      <div>
-        <p><strong>Categorie:</strong> ${tool.cats.join(', ')}</p>
-        <p><strong>Preț:</strong> ${priceLabels[tool.price] || tool.price}</p>
-      </div>
-    </div>
-    <p><strong>Țară:</strong> ${flag[tool.country] || '🌍'} ${tool.country} · <strong>Regiune:</strong> ${tool.region}</p>
-    <p><strong>Rating:</strong> <span class="tool-rating">${stars}${emptyStars} ${tool.trend || 80}</span></p>
-    <p><strong>Când să-l folosești:</strong> ${tool.when}</p>
-    <p><strong>Descriere:</strong> ${tool.tagline}</p>
-    ${tool.audience ? `<p><strong>Audience:</strong> ${tool.audience}</p>` : ''}
-    ${tool.badges.length > 0 ? `<p><strong>Badges:</strong> ${tool.badges.map(b => `<span class="tool-tag">${b}</span>`).join('')}</p>` : ''}
-    <div class="tool-actions" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-      <a href="${tool.url}" class="primary" target="_blank" rel="noopener noreferrer">Deschide Link</a>
-      <button class="secondary" onclick="closeToolDetails()">Închide</button>
-    </div>
-  `;
-  
-  modal.classList.add('show');
-}
-
-function closeToolDetails() {
-  $('toolDetailsModal').classList.remove('show');
-}
-
-// ==================== RENDER FUNCTIONS ====================
-function renderLoading() {
-  $('toolsGrid').style.display = 'block';
-  $('toolsGrid').innerHTML = '<div class="loading-state">Se încarcă radarul...</div>';
-  $('emptyState').classList.remove('show');
-  $('resultsCount').textContent = 'Se încarcă radarul...';
-}
-
-function count(kind, id) {
-  if (id === 'all') return tools.length;
-  if (kind === 'cat') return tools.filter(t => t.cats.includes(id)).length;
-  if (kind === 'price') return tools.filter(t => t.price === id).length;
-  return tools.filter(t => t.region === id).length;
-}
-
-function pills(items, active, kind) {
-  return items.map(([id, label]) => 
-    `<button class="pill ${active === id ? 'active' : ''}" role="button" aria-pressed="${active === id}" data-${kind}="${id}">${label}<span class="count">${count(kind, id)}</span></button>`
-  ).join('');
-}
-
-function renderPills() {
-  $('categoryPills').innerHTML = pills(categories, activeCat, 'cat');
-  $('pricePills').innerHTML = pills(prices, activePrice, 'price');
-  $('regionPills').innerHTML = pills(regions, activeRegion, 'region');
-  
-  // Sort pills
-  document.querySelectorAll('[data-sort]').forEach(b => {
-    b.onclick = () => {
-      hasInteracted = true;
-      sortMode = b.dataset.sort;
-      save();
-      renderTools();
-    };
-  });
-  
-  document.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => {
-    hasInteracted = true; activeCat = b.dataset.cat; save(); renderPills(); renderTools();
-  });
-  document.querySelectorAll('[data-price]').forEach(b => b.onclick = () => {
-    hasInteracted = true; activePrice = b.dataset.price; save(); renderPills(); renderTools();
-  });
-  document.querySelectorAll('[data-region]').forEach(b => b.onclick = () => {
-    hasInteracted = true; activeRegion = b.dataset.region; save(); renderPills(); renderTools();
-  });
-}
-
-function renderWizard() {
-  $('wizardGrid').innerHTML = profiles.map((p, i) => 
-    `<button class="choice" data-profile="${i}"><strong>${p.title}</strong><span>${p.hint}</span></button>`
-  ).join('');
-  
-  document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => {
-    const p = profiles[+b.dataset.profile];
-    hasInteracted = true;
-    activeCat = p.cat;
-    activePrice = 'all';
-    activeRegion = 'all';
-    searchQuery = '';
-    $('search').value = '';
-    $('compactSearch').value = '';
-    $('recommendation').innerHTML = `Recomandare: <strong>${p.rec}</strong>`;
-    save();
-    renderPills();
-    renderTools(`Am filtrat pentru: <strong>${p.title}</strong>`);
-    document.querySelector('#tools').scrollIntoView({ behavior: 'smooth' });
-  });
-}
-
-function getFiltered() {
-  const q = searchQuery.toLowerCase().trim();
-  let out = tools.filter(t => {
-    const hay = [t.name, t.tagline, t.when, t.country, t.region, t.price, ...t.cats, ...t.badges].join(' ').toLowerCase();
-    return (activeCat === 'all' || t.cats.includes(activeCat)) &&
-           (activePrice === 'all' || t.price === activePrice) &&
-           (activeRegion === 'all' || t.region === activeRegion) &&
-           (!q || hay.includes(q));
-  });
-  
-  // Sorting
-  if (sortMode === 'trend') out.sort((a, b) => b.trend - a.trend);
-  else if (sortMode === 'rating') out.sort((a, b) => (b.trend || 0) - (a.trend || 0));
-  else if (sortMode === 'name') out.sort((a, b) => a.name.localeCompare(b.name, 'ro'));
-  else if (sortMode === 'price') out.sort((a, b) => priceOrder[a.price] - priceOrder[b.price]);
-  else if (sortMode === 'favorites') out.sort((a, b) => favorites.has(b.name) - favorites.has(a.name));
-  else out.sort((a, b) => a._i - b._i);
-  
-  return out;
-}
-
-// renderToolCard with Phase 6 upgrades
-function renderToolCard(t) {
-  var isFav = favorites.has(t.name);
-  var logo = toolLogos[t.name] || '🛠️';
-  var catBorders = {programare:'#3B82F6',date:'#38bdf8',design:'#c084fc',cercetare:'#E8B86D',scris:'#10B981',productivitate:'#5eead4',studiu:'#818cf8'};
-  var borderColor = catBorders[t.cats[0]] || 'var(--border)';
-  var myStack = [];
-  try { myStack = JSON.parse(localStorage.getItem('signalMyStack') || '[]'); } catch(e) {}
-  var inStack = myStack.indexOf(t.name) > -1;
-
-  return '<div class="tool-card" data-tool="' + escapeAttr(t.name) + '" style="border-left:3px solid ' + borderColor + '">' +
-    '<div class="tool-header">' +
-      '<div class="tool-logo">' + logo + '</div>' +
-      '<div>' +
-        '<h3 class="tool-name">' + escapeHtml(t.name) + '</h3>' +
-        '<div class="tool-meta">' +
-          '<span>' + (flag[t.country] || '🌍') + ' ' + escapeHtml(t.country) + '</span>' +
-        '</div>' +
-      '</div>' +
-    '</div>' +
-    '<p class="tool-description">' + escapeHtml(t.tagline) + '</p>' +
-    '<div class="tool-tags">' +
-      t.cats.map(function(cat){ return '<span class="tool-tag">' + escapeHtml(cat) + '</span>'; }).join('') +
-    '</div>' +
-    '<div class="tool-actions">' +
-      '<div style="display:flex;align-items:center;gap:6px">' +
-        '<span class="trend-tag">↗ ' + escapeHtml(String(t.trend)) + '</span>' +
-        '<div class="trend-bar"><div class="trend-fill" style="width:' + Math.min(t.trend,100) + '%"></div></div>' +
-      '</div>' +
-      '<a class="tool-link" href="' + escapeAttr(t.url) + '" target="_blank" rel="noopener noreferrer">🔗 Link</a>' +
-      '<button class="fav-btn" data-action="fav" data-tool="' + escapeAttr(t.name) + '" aria-label="' + (isFav ? 'Șterge din favorite' : 'Adaugă la favorite') + '">' + (isFav ? '❤️' : '🤍') + '</button>' +
-      '<button class="compare-btn" data-action="compare" data-tool="' + escapeAttr(t.name) + '" aria-label="Adaugă la comparare">⚖️</button>' +
-    '</div>' +
-    '<div class="tool-stack-toggle">' +
-      '<span style="font-family:var(--mono);font-size:10px;color:var(--text-dim)">Stack-ul meu?</span>' +
-      '<button class="stack-toggle-btn' + (inStack ? ' in-stack' : '') + '" data-stack="' + escapeAttr(t.name) + '" aria-label="' + (inStack ? 'Scoate ' : 'Adaugă ') + escapeAttr(t.name) + ' din stack-ul meu">' + (inStack ? '✓ Da' : 'Da') + '</button>' +
-    '</div>' +
-  '</div>';
-}
-
-function renderTrending() {
-  const top = [...tools].sort((a, b) => b.trend - a.trend).slice(0, 4);
-  $('trendingStrip').innerHTML = top.map(t => 
-    `<div class="trend-card" data-trendtool="${t.name}" onclick="openToolDetails('${t.name.replace(/'/g, "\\'")}')">
-      <div class="score">↗ trend ${t.trend}</div>
-      <h3>${t.name}</h3>
-      <p>${t.tagline}</p>
-    </div>`
-  ).join('');
-  
-  document.querySelectorAll('[data-trendtool]').forEach(c => c.onclick = () => {
-    hasInteracted = true;
-    searchQuery = c.dataset.trendtool;
-    $('search').value = searchQuery;
-    $('compactSearch').value = searchQuery;
-    activeCat = activePrice = activeRegion = 'all';
-    save();
-    renderPills();
-    renderTools();
-    document.querySelector('#tools').scrollIntoView({ behavior: 'smooth' });
-  });
-}
-
-function renderRadar() {
-  var radarEl = $('radarGrid');
-  if (!radarEl) return;
-  const hot = tools.filter(t => t.trend >= 85).length;
-  const free = tools.filter(t => t.price === 'gratuit' || t.price === 'freemium').length;
-  const data = tools.filter(t => t.cats.includes('date')).length;
-  const eu = tools.filter(t => t.region === 'europa').length;
-  radarEl.innerHTML =
-    '<div class="radar-card"><strong>' + tools.length + '</strong><span>tooluri monitorizate</span></div>' +
-    '<div class="radar-card"><strong>' + hot + '</strong><span>trend 85+</span></div>' +
-    '<div class="radar-card"><strong>' + free + '</strong><span>gratuite/freemium</span></div>' +
-    '<div class="radar-card"><strong>' + data + '</strong><span>pentru date</span></div>' +
-    '<div class="radar-card"><strong>' + eu + '</strong><span>Europa</span></div>';
-}
-
-function renderTools(msg) {
-  msg = msg === undefined ? '' : msg;
-  if (isLoading) { renderLoading(); return; }
-  var out = getFiltered();
-  $('toolsGrid').style.display = 'block';
-
-  if (!out.length) {
-    $('toolsGrid').innerHTML = '';
-    $('emptyState').classList.add('show');
-    $('resultsCount').textContent = '0 rezultate';
-  } else {
-    $('emptyState').classList.remove('show');
-    $('toolsGrid').innerHTML = out.map(renderToolCard).join('');
-    $('resultsCount').textContent = out.length + ' rezultate';
-    setupStackToggles();
-  }
-
-  if (msg) $('resultsCount').innerHTML += ' – ' + msg;
-}
-
-// ==================== SETUP FUNCTIONS ====================
-function setupScrollHide() {
-  let last = 0;
-  window.addEventListener('scroll', () => {
-    const now = window.scrollY;
-    if (now > last && now > 120) {
-      $('filters').classList.add('filters-hidden');
-      $('compactBar').classList.add('show');
-    } else {
-      $('filters').classList.remove('filters-hidden');
-      $('compactBar').classList.remove('show');
-    }
-    last = now;
-  });
-  
-  $('showFilters').onclick = () => {
-    $('filters').classList.remove('filters-hidden');
-    $('compactBar').classList.remove('show');
-    document.querySelector('#filters').scrollIntoView({ behavior: 'smooth' });
-  };
-}
-
-function setupCompare() {
-  $('openCompare').onclick = () => { $('compareModal').classList.add('show'); renderCompare(); };
-  $('closeCompare').onclick = () => { $('compareModal').classList.remove('show'); };
-  $('clearCompare').onclick = () => {
-    compare.clear();
-    $('compareBar').classList.remove('show');
-    renderCompare();
-    toast('Comparare curățată');
-  };
-  
-  document.querySelectorAll('[data-action="compare"]').forEach(b => b.onclick = e => {
-    const name = e.target.dataset.tool;
-    if (compare.has(name)) {
-      compare.delete(name);
-    } else {
-      if (compare.size >= 4) { toast('Maxim 4 tooluri în comparare'); return; }
-      compare.add(name);
-    }
-    updateCompareBar();
-    e.stopPropagation();
-  });
-  
-  function updateCompareBar() {
-    if (compare.size > 0) {
-      $('compareBar').classList.add('show');
-      $('compareText').textContent = `${compare.size} selectate`;
-      $('openCompare').disabled = false;
-    } else {
-      $('compareBar').classList.remove('show');
-      $('openCompare').disabled = true;
-    }
-  }
-  
-  function renderCompare() {
-    if (!compare.size) {
-      $('compareContent').innerHTML = '<p style="color:var(--text-muted)">Niciun tool selectat pentru comparare.</p>';
-      return;
-    }
-    $('compareContent').innerHTML = `
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th>Tool</th>
-            <th>Categorie</th>
-            <th>Preț</th>
-            <th>Țară</th>
-            <th>Trend</th>
-            <th>Când să-l folosești</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${Array.from(compare).map(name => {
-            const t = tools.find(x => x.name === name);
-            return t ? `
-              <tr>
-                <td><strong>${t.name}</strong></td>
-                <td>${t.cats.join(', ')}</td>
-                <td>${priceLabels[t.price] || t.price}</td>
-                <td>${flag[t.country] || '🌍'} ${t.country}</td>
-                <td>${t.trend}</td>
-                <td>${t.when}</td>
-              </tr>
-            ` : '';
-          }).join('')}
-        </tbody>
-      </table>
-    `;
-  }
-}
-
-function setupFavorites() {
-  document.querySelectorAll('[data-action="fav"]').forEach(b => b.onclick = e => {
-    const name = e.target.dataset.tool;
-    if (favorites.has(name)) {
-      favorites.delete(name);
-      toast(`"${name}" ștears din favorite`);
-    } else {
-      favorites.add(name);
-      toast(`"${name}" adăugat la favorite`);
-    }
-    safeStorageSet('aiRadarFavorites', JSON.stringify(Array.from(favorites)));
-    renderTools();
-    e.stopPropagation();
-  });
-  
-  $('favQuick').onclick = () => {
-    if (favorites.size) {
-      const filtered = tools.filter(t => favorites.has(t.name));
-      if (filtered.length) {
-        activeCat = activePrice = activeRegion = 'all';
-        searchQuery = '';
-        $('search').value = '';
-        save();
-        renderPills();
-        renderTools('Favoritele tale');
-      } else {
-        toast('Niciun favorit salvat');
-      }
-    } else {
-      toast('Niciun favorit salvat');
-    }
-  };
-}
-
-function setupStacks() {
-  document.querySelectorAll('[data-stack]').forEach(b => b.onclick = () => {
-    const cat = b.dataset.stack;
-    hasInteracted = true;
-    activeCat = cat;
-    activePrice = activeRegion = 'all';
-    searchQuery = '';
-    $('search').value = '';
-    save();
-    renderPills();
-    renderTools(`Stack: <strong>${cat}</strong>`);
-    document.querySelector('#tools').scrollIntoView({ behavior: 'smooth' });
-  });
-  
-  document.querySelectorAll('[data-region-stack]').forEach(b => b.onclick = () => {
-    const region = b.dataset.regionStack;
-    hasInteracted = true;
-    activeRegion = region;
-    activeCat = activePrice = 'all';
-    searchQuery = '';
-    $('search').value = '';
-    save();
-    renderPills();
-    renderTools(`Radar: <strong>${region}</strong>`);
-    document.querySelector('#tools').scrollIntoView({ behavior: 'smooth' });
-  });
-}
-
-function setQuery(v) {
-  hasInteracted = true;
-  searchQuery = v;
-  $('search').value = v;
-  var cs = $('compactSearch');
-  if (cs) cs.value = v;
-  save();
-  renderTools();
-}
-
-window.filterByCategory = function(cat) {
-  hasInteracted = true;
-  activeCat = cat;
-  activePrice = activeRegion = 'all';
-  searchQuery = '';
-  $('search').value = '';
-  var cs = $('compactSearch');
-  if (cs) cs.value = '';
-  save();
-  renderPills();
-  renderTools('Stack: <strong>' + escapeHtml(cat) + '</strong>');
-  var toolsSec = document.querySelector('#tools');
-  if (toolsSec) toolsSec.scrollIntoView({ behavior: 'smooth' });
-};
-
-function setupSearch() {
-  const searchInput = $('search'), compactInput = $('compactSearch');
-  [searchInput, compactInput].forEach(el => {
-    el.addEventListener('input', e => {
-      searchQuery = e.target.value;
-      save();
-      renderTools();
-    });
-  });
-  
-  compactInput.addEventListener('focus', () => { $('compactBar').classList.add('show'); });
-  compactInput.addEventListener('blur', () => { if (!compactInput.value) $('compactBar').classList.remove('show'); });
-}
-
-function setupReset() {
-  $('resetBtn').onclick = () => {
-    activeCat = activePrice = activeRegion = 'all';
-    searchQuery = '';
-    $('search').value = '';
-    $('compactSearch').value = '';
-    sortMode = 'default';
-    save();
-    renderPills();
-    renderTools();
-  };
-}
-
-function setupStackToggles() {
-  document.querySelectorAll('[data-stack]').forEach(function(btn) {
-    if (btn.classList.contains('stack-toggle-btn')) {
-      btn.onclick = function(e) {
-        e.stopPropagation();
-        var name = btn.dataset.stack;
-        var myStack = [];
-        try { myStack = JSON.parse(localStorage.getItem('signalMyStack') || '[]'); } catch(e2) {}
-        var idx = myStack.indexOf(name);
-        if (idx > -1) {
-          myStack.splice(idx, 1);
-          btn.textContent = 'Da';
-          btn.classList.remove('in-stack');
-          toast('Scos din stack-ul tău');
-        } else {
-          myStack.push(name);
-          btn.textContent = '✓ Da';
-          btn.classList.add('in-stack');
-          toast('Adăugat în stack-ul tău');
-        }
-        try { localStorage.setItem('signalMyStack', JSON.stringify(myStack)); } catch(e2) {}
-      };
-    }
-  });
-}
-
-// Subscribe button
-var subBtn = document.getElementById('signalSubscribe');
-if (subBtn) {
-  subBtn.onclick = function() {
-    var email = (document.getElementById('signalEmail').value || '').trim();
-    if (!email || !email.includes('@')) { toast('Introdu o adresă de email validă.'); return; }
-    try { navigator.clipboard.writeText(email); } catch(e) {}
-    toast('Ne-ai trimis emailul. Îți scriem în curând.');
-    document.getElementById('signalEmail').value = '';
-  };
-}
-
-// Close modals on overlay click
-document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('modal')) {
-    closeToolDetails();
-    $('compareModal').classList.remove('show');
-  }
-});
-
-// Close modals on Escape key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeToolDetails();
-    $('compareModal').classList.remove('show');
-  }
-});
-
-// ==================== INITIALIZATION ====================
-async function init() {
-  loadState();
-  loadTheme(); // Load theme on init
-  
-  $('search').value = searchQuery;
-  $('compactSearch').value = searchQuery;
-  
-  tools = FALLBACK_TOOLS.map(normalize);
-  $('metaTools').textContent = tools.length;
-  if ($('metaUpdated')) $('metaUpdated').textContent = 'mai 2026';
-  
-  renderWizard();
-  renderPills();
-  renderLoading();
-  renderRadar();
-  setupScrollHide();
-  
-  try {
-    const r = await fetch('tools-market.json', { cache: 'no-store' });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const data = await r.json();
-    const arr = Array.isArray(data) ? data : data.tools;
-    if (!Array.isArray(arr) || !arr.length) throw new Error('Listă goală');
-    tools = arr.map(normalize);
-    setDataStatus('ok', 'Date live sincronizate');
-    if ($('metaUpdated')) $('metaUpdated').textContent = data.updatedAt || 'mai 2026';
-  } catch (e) {
-    setDataStatus('warn', 'Fallback local');
-    toast('Eroare la încărcare, folosesc fallback local');
-  } finally {
-    isLoading = false;
-    $('metaTools').textContent = tools.length;
-    $('search').value = searchQuery;
-    $('compactSearch').value = searchQuery;
-    renderPills();
-    renderTrending();
-    renderRadar();
-    renderTools();
-    
-    if (hasDeepLink) {
-      setTimeout(() => {
-        document.querySelector('#tools').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        toast('Filtru din URL aplicat');
-      }, 350);
-    }
-  }
-  
-  // Initialize theme toggle
-  const themeBtn = document.getElementById('themeToggle');
-  if (themeBtn) {
-    themeBtn.addEventListener('click', toggleTheme);
-  }
-}
-
-// Initialize the app
-init().then(() => {
-  setupCompare();
-  setupFavorites();
-  setupStacks();
-  setupSearch();
-  setupReset();
-  setupStackToggles();
-  if (typeof initWorkflowGenome === 'function') initWorkflowGenome();
-  if (typeof initStackScore === 'function') initStackScore();
-  if (typeof initSignalFeed === 'function') initSignalFeed();
-});
-</script>
 </body>
 </html>

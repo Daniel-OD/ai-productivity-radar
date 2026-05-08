@@ -132,22 +132,18 @@
 
     var recsHtml = '';
     for (var i = 0; i < recs.length; i++) {
-      recsHtml += '<div class="ss-rec-card">';
-      recsHtml += '<div class="ss-rec-icon">' + escHtml(recs[i].icon) + '</div>';
-      recsHtml += '<strong style="font-family:var(--serif);font-size:15px">' + escHtml(recs[i].title) + '</strong>';
-      recsHtml += '<p>' + escHtml(recs[i].desc) + '</p>';
-      recsHtml += '</div>';
+      recsHtml += '<div class="ss-rec"><strong>' + escHtml(recs[i].icon + ' ' + recs[i].title) + '.</strong> ' + escHtml(recs[i].desc) + '</div>';
     }
 
     container.innerHTML =
       '<div class="ss-result">' +
-        '<div class="ss-score-display" id="ssScoreNum">0</div>' +
-        '<div class="ss-score-label">Stack Score · Nivel: <strong style="color:var(--gold)">' + escHtml(level.name) + '</strong></div>' +
-        '<p style="max-width:480px;margin:12px auto;color:var(--text-muted);font-size:14px">' + escHtml(level.desc) + '</p>' +
-        '<div class="ss-recs">' + recsHtml + '</div>' +
+        '<div class="ss-score-display"><span class="ss-score-num" id="ssScoreNum">0</span><span class="ss-score-max">/1000</span></div>' +
+        '<div class="ss-tier">' + escHtml(level.name) + '</div>' +
+        '<p class="ss-tier-desc">' + escHtml(level.desc) + '</p>' +
+        '<div class="ss-recs"><div class="ss-recs-title">Recomandări SIGNAL</div>' + recsHtml + '</div>' +
         '<div class="ss-actions">' +
           '<button class="primary" id="ssShare">Partajează scorul</button>' +
-          '<button class="mini-btn" id="ssRetake">Recalculează</button>' +
+          '<button class="secondary" id="ssRetake">Recalculează</button>' +
         '</div>' +
       '</div>';
 
@@ -185,14 +181,14 @@
       var q = QUESTIONS[i];
       html += '<div class="ss-question" data-qid="' + escHtml(q.id) + '">';
       html += '<div class="ss-q-label">' + (i + 1) + '. ' + escHtml(q.label) + '</div>';
-      html += '<div class="ss-options">';
+      html += '<div class="ss-opts">';
       for (var j = 0; j < q.options.length; j++) {
         html += '<button class="ss-opt" data-score="' + q.options[j].score + '" data-qid="' + escHtml(q.id) + '">' + escHtml(q.options[j].text) + '</button>';
       }
       html += '</div></div>';
     }
     html += '</div>';
-    html += '<div class="ss-submit-wrap" style="display:none"><button class="primary" id="ssSubmit">Calculează Stack Score →</button></div>';
+    html += '<div class="ss-submit-wrap"><button class="primary ss-calc-btn" id="ssSubmit" disabled>Calculează Stack Score →</button></div>';
     container.innerHTML = html;
 
     container.querySelectorAll('.ss-opt').forEach(function (btn) {
@@ -201,13 +197,10 @@
         var score = parseInt(btn.getAttribute('data-score'));
         answers[qid] = score;
         container.querySelectorAll('.ss-opt[data-qid="' + qid + '"]').forEach(function (b) {
-          b.classList.remove('selected');
+          b.classList.remove('active');
         });
-        btn.classList.add('selected');
-        if (Object.keys(answers).length === QUESTIONS.length) {
-          var sw = container.querySelector('.ss-submit-wrap');
-          if (sw) sw.style.display = '';
-        }
+        btn.classList.add('active');
+        container.querySelector('#ssSubmit').disabled = Object.keys(answers).length !== QUESTIONS.length;
       });
     });
 
@@ -222,6 +215,9 @@
   }
 
   function initStackScore() {
+    if (window.__signalStackScoreInitialized) return;
+    window.__signalStackScoreInitialized = true;
+
     var container = document.getElementById('stackScoreUI');
     if (!container) return;
     var saved = safeGet('signalStackScore');

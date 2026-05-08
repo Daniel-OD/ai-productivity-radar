@@ -270,12 +270,13 @@
     document.body.style.overflow = '';
   }
 
-  window.openCommandPalette = openPalette;
-  window.closeCommandPalette = closePalette;
-  window.openDecision = openDecisionRescue;
-  window.closeDecision = closeDecisionRescue;
+  if (typeof window.openCommandPalette !== 'function') window.openCommandPalette = openPalette;
+  if (typeof window.closeCommandPalette !== 'function') window.closeCommandPalette = closePalette;
+  if (typeof window.openDecision !== 'function') window.openDecision = openDecisionRescue;
+  if (typeof window.closeDecision !== 'function') window.closeDecision = closeDecisionRescue;
 
   document.addEventListener('DOMContentLoaded', function () {
+    if (window.__signalCoreUiReady) return;
     loadTools();
 
     $('commandBtn')?.addEventListener('click', function (event) {

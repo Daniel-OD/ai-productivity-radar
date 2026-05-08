@@ -202,14 +202,17 @@ function syncUrl() {
 /* ── Initialisation ─────────────────────────────────────────────────────── */
 async function init() {
   loadState();
-  $('search').value     = searchQuery;
-  $('sortSelect').value = sortMode;
+  if ($('search')) $('search').value = searchQuery;
+  if ($('compactSearch')) $('compactSearch').value = searchQuery;
   tools = FALLBACK_TOOLS.map(normalize);
-  $('metaTools').textContent = tools.length;
+  isLoading = false;
+  if ($('metaTools')) $('metaTools').textContent = tools.length;
   renderWizard();
   renderPills();
-  renderLoading();
+  renderTrending();
   renderRadar();
+  renderTools();
+  setupUiEnhancements();
 
   try {
     const r = await fetch('tools-market.json');
@@ -217,36 +220,42 @@ async function init() {
     const data = await r.json();
     const arr  = Array.isArray(data) ? data : data.tools;
     if (!Array.isArray(arr) || !arr.length) throw new Error('Listă goală');
-    tools = arr.map(normalize);
-    $('dataStatus').textContent = 'Date live sincronizate';
-    $('dataStatus').classList.add('ok');
-    $('metaUpdated').textContent = data.updatedAt || currentMonthYear;
+    tools = mergeTools(tools, arr.map(normalize));
   } catch (e) {
-    $('dataStatus').textContent = 'Fallback local';
-    toast('Folosesc fallback local');
-  } finally {
-    isLoading = false;
-    $('metaTools').textContent = tools.length;
-    $('search').value     = searchQuery;
-    $('sortSelect').value = sortMode;
-    renderPills();
-    renderTrending();
-    renderRadar();
-    renderTools();
-
-    if (typeof initCommandPalette === 'function') initCommandPalette();
-    if (typeof initDecisionModal   === 'function') initDecisionModal();
-    if (typeof handleToolDeepLink  === 'function') handleToolDeepLink();
-
-    if (hasDeepLink) {
-      setTimeout(() => {
-        document.querySelector('#tools').scrollIntoView({behavior:'smooth', block:'start'});
-        toast('Filtru din URL aplicat');
-      }, 350);
-    }
+    console.warn('[SIGNAL] using fallback tools because remote data failed');
   }
 
+  if ($('metaTools')) $('metaTools').textContent = tools.length;
+  if ($('search')) $('search').value = searchQuery;
+  if ($('compactSearch')) $('compactSearch').value = searchQuery;
+  renderPills();
+  renderTrending();
+  renderRadar();
+  renderTools();
+
+  if (typeof initCommandPalette === 'function') initCommandPalette();
+  if (typeof initDecisionModal   === 'function') initDecisionModal();
+  if (typeof initSignalFeed      === 'function') initSignalFeed();
+  if (typeof initWorkflowGenome  === 'function') initWorkflowGenome();
+  if (typeof initStackScore      === 'function') initStackScore();
+  if (typeof handleToolDeepLink  === 'function') handleToolDeepLink();
+
+  if (hasDeepLink) {
+    setTimeout(() => {
+      document.querySelector('#tools')?.scrollIntoView({behavior:'smooth', block:'start'});
+      toast('Filtru din URL aplicat');
+    }, 350);
+  }
+
+  window.__signalCoreUiReady = true;
   registerServiceWorker();
+}
+
+function mergeTools(localTools, remoteTools) {
+  const merged = new Map();
+  localTools.forEach(tool => merged.set(normKey(tool.name), tool));
+  remoteTools.forEach(tool => merged.set(normKey(tool.name), tool));
+  return Array.from(merged.values());
 }
 
 function registerServiceWorker() {
@@ -282,12 +291,22 @@ function pills(items, active, kind) {
 }
 
 function renderPills() {
-  $('categoryPills').innerHTML = pills(categories, activeCat,    'cat');
-  $('pricePills').innerHTML    = pills(prices,     activePrice,  'price');
-  $('regionPills').innerHTML   = pills(regions,    activeRegion, 'region');
+  if ($('categoryPills')) $('categoryPills').innerHTML = pills(categories, activeCat, 'cat');
+  if ($('pricePills')) $('pricePills').innerHTML = pills(prices, activePrice, 'price');
+  if ($('regionPills')) $('regionPills').innerHTML = pills(regions, activeRegion, 'region');
   document.querySelectorAll('[data-cat]').forEach(   b => b.onclick = () => { hasInteracted=true; activeCat   =b.dataset.cat;    save(); renderPills(); renderTools(); });
   document.querySelectorAll('[data-price]').forEach(  b => b.onclick = () => { hasInteracted=true; activePrice =b.dataset.price;  save(); renderPills(); renderTools(); });
   document.querySelectorAll('[data-region]').forEach( b => b.onclick = () => { hasInteracted=true; activeRegion=b.dataset.region; save(); renderPills(); renderTools(); });
+  document.querySelectorAll('[data-sort]').forEach(b => {
+    b.classList.toggle('active', b.dataset.sort === sortMode);
+    b.onclick = () => {
+      hasInteracted = true;
+      sortMode = b.dataset.sort;
+      save();
+      renderPills();
+      renderTools();
+    };
+  });
 }
 
 /* ── Wizard ──────────────────────────────────────────────────────────────── */
@@ -300,7 +319,8 @@ function renderWizard() {
   document.querySelectorAll('[data-profile]').forEach(b => b.onclick = () => {
     const p = profiles[+b.dataset.profile];
     hasInteracted = true; activeCat = p.cat; activePrice = activeRegion = 'all'; searchQuery = '';
-    $('search').value = '';
+    if ($('search')) $('search').value = '';
+    if ($('compactSearch')) $('compactSearch').value = '';
     $('recommendation').innerHTML = 'Recomandare: <strong>' + escapeHtml(p.rec) + '</strong>';
     save(); renderPills();
     renderTools('Am filtrat pentru: <strong>' + escapeHtml(p.title) + '</strong>');
@@ -319,6 +339,7 @@ function getFiltered() {
         && (!q || hay.includes(q));
   });
   if      (sortMode === 'trend')    out.sort((a,b) => b.trend - a.trend);
+  else if (sortMode === 'rating')   out.sort((a,b) => b.trend - a.trend);
   else if (sortMode === 'name')     out.sort((a,b) => a.name.localeCompare(b.name,'ro'));
   else if (sortMode === 'price')    out.sort((a,b) => priceOrder[a.price] - priceOrder[b.price]);
   else if (sortMode === 'favorites')out.sort((a,b) => favorites.has(b.name) - favorites.has(a.name));
@@ -328,6 +349,7 @@ function getFiltered() {
 
 /* ── Trending strip ──────────────────────────────────────────────────────── */
 function renderTrending() {
+  if (!$('trendingStrip')) return;
   const top = [...tools].sort((a,b) => b.trend - a.trend).slice(0,4);
   $('trendingStrip').innerHTML = top.map(t =>
     '<div class="trend-card" data-trendtool="' + escapeAttr(t.name) + '">' +
@@ -337,6 +359,7 @@ function renderTrending() {
   ).join('');
   document.querySelectorAll('[data-trendtool]').forEach(c => c.onclick = () => {
     hasInteracted=true; searchQuery=c.dataset.trendtool; $('search').value=searchQuery;
+    if ($('compactSearch')) $('compactSearch').value = searchQuery;
     activeCat=activePrice=activeRegion='all'; save(); renderPills(); renderTools();
     document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
   });
@@ -344,6 +367,7 @@ function renderTrending() {
 
 /* ── Radar stats ─────────────────────────────────────────────────────────── */
 function renderRadar() {
+  if (!$('radarGrid')) return;
   const hot  = tools.filter(t => t.trend >= 85).length;
   const free = tools.filter(t => t.price === 'gratuit' || t.price === 'freemium').length;
   const data = tools.filter(t => t.cats.includes('date')).length;
@@ -358,25 +382,35 @@ function renderRadar() {
 
 /* ── Tool grid ───────────────────────────────────────────────────────────── */
 function renderTools(msg) {
+  const CAT_BORDER = {
+    programare: '#3B82F6',
+    date: '#38bdf8',
+    design: '#c084fc',
+    cercetare: '#E8B86D',
+    scris: '#10B981',
+    productivitate: '#5eead4',
+    studiu: '#818cf8'
+  };
   if (msg === undefined) msg = '';
   if (isLoading) { renderLoading(); return; }
   const out = getFiltered();
+  if (!$('toolsGrid')) return;
   $('toolsGrid').style.display = out.length ? 'grid' : 'none';
-  $('emptyState').classList.toggle('show', !out.length && hasInteracted);
+  $('emptyState')?.classList.toggle('show', !out.length && hasInteracted);
   if (!out.length) {
     $('toolsGrid').innerHTML = '';
-    $('resultsCount').innerHTML = hasInteracted
+    if ($('resultsCount')) $('resultsCount').innerHTML = hasInteracted
       ? 'Afișez <strong>0</strong> rezultate'
       : 'Alege un profil sau folosește filtrele pentru a începe.';
     return;
   }
   $('toolsGrid').innerHTML = out.map((t, i) =>
-    '<div class="tool-card" data-tool-name="' + escapeAttr(t.name) + '" style="animation-delay:' + Math.min(i*22,350) + 'ms">' +
+    '<div class="tool-card" data-tool-name="' + escapeAttr(t.name) + '" style="border-left:3px solid ' + (CAT_BORDER[t.cats[0]] || 'var(--border)') + ';animation-delay:' + Math.min(i*22,350) + 'ms">' +
 
     /* ★ TopAI element: tool-head cu favicon icon */
     '<div class="tool-head">' +
     '<div class="tool-head-left">' +
-    '<img class="tool-icon" src="' + getFaviconUrl(t.url) + '" alt="" aria-hidden="true" loading="lazy"' +
+    '<img class="tool-icon" src="' + escapeAttr(toolFaviconUrl(t.name)) + '" alt="" aria-hidden="true" loading="lazy"' +
     ' onerror="this.style.display=\'none\';var fb=this.nextElementSibling;if(fb)fb.style.display=\'flex\';">' +
     '<span class="tool-icon-fallback" style="display:none">' + escapeHtml(t.name.charAt(0).toUpperCase()) + '</span>' +
     '<div class="tool-name">' + escapeHtml(t.name) +
@@ -406,7 +440,7 @@ function renderTools(msg) {
     '<button class="compare-btn" data-compare="' + escapeAttr(t.name) + '">' + (compare.has(t.name)?'✓':'+') + ' Compară</button>' +
     '</div></div>'
   ).join('');
-  $('resultsCount').innerHTML = msg || 'Afișez <strong>' + out.length + '</strong> din <strong>' + tools.length + '</strong> tooluri';
+  if ($('resultsCount')) $('resultsCount').innerHTML = msg || 'Afișez <strong>' + out.length + '</strong> din <strong>' + tools.length + '</strong> tooluri';
   wireCards();
 }
 
@@ -464,24 +498,146 @@ function openCompare() {
 }
 
 /* ── Search input ────────────────────────────────────────────────────────── */
-function setQuery(v) { hasInteracted=true; searchQuery=v; $('search').value=v; save(); renderTools(); }
+function setQuery(v) {
+  hasInteracted = true;
+  searchQuery = v;
+  if ($('search')) $('search').value = v;
+  if ($('compactSearch')) $('compactSearch').value = v;
+  save();
+  renderTools();
+}
+
+window.filterByCategory = function (cat) {
+  hasInteracted = true;
+  activeCat = cat;
+  activePrice = 'all';
+  activeRegion = 'all';
+  searchQuery = '';
+  setQuery('');
+  save();
+  renderPills();
+  renderTools('Stack: <strong>' + escapeHtml(cat) + '</strong>');
+  document.querySelector('#tools')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+function setupUiEnhancements() {
+  setupScrollHide();
+  setupStackButtons();
+  setupTheme();
+  setupFooterSubscribe();
+}
+
+function setupScrollHide() {
+  const filtersEl = $('filters');
+  const compactEl = $('compactBar');
+  if (!filtersEl || !compactEl) return;
+
+  let last = 0;
+  window.addEventListener('scroll', () => {
+    const now = window.scrollY;
+    if (now > last && now > 120) {
+      filtersEl.classList.add('filters-hidden');
+      compactEl.classList.add('show');
+    } else {
+      filtersEl.classList.remove('filters-hidden');
+      compactEl.classList.remove('show');
+    }
+    last = now;
+  });
+
+  $('showFilters')?.addEventListener('click', () => {
+    filtersEl.classList.remove('filters-hidden');
+    compactEl.classList.remove('show');
+    filtersEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
+function setupStackButtons() {
+  document.querySelectorAll('[data-stack]').forEach(btn => {
+    if (btn.classList.contains('stack-toggle-btn')) return;
+    btn.onclick = () => {
+      hasInteracted = true;
+      activeCat = btn.dataset.stack;
+      activePrice = 'all';
+      activeRegion = 'all';
+      setQuery('');
+      save();
+      renderPills();
+      renderTools('Stack: <strong>' + escapeHtml(btn.dataset.stack) + '</strong>');
+      document.querySelector('#tools')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+  });
+
+  document.querySelectorAll('[data-region-stack]').forEach(btn => {
+    btn.onclick = () => {
+      hasInteracted = true;
+      activeRegion = btn.dataset.regionStack;
+      activeCat = 'all';
+      activePrice = 'all';
+      setQuery('');
+      save();
+      renderPills();
+      renderTools('Radar: <strong>' + escapeHtml(btn.dataset.regionStack) + '</strong>');
+      document.querySelector('#tools')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+  });
+}
+
+function setupTheme() {
+  const root = document.documentElement;
+  const btn = $('themeToggle');
+  try {
+    root.classList.toggle('light-mode', localStorage.getItem('theme') === 'light');
+  } catch (_) {}
+  if (btn) {
+    btn.textContent = root.classList.contains('light-mode') ? '🌙' : '☀️';
+    btn.onclick = () => {
+      root.classList.toggle('light-mode');
+      const nextTheme = root.classList.contains('light-mode') ? 'light' : 'dark';
+      try { localStorage.setItem('theme', nextTheme); } catch (_) {}
+      btn.textContent = nextTheme === 'light' ? '🌙' : '☀️';
+    };
+  }
+}
+
+function setupFooterSubscribe() {
+  const subscribe = $('footerSubscribe');
+  const emailInput = $('footerEmail');
+  if (!subscribe || !emailInput) return;
+  subscribe.addEventListener('click', () => {
+    const email = emailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      toast('Introdu o adresă de email validă.');
+      return;
+    }
+    try {
+      localStorage.setItem('signalEmail', email);
+    } catch (error) {
+      console.warn('[SIGNAL] unable to save email preference');
+    }
+    toast('✓ Te-am înregistrat! Primul Signal Weekly vine în curând.');
+    emailInput.value = '';
+  });
+}
 
 /* ── Event wiring ────────────────────────────────────────────────────────── */
-$('search').oninput    = e => setQuery(e.target.value);
-$('sortSelect').onchange = e => { hasInteracted=true; sortMode=e.target.value; save(); renderTools(); };
+$('search').oninput = e => setQuery(e.target.value);
+$('compactSearch')?.addEventListener('input', e => setQuery(e.target.value));
 
 $('resetBtn').onclick = () => {
   hasInteracted=false; hasDeepLink=false;
   activeCat=activePrice=activeRegion='all';
   searchQuery=''; sortMode='default';
-  $('search').value=''; $('sortSelect').value='default';
+  if ($('search')) $('search').value='';
+  if ($('compactSearch')) $('compactSearch').value='';
   safeStorageSet('aiRadarState','{}'); syncUrl();
   renderPills(); renderTools(); toast('Filtre resetate');
 };
 
 $('favQuick').onclick = () => {
   hasInteracted=true; sortMode='favorites';
-  $('sortSelect').value='favorites'; save();
+  save();
+  renderPills();
   renderTools('Favoritele sunt afișate primele.');
 };
 
