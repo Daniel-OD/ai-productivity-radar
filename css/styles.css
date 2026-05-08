@@ -71,3 +71,73 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 /* ── Phase 7: Skip-to-content link ──────────────────────────────────── */
 .skip-link { position: absolute; top: -40px; left: 16px; background: var(--gold); color: var(--bg); padding: 8px 16px; border-radius: 0 0 6px 6px; font-family: var(--mono); font-size: 12px; z-index: 9999; text-decoration: none; }
 .skip-link:focus { top: 0; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TopAI elements: favicon icon pe card
+   ═══════════════════════════════════════════════════════════════════════════ */
+.tool-head-left {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex: 1;
+  min-width: 0;
+}
+.tool-head-left .tool-name {
+  flex: 1;
+  min-width: 0;
+}
+.tool-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: contain;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  transition: opacity .2s;
+}
+.tool-icon-fallback {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--gold);
+  flex-shrink: 0;
+  font-weight: 400;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TopAI elements: category tags colorate per categorie
+   ═══════════════════════════════════════════════════════════════════════════ */
+.cat-tag.cat-programare    { color:#7fa3bf; border-color:rgba(127,163,191,.45); background:rgba(127,163,191,.1); }
+.cat-tag.cat-scris         { color:#94b08c; border-color:rgba(148,176,140,.45); background:rgba(148,176,140,.1); }
+.cat-tag.cat-cercetare     { color:#d4a574; border-color:rgba(212,165,116,.45); background:rgba(212,165,116,.1); }
+.cat-tag.cat-design        { color:#c084fc; border-color:rgba(192,132,252,.45); background:rgba(192,132,252,.1); }
+.cat-tag.cat-productivitate{ color:#5eead4; border-color:rgba(94,234,212,.45);  background:rgba(94,234,212,.1);  }
+.cat-tag.cat-studiu        { color:#818cf8; border-color:rgba(129,140,248,.45); background:rgba(129,140,248,.1); }
+.cat-tag.cat-date          { color:#38bdf8; border-color:rgba(56,189,248,.45);  background:rgba(56,189,248,.1);  }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TopAI elements: badge "Nou" pentru tooluri recent adăugate
+   ═══════════════════════════════════════════════════════════════════════════ */
+.badge-new {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(148,176,140,.18);
+  color: var(--sage);
+  border: 1px solid rgba(148,176,140,.5);
+  vertical-align: middle;
+  margin-left: 8px;
+  display: inline-block;
+  line-height: 1.6;
+}
