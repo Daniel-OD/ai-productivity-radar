@@ -367,7 +367,7 @@ function renderTrending() {
       document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
     };
     c.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.click(); }
+      if (e.key === 'Enter' || e.key === ' ') { if (e.key === ' ') e.preventDefault(); c.click(); }
     });
   });
 }
