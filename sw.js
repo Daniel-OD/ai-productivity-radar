@@ -1,4 +1,4 @@
-// Service Worker for AI Productivity Radar
+// Service Worker for SIGNAL
 // Cache version: ai-radar-v1
 const CACHE_NAME = 'ai-radar-v1';
 

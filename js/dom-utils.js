@@ -1,5 +1,5 @@
 /**
- * DOM utilities – safe HTML helpers for AI Productivity Radar.
+ * DOM utilities – safe HTML helpers for SIGNAL.
  * Load BEFORE all other app scripts.
  */
 

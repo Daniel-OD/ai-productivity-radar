@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * AI Productivity Radar - JSON Validator
+ * SIGNAL - JSON Validator
  * 
  * Validează structura și câmpurile obligatorii din tools-market.json.
  * 

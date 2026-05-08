@@ -1,0 +1,82 @@
+[
+  {
+    "id": "sf001",
+    "type": "update",
+    "tool": "Claude",
+    "title": "Claude Sonnet 4.6 disponibil în API și Claude Code",
+    "body": "Anthropic a lansat Claude Sonnet 4.6 cu îmbunătățiri semnificative în raționament extins și utilizarea instrumentelor. Claude Code beneficiază acum de capacități sporite de editare de cod și o mai bună înțelegere a contextului.",
+    "impact": "high",
+    "date": "2026-05-07",
+    "url": "https://anthropic.com"
+  },
+  {
+    "id": "sf002",
+    "type": "milestone",
+    "tool": "Bolt.new",
+    "title": "Bolt.new depășește 2 milioane de proiecte generate",
+    "body": "Platforma de dezvoltare full-stack cu AI a atins un nou jalon cu peste 2 milioane de proiecte generate în mai puțin de 18 luni de la lansare. StackBlitz anunță și noi funcționalități pentru deployment automat.",
+    "impact": "medium",
+    "date": "2026-05-06",
+    "url": "https://bolt.new"
+  },
+  {
+    "id": "sf003",
+    "type": "update",
+    "tool": "GitHub Copilot",
+    "title": "GitHub Copilot Free extinde accesul la 300 completări/zi",
+    "body": "Microsoft a majorat limita planului gratuit al GitHub Copilot de la 200 la 300 completări de cod pe zi. Planul Pro primește acum acces la modele multiple, inclusiv Claude Sonnet și GPT-4o.",
+    "impact": "high",
+    "date": "2026-05-05",
+    "url": "https://github.com/features/copilot"
+  },
+  {
+    "id": "sf004",
+    "type": "milestone",
+    "tool": "Windsurf",
+    "title": "Windsurf (Codeium) atinge 1.5 milioane de descărcări",
+    "body": "Editorul AI de la Codeium a depășit 1.5 milioane de descărcări, consolidându-și poziția ca alternativă competitivă la Cursor. Noua versiune introduce Cascade Deep Thinking pentru probleme complexe.",
+    "impact": "medium",
+    "date": "2026-05-04",
+    "url": "https://codeium.com/windsurf"
+  },
+  {
+    "id": "sf005",
+    "type": "deprecation",
+    "tool": "Bing Chat",
+    "title": "Microsoft Bing Chat rebranded complet în Microsoft Copilot",
+    "body": "Microsoft a finalizat tranziția completă de la Bing Chat la Microsoft Copilot. Toate funcționalitățile sunt acum unificate sub umbrela Copilot cu integrare în Windows 11 și Microsoft 365.",
+    "impact": "low",
+    "date": "2026-05-03",
+    "url": "https://copilot.microsoft.com"
+  },
+  {
+    "id": "sf006",
+    "type": "launch",
+    "tool": "Perplexity",
+    "title": "Perplexity lansează Spaces — organizare colaborativă a cercetărilor",
+    "body": "Noua funcție Spaces permite echipelor să organizeze și să partajeze cercetări AI. Fiecare Space are memorie proprie, instrucțiuni personalizate și poate integra surse de date externe.",
+    "impact": "high",
+    "date": "2026-05-02",
+    "url": "https://perplexity.ai"
+  },
+  {
+    "id": "sf007",
+    "type": "update",
+    "tool": "Cursor",
+    "title": "Cursor 0.45 adaugă Background Agent și multi-file diff",
+    "body": "Ultima versiune a Cursor introduce Background Agent — un agent care rulează în fundal și poate lucra la task-uri complexe în timp ce continui să editezi. Multi-file diff îmbunătățește vizualizarea schimbărilor mari.",
+    "impact": "high",
+    "date": "2026-05-01",
+    "url": "https://cursor.com"
+  },
+  {
+    "id": "sf008",
+    "type": "launch",
+    "tool": "Suno AI",
+    "title": "Suno v4.5 generează muzică de 4 minute cu structură completă",
+    "body": "Noua versiune a Suno poate genera piese muzicale de până la 4 minute cu intro, vers, refren și bridge. Calitatea producției s-a îmbunătățit dramatic, apropiindu-se de producțiile comerciale.",
+    "impact": "medium",
+    "date": "2026-04-30",
+    "url": "https://suno.com"
+  }
+]

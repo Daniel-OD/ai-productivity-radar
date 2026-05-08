@@ -1,5 +1,5 @@
 /**
- * Decision Modal – full decision-analysis overlay for AI Productivity Radar.
+ * Decision Modal – full decision-analysis overlay for SIGNAL.
  *
  * Runtime dependencies (resolved lazily, set by app.js):
  *   tools, favorites, compare, flag, priceLabels,

@@ -1,5 +1,5 @@
 // Phase 0 Production Hardening
-// Lightweight runtime guards for AI Productivity Radar.
+// Lightweight runtime guards for SIGNAL.
 
 (function () {
   'use strict';

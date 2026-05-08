@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * AI Productivity Radar — market data collector
+ * SIGNAL — market data collector
  *
  * Generates static market signals from safe APIs, then writes:
  *   data/market-signals.json

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * AI Productivity Radar - Link Checker
+ * SIGNAL - Link Checker
  * 
  * Verifică dacă URL-urile tool-urilor din tools-market.json sunt valide (HTTP 200).
  * 
