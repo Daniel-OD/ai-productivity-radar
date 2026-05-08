@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
 <style>
 :root {
   --bg: #0f0d0a;
@@ -1493,6 +1494,7 @@ footer {
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Sari la conținut</a>
 <nav class="topnav">
   <div class="container">
     <div class="brand">SIGNAL</div>
@@ -1524,6 +1526,8 @@ footer {
     </div>
   </div>
 </header>
+
+<main id="main-content">
 
 <section class="section wg-section" id="workflow-genome" aria-label="Workflow Genome">
   <div class="container">
@@ -1719,6 +1723,8 @@ footer {
   </div>
 </section>
 
+</main>
+
 <footer>
   <div class="container">
     <div class="footer-grid">
@@ -1746,7 +1752,7 @@ footer {
 </footer>
 
 <!-- Modal pentru detalii tool -->
-<div class="modal" id="toolDetailsModal">
+<div class="modal" id="toolDetailsModal" role="dialog" aria-modal="true" aria-labelledby="toolDetailsName">
   <div class="modal-card">
     <button class="modal-close" id="closeToolDetails" aria-label="Închide">×</button>
     <h2 class="section-title" id="toolDetailsName">Nume Tool</h2>
@@ -1759,7 +1765,7 @@ footer {
   <div class="command-card">
     <div class="command-top">
       <span>⌘K</span>
-      <input id="commandInput" autocomplete="off" placeholder="Caută tool, categorie, țară, use-case..." />
+      <input id="commandInput" aria-label="Caută tool sau comandă" autocomplete="off" placeholder="Caută tool, categorie, țară, use-case..." />
     </div>
     <div class="command-results" id="commandResults"></div>
     <div class="command-footer">
@@ -1775,16 +1781,16 @@ footer {
 </div>
 
 <!-- Compare Bar -->
-<div class="compare-bar" id="compareBar">
+<div class="compare-bar" id="compareBar" role="region" aria-label="Comparare tooluri selectate" aria-live="polite">
   <span id="compareText">0 selectate</span>
   <button class="mini-btn" id="openCompare" disabled>Compară</button>
   <button class="mini-btn" id="clearCompare">Curăță</button>
 </div>
 
 <!-- Compare Modal -->
-<div class="modal" id="compareModal">
+<div class="modal" id="compareModal" role="dialog" aria-modal="true" aria-labelledby="compareModalTitle">
   <div class="modal-card">
-    <h2 class="section-title">Comparare tooluri</h2>
+    <h2 class="section-title" id="compareModalTitle">Comparare tooluri</h2>
     <div id="compareContent"></div>
     <button class="primary" id="closeCompare" style="margin-top:18px">Închide</button>
   </div>

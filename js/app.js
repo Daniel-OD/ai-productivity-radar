@@ -353,17 +353,22 @@ function renderTrending() {
   if (!$('trendingStrip')) return;
   const top = [...tools].sort((a,b) => b.trend - a.trend).slice(0,4);
   $('trendingStrip').innerHTML = top.map(t =>
-    '<div class="trend-card" data-trendtool="' + escapeAttr(t.name) + '">' +
+    '<div class="trend-card" role="button" tabindex="0" data-trendtool="' + escapeAttr(t.name) + '">' +
     '<div class="score">↗ trend ' + escapeHtml(String(t.trend)) + '</div>' +
     '<h3>' + escapeHtml(t.name) + '</h3>' +
     '<p>' + escapeHtml(t.tagline) + '</p></div>'
   ).join('');
-  document.querySelectorAll('[data-trendtool]').forEach(c => c.onclick = () => {
-    hasInteracted=true; searchQuery=c.dataset.trendtool;
-    activeCat=activePrice=activeRegion='all'; save();
-    renderTools();
-    if (typeof setupToolbar.__syncToUI === 'function') setupToolbar.__syncToUI();
-    document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('[data-trendtool]').forEach(c => {
+    c.onclick = () => {
+      hasInteracted=true; searchQuery=c.dataset.trendtool;
+      activeCat=activePrice=activeRegion='all'; save();
+      renderTools();
+      if (typeof setupToolbar.__syncToUI === 'function') setupToolbar.__syncToUI();
+      document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
+    };
+    c.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { if (e.key === ' ') e.preventDefault(); c.click(); }
+    });
   });
 }
 
