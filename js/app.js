@@ -33,6 +33,26 @@ const flag = {SUA:'🇺🇸',Canada:'🇨🇦',China:'🇨🇳',Franța:'🇫�
 
 const OFFICIAL_URLS = {'chatgpt':'https://chatgpt.com','claude':'https://claude.ai','perplexity':'https://www.perplexity.ai','cursor':'https://cursor.com','deepseek':'https://chat.deepseek.com','qwen':'https://chat.qwen.ai','tongyi qianwen':'https://chat.qwen.ai','mistral':'https://chat.mistral.ai','le chat':'https://chat.mistral.ai','hugging face':'https://huggingface.co','notebooklm':'https://notebooklm.google.com','julius':'https://julius.ai','power bi copilot':'https://powerbi.microsoft.com','synthesia':'https://www.synthesia.io','kimi':'https://kimi.com','manus':'https://manus.im','photoroom':'https://www.photoroom.com','stability ai':'https://stability.ai','stable diffusion':'https://stability.ai','github copilot':'https://github.com/features/copilot','canva':'https://www.canva.com','figma':'https://www.figma.com/ai'};
 
+const TOOL_DOMAINS = {'chatgpt':'chatgpt.com','claude':'claude.ai','perplexity':'perplexity.ai','cursor':'cursor.com','deepseek':'deepseek.com','mistral':'mistral.ai','le chat':'mistral.ai','hugging face':'huggingface.co','notebooklm':'notebooklm.google.com','julius':'julius.ai','julius ai':'julius.ai','power bi copilot':'powerbi.microsoft.com','synthesia':'synthesia.io','canva':'canva.com','figma':'figma.com','github copilot':'github.com','midjourney':'midjourney.com','runway':'runwayml.com','stability ai':'stability.ai','stable diffusion':'stability.ai','kimi':'kimi.moonshot.cn','manus':'manus.im','photoroom':'photoroom.com','notion ai':'notion.so','grammarly':'grammarly.com','gemini':'gemini.google.com','copilot':'copilot.microsoft.com','qwen':'qwen.ai','tongyi qianwen':'qwen.ai','n8n':'n8n.io','make':'make.com','zapier':'zapier.com','hex':'hex.tech','reclaim':'reclaim.ai','granola':'granola.so'};
+
+function toolFaviconUrl(name) {
+  const key = normKey(name);
+  const domain = TOOL_DOMAINS[key] || Object.entries(TOOL_DOMAINS).find(([k]) => key.includes(k) || k.includes(key))?.[1];
+  if (!domain) return '';
+  return 'https://www.google.com/s2/favicons?domain=' + domain + '&sz=64';
+}
+
+function toolLogoHtml(t) {
+  const src = toolFaviconUrl(t.name);
+  const letter = escapeHtml((t.name || '?')[0].toUpperCase());
+  if (!src) return '<div class="tool-logo-wrap"><span class="tool-logo-letter">' + letter + '</span></div>';
+  return '<div class="tool-logo-wrap">' +
+    '<img src="' + escapeAttr(src) + '" alt="" loading="lazy" ' +
+    'onerror="this.classList.add(\'errored\')" />' +
+    '<span class="tool-logo-letter">' + letter + '</span>' +
+    '</div>';
+}
+
 /* Semantic intent taxonomy – also consumed by command-palette.js */
 const TASK_INTENTS = [
   {id:'date',          label:'analiză de date / Excel / CSV',     cats:['date'],               words:['excel','csv','tabel','date','analiza','analizez','grafic','dashboard','bi','statistici','raport','spreadsheet','sql','insight','forecast','predictie','dataset']},
@@ -179,6 +199,7 @@ async function init() {
   tools = FALLBACK_TOOLS.map(normalize);
   $('metaTools').textContent = tools.length;
   renderWizard();
+  initHero();
   renderPills();
   renderLoading();
   renderRadar();
@@ -265,6 +286,50 @@ function renderPills() {
   document.querySelectorAll('[data-region]').forEach( b => b.onclick = () => { hasInteracted=true; activeRegion=b.dataset.region; save(); renderPills(); renderTools(); });
 }
 
+/* ── Hero search & category chips ────────────────────────────────────────── */
+function initHero() {
+  const heroInput = document.getElementById('heroSearch');
+  const heroBtn   = document.getElementById('heroSearchBtn');
+  const heroOpen  = () => {
+    if (typeof openCommandPalette === 'function') { openCommandPalette(); return; }
+    const modal = document.getElementById('commandModal');
+    if (modal) { modal.classList.add('show'); document.getElementById('commandInput').focus(); }
+  };
+  if (heroBtn)   heroBtn.onclick = heroOpen;
+  if (heroInput) {
+    heroInput.oninput = () => {
+      const v = heroInput.value.trim();
+      if (!v) return;
+      searchQuery = v;
+      $('search').value = v;
+      hasInteracted = true;
+      save(); renderPills(); renderTools();
+      document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
+    };
+    heroInput.onkeydown = e => {
+      if (e.key === 'Enter' && heroInput.value.trim()) {
+        searchQuery = heroInput.value.trim();
+        $('search').value = searchQuery;
+        hasInteracted = true;
+        save(); renderPills(); renderTools();
+        document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
+      }
+    };
+  }
+  document.querySelectorAll('[data-hero-cat]').forEach(btn => {
+    btn.onclick = () => {
+      hasInteracted = true;
+      activeCat = btn.dataset.heroCat;
+      activePrice = activeRegion = 'all';
+      searchQuery = '';
+      $('search').value = '';
+      if (heroInput) heroInput.value = '';
+      save(); renderPills(); renderTools();
+      document.querySelector('#tools').scrollIntoView({behavior:'smooth'});
+    };
+  });
+}
+
 /* ── Wizard ──────────────────────────────────────────────────────────────── */
 function renderWizard() {
   $('wizardGrid').innerHTML = profiles.map((p, i) =>
@@ -347,7 +412,9 @@ function renderTools(msg) {
   }
   $('toolsGrid').innerHTML = out.map((t, i) =>
     '<div class="tool-card" data-tool-name="' + escapeAttr(t.name) + '" style="animation-delay:' + Math.min(i*22,350) + 'ms">' +
-    '<div class="tool-head"><div><div class="tool-name">' + escapeHtml(t.name) + '</div></div>' +
+    '<div class="tool-head"><div style="display:flex;align-items:center;gap:12px">' +
+    toolLogoHtml(t) +
+    '<div class="tool-name">' + escapeHtml(t.name) + '</div></div>' +
     '<div class="price-stack">' +
     '<span class="price-tag price-' + escapeAttr(t.price) + '">' + escapeHtml(priceLabels[t.price]) + '</span>' +
     '<span class="trend-tag">↗ ' + escapeHtml(String(t.trend)) + '</span></div></div>' +

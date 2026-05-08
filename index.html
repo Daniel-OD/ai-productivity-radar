@@ -48,11 +48,30 @@
   <div class="container">
     <div class="eyebrow">Ghid interactiv · Render live</div>
     <h1>Găsește AI-ul potrivit <em>fără să pierzi ore</em>.</h1>
-    <p class="lead">Scrie în Command Palette ce vrei să faci în limbaj natural: „analizez un Excel", „fac video cu avatar", „citesc PDF-uri". Radarul îți propune tooluri potrivite.</p>
-    <div class="hero-actions">
-      <a class="primary" href="#wizard">Ajută-mă să aleg →</a>
-      <a class="secondary" href="#tools">Explorează lista</a>
+    <p class="lead">Scrie ce vrei să faci și radarul îți propune toolul potrivit — sau alege direct o categorie.</p>
+
+    <!-- Prominent search bar inspired by topai.tools -->
+    <div class="hero-search-wrap" role="search">
+      <div class="hero-search-box">
+        <span class="hero-search-icon">⌕</span>
+        <input id="heroSearch" class="hero-search-input" autocomplete="off"
+               placeholder="Caută: excel, video, cod, PDF, avatar..."
+               aria-label="Caută tooluri AI" />
+        <button class="hero-search-btn" id="heroSearchBtn" aria-label="Deschide Command Palette">⌘K</button>
+      </div>
     </div>
+
+    <!-- Visual category chips -->
+    <div class="hero-cats" id="heroCats" role="group" aria-label="Filtrare rapidă după categorie">
+      <button class="hero-cat-chip" data-hero-cat="programare"><span class="chip-icon">💻</span>Programare</button>
+      <button class="hero-cat-chip" data-hero-cat="scris"><span class="chip-icon">✍️</span>Scris</button>
+      <button class="hero-cat-chip" data-hero-cat="cercetare"><span class="chip-icon">🔍</span>Cercetare</button>
+      <button class="hero-cat-chip" data-hero-cat="design"><span class="chip-icon">🎨</span>Design</button>
+      <button class="hero-cat-chip" data-hero-cat="productivitate"><span class="chip-icon">⚡</span>Productivitate</button>
+      <button class="hero-cat-chip" data-hero-cat="studiu"><span class="chip-icon">📚</span>Studiu</button>
+      <button class="hero-cat-chip" data-hero-cat="date"><span class="chip-icon">📊</span>Date & Analiză</button>
+    </div>
+
     <div class="meta-bar">
       <span><strong id="metaTools">12</strong> tooluri</span>
       <span><strong>7</strong> categorii</span>
