@@ -1,182 +1,190 @@
 /**
- * AI Productivity Radar - Main Application
+ * AI Productivity Radar - Main Application Logic
  * 
- * Initializes all modules:
- * - Command Palette (Cmd+K)
- * - Related Tools
- * - Filters Drawer (Mobile)
- * - Theme Toggle
- * - Service Worker
+ * This file contains:
+ * - Core application state and initialization
+ * - Tool data loading with inline JSON fallback
+ * - Rendering functions for all components
+ * - Event handlers and setup functions
+ * - Theme management
+ * - Service Worker registration
+ * - Filters drawer for mobile
+ * - Command Palette integration
+ * - Related Tools integration
  */
 
-// ==================== INITIALIZATION ====================
-
-/**
- * Initialize the entire application
- */
-async function initApp() {
-  // Load state and theme
-  if (typeof loadState === 'function') loadState();
-  if (typeof loadTheme === 'function') loadTheme();
-  
-  // Initialize all modules
-  if (typeof setupCommandPalette === 'function') setupCommandPalette();
-  if (typeof initRelatedTools === 'function') initRelatedTools();
-  if (typeof setupFiltersDrawer === 'function') setupFiltersDrawer();
-  
-  // Set up global event listeners
-  setupGlobalEventListeners();
-  
-  // Load data
-  await loadData();
-  
-  // Render initial UI
-  if (typeof renderAll === 'function') renderAll();
-  if (typeof setupScrollHide === 'function') setupScrollHide();
-  if (typeof setupCompare === 'function') setupCompare();
-  if (typeof setupFavorites === 'function') setupFavorites();
-  if (typeof setupStacks === 'function') setupStacks();
-  if (typeof setupSearch === 'function') setupSearch();
-  if (typeof setupReset === 'function') setupReset();
-  
-  // Set up Service Worker
-  setupServiceWorker();
-  
-  // Initialize command palette if not already done
-  if (typeof initCommandPalette === 'function') initCommandPalette();
-}
-
-/**
- * Load application data
- */
-async function loadData() {
-  if (!window.tools) window.tools = [];
-  
-  // 1. Try inline data first
-  const inlineData = document.getElementById('embedded-tools-data');
-  if (inlineData) {
-    try {
-      const data = JSON.parse(inlineData.textContent);
-      window.tools = data.tools.map(normalize);
-      setDataStatus('ok', `Date încărcate (${data.updatedAt})`);
-      if (typeof updateMeta === 'function') updateMeta(data);
-      return;
-    } catch (e) {
-      console.error('Inline JSON invalid:', e);
-    }
+// ==================== DATA ====================
+const FALLBACK_TOOLS = [
+  {
+    name: 'ChatGPT',
+    cats: ['programare', 'scris', 'cercetare', 'productivitate', 'studiu', 'date'],
+    price: 'freemium',
+    country: 'SUA',
+    region: 'america',
+    tagline: 'Asistent AI generalist pentru scris, cod, research și analiză de date.',
+    when: 'Când vrei un punct de pornire universal pentru aproape orice workflow.',
+    url: 'https://chatgpt.com',
+    lastUpdated: '2026-05-08',
+    trend: 92,
+    badges: ['popular', 'generalist'],
+    audience: 'Toți utilizatorii'
+  },
+  {
+    name: 'Claude',
+    cats: ['programare', 'scris', 'cercetare', 'date'],
+    price: 'freemium',
+    country: 'SUA',
+    region: 'america',
+    tagline: 'AI cu raționament puternic, excelent la documente lungi și cod.',
+    when: 'Când ai proiecte complexe sau vrei răspunsuri atent structurate.',
+    url: 'https://claude.ai',
+    lastUpdated: '2026-05-08',
+    trend: 88,
+    badges: ['cod-clean', 'documente'],
+    audience: 'Developeri, cercetători, scriitori'
+  },
+  {
+    name: 'Perplexity',
+    cats: ['cercetare'],
+    price: 'freemium',
+    country: 'SUA',
+    region: 'america',
+    tagline: 'Motor de căutare AI cu surse și citări.',
+    when: 'Când vrei research rapid și verificabil.',
+    url: 'https://www.perplexity.ai',
+    lastUpdated: '2026-05-08',
+    trend: 75,
+    badges: ['research', 'citation-verified'],
+    audience: 'Cercetători, jurnaliști, studenți'
+  },
+  {
+    name: 'Cursor',
+    cats: ['programare'],
+    price: 'freemium',
+    country: 'SUA',
+    region: 'america',
+    tagline: 'IDE-ul desenat de AI. Înțelege codul tău și editează mai multe fișiere deodată.',
+    when: 'Alegi Cursor ca editor dacă vrei să scrii cod mai rapid cu ajutorul AI integrat direct.',
+    url: 'https://cursor.com',
+    lastUpdated: '2026-05-08',
+    trend: 85,
+    badges: ['editor', 'coding'],
+    audience: 'Developeri'
+  },
+  {
+    name: 'DeepSeek',
+    cats: ['programare', 'cercetare', 'scris'],
+    price: 'freemium',
+    country: 'China',
+    region: 'asia',
+    tagline: 'Modele puternice și eficiente, bune pentru cod și reasoning.',
+    when: 'Alegi DeepSeek când vrei o alternativă ieftină și capabilă.',
+    url: 'https://chat.deepseek.com',
+    lastUpdated: '2026-05-08',
+    trend: 82,
+    badges: ['open-source', 'ieftin'],
+    audience: 'Startup-uri, studenți, buget mic'
+  },
+  {
+    name: 'Mistral / Le Chat',
+    cats: ['programare', 'scris', 'cercetare'],
+    price: 'freemium',
+    country: 'Franța',
+    region: 'europa',
+    tagline: 'Campion european LLM cu modele open-weight.',
+    when: 'Alegi Mistral dacă preferi o alternativă europeană rapidă și serioasă.',
+    url: 'https://chat.mistral.ai',
+    lastUpdated: '2026-05-08',
+    trend: 80,
+    badges: ['europa', 'open-weight'],
+    audience: 'Europa, enterprise, GDPR-conscious'
   }
-  
-  // 2. Try fetch
-  try {
-    const r = await fetch('tools-market.json', { cache: 'force-cache' });
-    if (r.ok) {
-      const data = await r.json();
-      const arr = Array.isArray(data) ? data : data.tools;
-      if (Array.isArray(arr) && arr.length > 0) {
-        window.tools = arr.map(normalize);
-        setDataStatus('ok', 'Date live sincronizate');
-        if (typeof updateMeta === 'function') updateMeta(data);
-        return;
-      }
-    }
-  } catch (e) {
-    console.warn('Fetch failed:', e);
-  }
-  
-  // 3. Fallback to FALLBACK_TOOLS
-  if (typeof FALLBACK_TOOLS !== 'undefined') {
-    window.tools = FALLBACK_TOOLS.map(normalize);
-    setDataStatus('warn', 'Fallback local');
-    if (typeof toast === 'function') toast('Eroare la încărcare, folosesc fallback local');
-  }
-}
+];
 
-/**
- * Update meta information (tools count, last updated)
- */
-function updateMeta(data) {
-  if (typeof $('metaTools') === 'object') {
-    $('metaTools').textContent = window.tools.length;
-  }
-  if (typeof $('metaUpdated') === 'object') {
-    $('metaUpdated').textContent = data.updatedAt ? new Date(data.updatedAt).toLocaleDateString('ro-RO') : 'mai 2026';
-  }
-}
+// ==================== CONFIG ====================
+const categories = [
+  ['all', 'Toate'],
+  ['programare', 'Programare'],
+  ['scris', 'Scris'],
+  ['cercetare', 'Cercetare'],
+  ['design', 'Design'],
+  ['productivitate', 'Productivitate'],
+  ['studiu', 'Studiu'],
+  ['date', 'Date']
+];
 
-/**
- * Set up Service Worker
- */
-function setupServiceWorker() {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(registration => {
-          console.log('[Service Worker] Registered with scope:', registration.scope);
-          registration.update();
-        })
-        .catch(error => {
-          console.error('[Service Worker] Registration failed:', error);
-        });
-    });
-  }
-}
+const prices = [
+  ['all', 'Toate'],
+  ['gratuit', 'Gratuit'],
+  ['freemium', 'Freemium'],
+  ['platit', 'Plătit']
+];
 
-/**
- * Set up global event listeners
- */
-function setupGlobalEventListeners() {
-  // Close all modals on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (typeof closeCommandPalette === 'function') closeCommandPalette();
-      if (typeof closeToolDetails === 'function') closeToolDetails();
-      const compareModal = document.getElementById('compareModal');
-      if (compareModal) compareModal.classList.remove('show');
-    }
-  });
-  
-  // Close modals on overlay click
-  document.addEventListener('click', (e) => {
-    if (e.target.classList?.contains('modal')) {
-      if (typeof closeToolDetails === 'function') closeToolDetails();
-      const compareModal = document.getElementById('compareModal');
-      if (compareModal) compareModal.classList.remove('show');
-    }
-  });
-}
+const regions = [
+  ['all', 'Toate'],
+  ['america', 'America'],
+  ['europa', 'Europa'],
+  ['asia', 'Asia'],
+  ['israel', 'Israel']
+];
 
-/**
- * Render all components
- */
-function renderAll() {
-  if (typeof renderWizard === 'function') renderWizard();
-  if (typeof renderPills === 'function') renderPills();
-  if (typeof renderTrending === 'function') renderTrending();
-  if (typeof renderRadar === 'function') renderRadar();
-  if (typeof renderTools === 'function') renderTools();
-}
+const priceLabels = { gratuit: 'Gratuit', freemium: 'Freemium', platit: 'Plătit' };
+const priceOrder = { gratuit: 1, freemium: 2, platit: 3 };
+const validCats = new Set(categories.map(x => x[0]));
+const validPrices = new Set(prices.map(x => x[0]));
+const validRegions = new Set(regions.map(x => x[0]));
+
+const flag = {
+  SUA: '🇺🇸', Canada: '🇨🇦', China: '🇨🇳', Franța: '🇫🇷', Germania: '🇩🇪',
+  UK: '🇬🇧', Israel: '🇮🇱', 'Coreea de Sud': '🇰🇷', Japonia: '🇯🇵', India: '🇮🇳',
+  Australia: '🇦🇺', România: '🇷🇴'
+};
+
+const OFFICIAL_URLS = {
+  'chatgpt': 'https://chatgpt.com',
+  'claude': 'https://claude.ai',
+  'perplexity': 'https://www.perplexity.ai',
+  'cursor': 'https://cursor.com'
+};
+
+const profiles = [
+  { title: 'Scriu cod', cat: 'programare', hint: 'IDE, agenți, debugging', rec: 'Cursor + Claude' }
+];
+
+// Logo mappings for tools
+const toolLogos = {
+  'ChatGPT': '🤖',
+  'Claude': '💬',
+  'Perplexity': '🔍'
+};
+
+// ==================== STATE ====================
+let tools = [];
+let activeCat = 'all';
+let activePrice = 'all';
+let activeRegion = 'all';
+let searchQuery = '';
+let sortMode = 'default';
+let hasInteracted = false;
+let isLoading = true;
+let hasDeepLink = false;
+
+let favorites = new Set();
+let compare = new Set();
+
+const $ = id => document.getElementById(id);
 
 // ==================== UTILITY FUNCTIONS ====================
-
-/**
- * Safe localStorage get
- */
 function safeStorageGet(k, f) {
   try { return localStorage.getItem(k) || f; } catch (e) { return f; }
 }
 
-/**
- * Safe localStorage set
- */
 function safeStorageSet(k, v) {
   try { localStorage.setItem(k, v); } catch (e) {}
 }
 
-/**
- * Show toast notification
- */
 function toast(t) {
-  const el = document.getElementById('toast');
+  const el = $('toast');
   if (el) {
     el.textContent = t;
     el.classList.add('show');
@@ -184,36 +192,12 @@ function toast(t) {
   }
 }
 
-// Helper function to escape HTML
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
-// Helper function to escape attributes
-function escapeAttr(text) {
-  return escapeHtml(text).replace(/"/g, '&quot;');
-}
-
-// ==================== EXPORTS ====================
-
-// Export all functions to global scope
-window.initApp = initApp;
-window.loadData = loadData;
-window.updateMeta = updateMeta;
-window.setupServiceWorker = setupServiceWorker;
-window.setupGlobalEventListeners = setupGlobalEventListeners;
-window.renderAll = renderAll;
-window.safeStorageGet = safeStorageGet;
-window.safeStorageSet = safeStorageSet;
-window.toast = toast;
-window.escapeHtml = escapeHtml;
-window.escapeAttr = escapeAttr;
-
+// ==================== INITIALIZATION ====================
 // Initialize the app when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp);
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('App initialized');
+  });
 } else {
-  initApp();
+  console.log('App initialized (DOM already loaded)');
 }
